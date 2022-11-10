@@ -1,4 +1,4 @@
-package de.swe_praktikum;
+package de.swe_wi2223_praktikum;
 
 import org.junit.Test;
 

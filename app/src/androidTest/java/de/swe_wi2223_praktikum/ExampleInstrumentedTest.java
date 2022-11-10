@@ -1,4 +1,4 @@
-package de.swe_praktikum;
+package de.swe_wi2223_praktikum;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("de.swe_praktikum", appContext.getPackageName());
+        assertEquals("de.swe_wi2223_praktikum", appContext.getPackageName());
     }
 }
