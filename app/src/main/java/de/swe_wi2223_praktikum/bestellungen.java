@@ -1,5 +1,7 @@
 package de.swe_wi2223_praktikum;
 
+//Basic Stuff.
+//Constructor, Getter und Setter
 public class bestellungen {
     private String name;
     private int menge;

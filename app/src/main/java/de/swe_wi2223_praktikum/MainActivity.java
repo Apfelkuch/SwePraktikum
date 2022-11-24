@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton floating_btn;
     private BestellungenAdapter bestellungenAdapter;
 
+//Wenn die App gestartet wird, wollen die die activity_main sehen.
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +25,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Bestellungen");
 
+//Zuweisung der Objekte aus der actiity_main.xml
         rcvBestellungen = findViewById(R.id.rcv_bestellung);
         floating_btn = findViewById(R.id.floating_btn);
 
+//Es wird eine neue Instanz vom Adapter für die "Card"-Erstellung erzeugt.
         bestellungenAdapter = new BestellungenAdapter();
 
+//Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvBestellungen.setLayoutManager(linearLayoutManager);
 
+//Die Daten von der Schnittstelle werden gebündelt durch setData an BestellungenAdapter übergeben.
         bestellungenAdapter.setData(getListBestellungen());
         rcvBestellungen.setAdapter(bestellungenAdapter);
     }
 
+//Leeres Array um die einzelnen "Cards" zuerstellen.
     private List<bestellungen> getListBestellungen() {
         List<bestellungen> list = new ArrayList<>();
 
