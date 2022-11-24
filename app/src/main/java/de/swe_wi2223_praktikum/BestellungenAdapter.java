@@ -1,5 +1,6 @@
 package de.swe_wi2223_praktikum;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
 
 //Holt sich die Positionen der Objekte innerhalb der jeweiligen instanziierten "Card"
 //und weist den angesprochenen Objekten die Daten zu, welche über die Schnittstelle kamen.
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BestellungenViewHolder holder, int position) {
         bestellungen bestellungen = mListBestellungen.get(position);
@@ -37,7 +39,14 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
             return;
         }
         holder.name.setText(bestellungen.getName());
-        holder.menge.setText(String.valueOf(bestellungen.getMenge() + "x"));
+        holder.menge.setText(bestellungen.getMenge() + "x");
+
+//Premium DELETE button.
+        holder.itemView.findViewById(R.id.delete_button).setOnClickListener(view -> {
+            mListBestellungen.remove(holder.getBindingAdapterPosition());
+            notifyItemRemoved(holder.getBindingAdapterPosition());
+        });
+
     }
 
 //Falls die Liste leer ist, dann soll nichts zurückgegeben werden, sonst soll der Inhalt
@@ -52,9 +61,9 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
 
 //Damit man weiß, um welches Objekt es sich handelt, wird über die ID
 //das Objekt aus der items_bestellungen.xml gewählt.
-    public class BestellungenViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView menge;
+    public static class BestellungenViewHolder extends RecyclerView.ViewHolder {
+        private final TextView name;
+        private final TextView menge;
 
         public BestellungenViewHolder(@NonNull View itemView) {
             super(itemView);
