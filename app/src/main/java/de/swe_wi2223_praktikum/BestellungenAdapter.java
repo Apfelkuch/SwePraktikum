@@ -1,75 +1,69 @@
 package de.swe_wi2223_praktikum;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import java.util.ArrayList;
 
-//Wirft alle erhaltenen Daten, welche über die Schnittstelle bei MainActivity.java reinkommen,
-//in einen "Eimer" und greift später bei der Erstellung der "Cards" drauf zu.
-public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapter.BestellungenViewHolder> {
-    private List<bestellungen> mListBestellungen;
+public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapter.ViewHolder> {
 
-    public void setData(List<bestellungen> list) {
-        this.mListBestellungen = list;
+    //Globale variablen
+    Context context;
+    ArrayList<Bestellungen> list;
+
+    //Constructor für den Adapter
+    BestellungenAdapter(Context context, ArrayList<Bestellungen> list){
+        this.context = context;
+        this.list = list;
     }
 
-//Instanziert die items_bestellungen.xml.
-//Hier rüber werden die einzelnen Bestellungen erstellt und returned.
-    @NonNull
-    @Override
-    public BestellungenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_bestellungen, parent, false);
-        return new BestellungenViewHolder(view);
-    }
-
-//Holt sich die Positionen der Objekte innerhalb der jeweiligen instanziierten "Card"
-//und weist den angesprochenen Objekten die Daten zu, welche über die Schnittstelle kamen.
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onBindViewHolder(@NonNull BestellungenViewHolder holder, int position) {
-        bestellungen bestellungen = mListBestellungen.get(position);
-        if (bestellungen == null) {
-            return;
-        }
-        holder.name.setText(bestellungen.getName());
-        holder.menge.setText(bestellungen.getMenge() + "x");
-
-//Premium DELETE button.
-        holder.itemView.findViewById(R.id.delete_button).setOnClickListener(view -> {
-            mListBestellungen.remove(holder.getBindingAdapterPosition());
-            notifyItemRemoved(holder.getBindingAdapterPosition());
-        });
-
-    }
-
-//Falls die Liste leer ist, dann soll nichts zurückgegeben werden, sonst soll der Inhalt
-//ausgegeben werden.
-    @Override
-    public int getItemCount() {
-        if (mListBestellungen != null) {
-            return mListBestellungen.size();
-        }
-        return 0;
-    }
-
-//Damit man weiß, um welches Objekt es sich handelt, wird über die ID
-//das Objekt aus der items_bestellungen.xml gewählt.
-    public static class BestellungenViewHolder extends RecyclerView.ViewHolder {
-        private final TextView name;
-        private final TextView menge;
-
-        public BestellungenViewHolder(@NonNull View itemView) {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView Medikament, Menge;
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.item_name);
-            menge = itemView.findViewById(R.id.item_menge);
+            Medikament = itemView.findViewById(R.id.itemName);
+            Menge = itemView.findViewById(R.id.itemMenge);
         }
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.cardview, parent,false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.Medikament.setText(list.get(position).getName());
+        holder.Menge.setText(list.get(position).getMenge());
+
+        //Delete Button mit Dialog-Bestätigung
+        holder.itemView.findViewById(R.id.btnDelete).setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                    .setTitle("Bestellung Löschen")
+                    .setMessage("Sind Sie sicher, dass Sie diese Bestellung löschen möchten?")
+                    .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
+                        list.remove(holder.getBindingAdapterPosition());
+                        notifyItemRemoved(holder.getBindingAdapterPosition());
+                    })
+                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+
+                    });
+            builder.show();
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 }

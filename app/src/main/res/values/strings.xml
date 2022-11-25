@@ -2,4 +2,9 @@
     <string name="app_name">SWE_Wi2223_Praktikum</string>
     <string name="Bestellungen">Bestellungen</string>
     <string name="Menge">Menge</string>
+    <string name="Medikament">Medikament</string>
+    <string name="Bestellmenge">Bestellmenge</string>
+    <string name="soll_dialog_zum_bestellen_ffnen">Soll Dialog zum bestellen öffnen.</string>
+    <string name="lieferung_bestaetigen">Lieferung Bestätigen</string>
+    <string name="lieferung_stornieren">Lieferung stornieren</string>
 </resources>

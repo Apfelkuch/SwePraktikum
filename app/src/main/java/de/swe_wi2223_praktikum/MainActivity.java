@@ -1,60 +1,68 @@
 package de.swe_wi2223_praktikum;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView rcvBestellungen;
-    private FloatingActionButton floating_btn;
-    private BestellungenAdapter bestellungenAdapter;
+    ArrayList<Bestellungen> list = new ArrayList<>();
 
-//Wenn die App gestartet wird, wollen die die activity_main sehen.
-    @SuppressLint("MissingInflatedId")
+    private RecyclerView recyclerView;
+    private BestellungenAdapter adapter;
+
+    //Wenn die App gestartet wird, wollen die die activity_main sehen.
+    @SuppressLint({"MissingInflatedId", "InflateParams"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Bestellungen");
 
-//Zuweisung der Objekte aus der actiity_main.xml
-        rcvBestellungen = findViewById(R.id.rcv_bestellung);
-        floating_btn = findViewById(R.id.floating_btn);
+        //Zuweisung der Objekte aus der activity_main.xml
+        recyclerView = findViewById(R.id.rcvBestellung);
+        FloatingActionButton btnFloat = findViewById(R.id.btnFloat);
 
-//Es wird eine neue Instanz vom Adapter für die "Card"-Erstellung erzeugt.
-        bestellungenAdapter = new BestellungenAdapter();
+        //Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rcvBestellungen.setLayoutManager(linearLayoutManager);
+        //Button zum shoppen
+        btnFloat.setOnClickListener(view -> {
+            //Baut das Dialogfenster auf
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            view = getLayoutInflater().inflate(R.layout.dialog, null);
 
-//Die Daten von der Schnittstelle werden gebündelt durch setData an BestellungenAdapter übergeben.
-        bestellungenAdapter.setData(getListBestellungen());
-        rcvBestellungen.setAdapter(bestellungenAdapter);
-    }
+            //Variablen, zum editieren aus der XML-Datei
+            EditText edtMedikament = view.findViewById(R.id.DialogMedikament);
+            EditText edtMenge = view.findViewById(R.id.DialogMenge);
 
-//Leeres Array um die einzelnen "Cards" zuerstellen.
-    private List<bestellungen> getListBestellungen() {
-        List<bestellungen> list = new ArrayList<>();
+            //Der Builder, um das Fenster zu tatäschlich zu befüllen
+            builder.setView(view)
+                    .setTitle("Shop")
+                    .setPositiveButton("Bestellen", (dialogInterface, i) -> {
+                        String tmpMedikament = edtMedikament.getText().toString();
+                        String tmpMenge = edtMenge.getText().toString();
 
-//Hardcoded feeding Liste. Später entfernen. Dient nur als Schnittstelle.
-        list.add(new bestellungen("Bestellung 1",2));
-        list.add(new bestellungen("Bestellung 2",3));
-        list.add(new bestellungen("Bestellung 3",4));
-        list.add(new bestellungen("Bestellung 4",5));
-        list.add(new bestellungen("Bestellung 5",6));
-        list.add(new bestellungen("Bestellung 6",7));
-        list.add(new bestellungen("Bestellung 7",8));
-        list.add(new bestellungen("Bestellung 8",9));
-        list.add(new bestellungen("Bestellung 9",10));
-        return list;
+                        //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende.
+                        list.add(new Bestellungen(tmpMedikament, tmpMenge));
+                        adapter.notifyItemInserted(list.size()-1);
+                        recyclerView.scrollToPosition(list.size()-1);
+                    })
+                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
+                    });
+            builder.show();
+        });
+
+        adapter = new BestellungenAdapter(this, list);
+        recyclerView.setAdapter(adapter);
     }
 }
