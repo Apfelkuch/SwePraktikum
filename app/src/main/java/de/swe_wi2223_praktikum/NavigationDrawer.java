@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -50,8 +50,8 @@ public class NavigationDrawer extends AppCompatActivity {
                     //TODO: Navgiation zu drecks Penix drogenschrank.
                     Toast.makeText(NavigationDrawer.this,"Medikamente", Toast.LENGTH_SHORT).show();
                 case R.id.navBestellungen:
-                    //TODO: Navigation zu der Bestell-Class
-//                        startActivity(new Intent(this, MyNextActivity.class));
+                    //TODO: Später auskommentieren.
+//                    startActivity(new Intent(this, BestellungsOverView.class));
                     Toast.makeText(NavigationDrawer.this,"Bestellungen", Toast.LENGTH_SHORT).show();
 
             } //TODO: Alle activitys müssen in der AndroidManifest.xml bekannt sein.
@@ -72,6 +72,17 @@ public class NavigationDrawer extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-
 }
+
+//TODO: Was in jede Main-Datei kopiert werden muss:
+//--Außerhalb von "onCreate":
+//Toolbar toolbar;
+
+//--Innerhalb von "onCreate":
+//setContentView(R.layout.bestellungs_overview);
+//toolbar = findViewById(R.id.toolbar);
+//setSupportActionBar(toolbar);
+//setTitle("Bestellungen");
+
+//--Ggf. noch in XML-Files mit RecycleView
+// <include layout="@layout/app_bar_main"/>
