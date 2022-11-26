@@ -60,6 +60,22 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
                     });
             builder.show();
         });
+
+        //Approve Button mit Dialog-Bestätigung
+        holder.itemView.findViewById(R.id.btnApprove).setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                    .setTitle("Lieferung bestätigen")
+                    .setMessage("Sind Sie sicher, dass Sie die Lieferung bestätigen möchten?")
+                    .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
+                        //TODO: Hier muss durchs bestätigen der Medikamentenschrank bearbeitet werden (Menge ändern).
+                        //TODO: Ggf. noch der Artikel hinzugefügt werden?
+                        //TODO: Was soll mit der Bestellung passieren? Einfach entfernen?
+                    })
+                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+                        //Kein Inhalt nötig. Da "Default"-Einstellung alles Abbrechen.
+                    });
+            builder.show();
+        });
     }
 
     @Override
