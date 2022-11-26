@@ -6,13 +6,16 @@
     android:label="@string/Bestellungen"
     tools:context=".BestellungsOverView">
 
+<!--    <include layout="@layout/app_bar_main"/>-->
+
     <!--RecycleView-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvBestellung"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="65dp"/>
 
     <!--Floating Button-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

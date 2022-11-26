@@ -2,6 +2,7 @@ package de.swe_wi2223_praktikum;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,8 @@ public class BestellungsOverView extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BestellungenAdapter adapter;
+    //TODO: Später beim Merge wieder aktivieren.
+//    Toolbar toolbar;
 
     //Wenn die App gestartet wird, wollen die die activity_main sehen.
     @SuppressLint({"MissingInflatedId", "InflateParams"})
@@ -25,6 +28,9 @@ public class BestellungsOverView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bestellungs_overview);
+        //TODO: Später beim Merge wieder aktivieren.
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         setTitle("Bestellungen");
 
         //Zuweisung der Objekte aus der activity_main.xml
