@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class BestellungsOverView extends AppCompatActivity {
     ArrayList<Bestellungen> list = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.bestellungs_overview);
         setTitle("Bestellungen");
 
         //Zuweisung der Objekte aus der activity_main.xml
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //Button zum shoppen
         btnFloat.setOnClickListener(view -> {
             //Baut das Dialogfenster auf
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(BestellungsOverView.this);
             view = getLayoutInflater().inflate(R.layout.dialog, null);
 
             //Variablen, zum editieren aus der XML-Datei
