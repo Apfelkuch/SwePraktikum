@@ -10,4 +10,7 @@
     <string name="header_image">Header Image</string>
     <string name="max_mustermann">Max Mustermann</string>
     <string name="kundennummer_0123456789">Kundennummer: 0123456789</string>
+    <string name="Reset">Reset</string>
+    <string name="Start">Start</string>
+    <string name="_00_00">00:00</string>
 </resources>
