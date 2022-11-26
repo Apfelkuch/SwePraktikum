@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SWE_Wi2223_Praktikum</string>
+
+    <dimen name="fontsize_text">8pt</dimen>
 </resources>
