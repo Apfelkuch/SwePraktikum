@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SWE_Wi2223_Praktikum</string>
-    <string name="OpenDrawer">Open navigation drawer</string>
-    <string name="CloseDrawer">Close navigation drawer</string>
     <string name="home">Home</string>
     <string name="kalender">Kalender</string>
     <string name="plaene">Pläne</string>
