@@ -52,8 +52,8 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
                     .setTitle("Bestellung Löschen")
                     .setMessage("Sind Sie sicher, dass Sie diese Bestellung löschen möchten?")
                     .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
-                        list.remove(holder.getBindingAdapterPosition());
-                        notifyItemRemoved(holder.getBindingAdapterPosition());
+                        list.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
 
