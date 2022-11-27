@@ -5,7 +5,7 @@
     <string name="Menge">Menge</string>
     <string name="Medikament">Medikament</string>
     <string name="Bestellmenge">Bestellmenge</string>
-    <string name="soll_dialog_zum_bestellen_ffnen">Soll Dialog zum bestellen öffnen.</string>
-    <string name="lieferung_bestaetigen">Lieferung Bestätigen</string>
-    <string name="lieferung_stornieren">Lieferung stornieren</string>
+    <string name="OeffnetDialogZumBestellen">Soll Dialog zum bestellen öffnen.</string>
+    <string name="LieferungBestaetigen">Lieferung Bestätigen</string>
+    <string name="LieferungStornieren">Lieferung stornieren</string>
 </resources>

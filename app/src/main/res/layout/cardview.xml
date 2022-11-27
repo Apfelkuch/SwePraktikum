@@ -54,7 +54,7 @@
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/kreuz_rot"
-                android:contentDescription="@string/lieferung_stornieren" />
+                android:contentDescription="@string/LieferungStornieren" />
 
             <!--Button zum bestätigen von Bestellungen-->
             <ImageButton
@@ -66,7 +66,7 @@
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/haken_gruen"
-                android:contentDescription="@string/lieferung_bestaetigen" />
+                android:contentDescription="@string/LieferungBestaetigen" />
 
         </LinearLayout>
 
