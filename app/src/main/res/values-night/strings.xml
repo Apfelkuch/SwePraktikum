@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home">Home</string>
-    <string name="kalender">Kalender</string>
-    <string name="plaene">Pläne</string>
-    <string name="medikamente">Medikamente</string>
-    <string name="bestellungen">Bestellungen</string>
-    <string name="header_image">Header Image</string>
-    <string name="max_mustermann">Max Mustermann</string>
-    <string name="kundennummer_0123456789">Kundennummer: 0123456789</string>
-    <string name="Reset">Reset Timer</string>
-    <string name="Start">Reset Timer</string>
-    <string name="_00_00">00:00</string>
+    <string name="app_name">SWE_Wi2223_Praktikum</string>
+    <string name="OpenDrawer">Open navigation drawer</string>
+    <string name="CloseDrawer">Close navigation drawer</string>
+    <string name="Kalender">Kalender</string>
+    <string name="Plaene">Pläne</string>
+    <string name="Medikamente">Medikamente</string>
+    <string name="Bestellungen">Bestellungen</string>
+    <string name="HeaderImage">Header Image</string>
+    <string name="MaxMustermann">Max Mustermann</string>
+    <string name="Kundennummer">Kundennummer: 0123456789</string>
 </resources>

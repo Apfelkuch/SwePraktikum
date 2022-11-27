@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/navKalender"
-        android:title="@string/kalender"
+        android:title="@string/Kalender"
         android:icon="@drawable/ic_baseline_calendar_month_24"/>
     <item
         android:id="@+id/navPläne"
-        android:title="@string/plaene"
+        android:title="@string/Plaene"
         android:icon="@drawable/ic_baseline_featured_play_list_24"/>
     <item
         android:id="@+id/navMedikamente"
-        android:title="@string/medikamente"
+        android:title="@string/Medikamente"
         android:icon="@drawable/ic_baseline_medication_24"/>
     <item
         android:id="@+id/navBestellungen"
-        android:title="@string/bestellungen"
+        android:title="@string/Bestellungen"
         android:icon="@drawable/ic_baseline_history_24"/>
 </menu>
