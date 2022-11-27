@@ -50,23 +50,28 @@ public class NavigationDrawer extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch(item.getItemId()){
                 case R.id.navHome:
+                    setTitle("MedikamentenApp"); //TODO: Name der App?
                     //TODO: Später auskommentieren.
 //                    loadFragment(new Homescreen);
                     Toast.makeText(this,"Home", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navKalender:
+                    setTitle("Kalender");
                     //TODO: Navigation zum Kalender.
                     Toast.makeText(this,"Kalender", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navPläne:
+                    setTitle("Pläne");
                     //TODO: Navigation zu den Plänen.
                     Toast.makeText(this,"Pläne", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navMedikamente:
+                    setTitle("Medikamente");
                     //TODO: Navgiation zu drecks Penix drogenschrank.
                     Toast.makeText(this,"Medikamente", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navBestellungen:
+                    setTitle("Bestellungen");
                     //TODO: Später auskommentieren.
 //                    loadFragment(new BestellungsOverView());
                     Toast.makeText(this,"Bestellungen", Toast.LENGTH_SHORT).show();
