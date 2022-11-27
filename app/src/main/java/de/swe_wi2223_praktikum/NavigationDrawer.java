@@ -25,6 +25,7 @@ public class NavigationDrawer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
         setTitle("MedikamentenApp"); //TODO: Name der App?
+//        loadFragment(new Homescreen); //TODO: Beim Merge auskommentieren
 
         //region Zuordnungen
         drawerLayout = findViewById(R.id.layout_drawer);
@@ -48,19 +49,28 @@ public class NavigationDrawer extends AppCompatActivity {
         //Link menus
         navigationView.setNavigationItemSelectedListener(item -> {
             switch(item.getItemId()){
+                case R.id.navHome:
+                    //TODO: Später auskommentieren.
+//                    loadFragment(new Homescreen);
+                    Toast.makeText(this,"Home", Toast.LENGTH_SHORT).show();
+                    break;
                 case R.id.navKalender:
                     //TODO: Navigation zum Kalender.
-                    Toast.makeText(NavigationDrawer.this,"Kalender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Kalender", Toast.LENGTH_SHORT).show();
+                    break;
                 case R.id.navPläne:
                     //TODO: Navigation zu den Plänen.
-                    Toast.makeText(NavigationDrawer.this,"Pläne", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Pläne", Toast.LENGTH_SHORT).show();
+                    break;
                 case R.id.navMedikamente:
                     //TODO: Navgiation zu drecks Penix drogenschrank.
-                    Toast.makeText(NavigationDrawer.this,"Medikamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Medikamente", Toast.LENGTH_SHORT).show();
+                    break;
                 case R.id.navBestellungen:
                     //TODO: Später auskommentieren.
 //                    loadFragment(new BestellungsOverView());
-                    Toast.makeText(NavigationDrawer.this,"Bestellungen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Bestellungen", Toast.LENGTH_SHORT).show();
+                    break;
             }
 
             //Fenster soll nach Klick schließen.
@@ -73,7 +83,7 @@ public class NavigationDrawer extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.container, fragment);
+        ft.replace(R.id.container, fragment);
         ft.commit();
     }
 
