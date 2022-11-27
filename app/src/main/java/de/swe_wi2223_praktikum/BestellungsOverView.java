@@ -1,57 +1,52 @@
 package de.swe_wi2223_praktikum;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 
-public class BestellungsOverView extends AppCompatActivity {
+public class BestellungsOverView extends Fragment {
     ArrayList<Bestellungen> list = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private BestellungenAdapter adapter;
-    //TODO: Später beim Merge wieder aktivieren.
-//    Toolbar toolbar;
 
-    //Wenn die App gestartet wird, wollen die die activity_main sehen.
-    @SuppressLint({"MissingInflatedId", "InflateParams"})
+    @SuppressLint("InflateParams")
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.bestellungs_overview);
-        //TODO: Später beim Merge wieder aktivieren.
-//        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        setTitle("Bestellungen");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.bestellungs_overview,container,false);
 
         //Zuweisung der Objekte aus der activity_main.xml
-        recyclerView = findViewById(R.id.rcvBestellung);
-        FloatingActionButton btnFloat = findViewById(R.id.btnFloat);
+        recyclerView = view.findViewById(R.id.rcvBestellung);
+        FloatingActionButton btnFloat = view.findViewById(R.id.btnFloat);
 
         //Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         //Button zum shoppen
-        btnFloat.setOnClickListener(view -> {
+        btnFloat.setOnClickListener(dialog_view -> {
             //Baut das Dialogfenster auf
-            AlertDialog.Builder builder = new AlertDialog.Builder(BestellungsOverView.this);
-            view = getLayoutInflater().inflate(R.layout.dialog, null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            dialog_view = getLayoutInflater().inflate(R.layout.dialog, null);
 
             //Variablen, zum editieren aus der XML-Datei
-            EditText edtMedikament = view.findViewById(R.id.DialogMedikament);
-            EditText edtMenge = view.findViewById(R.id.DialogMenge);
+            EditText edtMedikament = dialog_view.findViewById(R.id.DialogMedikament);
+            EditText edtMenge = dialog_view.findViewById(R.id.DialogMenge);
 
             //Der Builder, um das Fenster zu tatäschlich zu befüllen
-            builder.setView(view)
+            builder.setView(dialog_view)
                     .setTitle("Shop")
                     .setPositiveButton("Bestellen", (dialogInterface, i) -> {
                         String tmpMedikament = edtMedikament.getText().toString();
@@ -68,7 +63,9 @@ public class BestellungsOverView extends AppCompatActivity {
             builder.show();
         });
 
-        adapter = new BestellungenAdapter(this, list);
+        adapter = new BestellungenAdapter(requireActivity(), list);
         recyclerView.setAdapter(adapter);
+
+        return view;
     }
 }
