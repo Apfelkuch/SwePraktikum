@@ -25,7 +25,7 @@ public class NavigationDrawer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
         setTitle("MedikamentenApp"); //TODO: Name der App?
-//        loadFragment(new Homescreen); //TODO: Beim Merge auskommentieren
+//        loadFragment(new Homescreen()); //TODO: Beim Merge auskommentieren
 
         //region Zuordnungen
         drawerLayout = findViewById(R.id.layout_drawer);
@@ -52,7 +52,7 @@ public class NavigationDrawer extends AppCompatActivity {
                 case R.id.navHome:
                     setTitle("MedikamentenApp"); //TODO: Name der App?
                     //TODO: Später auskommentieren.
-//                    loadFragment(new Homescreen);
+//                    loadFragment(new Homescreen());
                     Toast.makeText(this,"Home", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navKalender:
