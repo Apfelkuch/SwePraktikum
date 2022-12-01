@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SWE_Wi2223_Praktikum</string>
+    <string name="app_name">DailyMedic</string>
     <string name="OpenDrawer">Open navigation drawer</string>
     <string name="CloseDrawer">Close navigation drawer</string>
     <string name="Kalender">Kalender</string>

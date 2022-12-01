@@ -24,7 +24,7 @@ public class NavigationDrawer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
-        setTitle("MedikamentenApp"); //TODO: Name der App?
+        setTitle(getResources().getString(R.string.app_name));
 //        loadFragment(new Homescreen()); //TODO: Beim Merge auskommentieren
 
         //region Zuordnungen
@@ -50,7 +50,7 @@ public class NavigationDrawer extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch(item.getItemId()){
                 case R.id.navHome:
-                    setTitle("MedikamentenApp"); //TODO: Name der App?
+                    setTitle(getResources().getString(R.string.app_name));
                     //TODO: Später auskommentieren.
 //                    loadFragment(new Homescreen());
                     Toast.makeText(this,"Home", Toast.LENGTH_SHORT).show();
