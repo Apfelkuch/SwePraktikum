@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/Med_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MEDI ONE"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="2dp"
+                android:textColor="@color/black"
+                android:paddingEnd="10dp"
+                android:textSize="17sp"
+                tools:ignore="RtlSymmetry" />
+
+
+            <ImageButton
+                android:id="@+id/trashbin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="3dp"
+                android:layout_alignParentEnd="true"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
+            <Button
+                android:id="@+id/Order_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:backgroundTint="@color/orange"
+                android:layout_toStartOf="@+id/trashbin"
+                android:text="Order" />
+
+
+
+            <TextView
+                android:id="@+id/recipe"
+                android:layout_below="@+id/Med_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:text="Recipe:" />
+
+            <TextView
+                android:id="@+id/day_count"
+                android:layout_below="@+id/Med_name"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/recipe"
+                android:layout_marginStart="3dp"
+                android:text="300 Days" />
+
+            <TextView
+                android:id="@+id/Med_count_text"
+                android:layout_below="@+id/Med_name"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/day_count"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Count:" />
+
+            <TextView
+                android:id="@+id/Med_count"
+                android:layout_below="@+id/Med_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/Med_count_text"
+
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:text="30" />
+
+
+        </RelativeLayout>
+
+</RelativeLayout>
+
