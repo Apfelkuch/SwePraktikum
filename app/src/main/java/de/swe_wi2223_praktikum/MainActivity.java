@@ -1,32 +1,84 @@
 package de.swe_wi2223_praktikum;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
-    ListView simpleList;
-    ArrayList<Item> medList = new ArrayList<>();
+    ArrayList<Med> list = new ArrayList<>();
 
+    private RecyclerView recyclerView;
+    private MedAdapter adapter;
+
+    @SuppressLint("InflateParams")
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        simpleList =  (ListView) findViewById(R.id.simpleListView);
-        medList.add(new Item("MedONE",3,3));
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main,container,false);
 
+        //Zuweisung der Objekte aus der activity_main.xml
+        recyclerView = view.findViewById(R.id.recyViewMed);
+        FloatingActionButton addMed = view.findViewById(R.id.addMed);
 
-        MedAdapter medAdapter = new MedAdapter(this, R.layout.medi_fragment,medList);
-        simpleList.setAdapter(medAdapter);
+        //Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+        //Button zum shoppen
+        addMed.setOnClickListener(dialog_view -> {
+            //Baut das Dialogfenster auf
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            dialog_view = getLayoutInflater().inflate(R.layout.add_med_dialog, null);
+
+            //Variablen, zum editieren aus der XML-Datei
+            EditText editMed = dialog_view.findViewById(R.id.editTextTextMed);
+            EditText editCount = dialog_view.findViewById(R.id.editTextNumber);
+            EditText editRecip = dialog_view.findViewById(R.id.editTextNumber2);
+
+            //Der Builder, um das Fenster zu tatäschlich zu befüllen
+            builder.setView(dialog_view)
+                    .setTitle("Shop")
+                    .setPositiveButton("Bestellen", (dialogInterface, i) -> {
+                        String tmpMed = editMed.getText().toString();
+                        String tmpCount = editCount.getText().toString();
+                        String tmpRecip = editRecip.getText().toString();
+
+                        //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende.
+                        list.add(new Med(tmpMed, tmpCount, tmpRecip));
+                        adapter.notifyItemInserted(list.size()-1);
+                        recyclerView.scrollToPosition(list.size()-1);
+                    })
+                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
+                    });
+            builder.show();
+        });
+
+        adapter = new MedAdapter(requireActivity(), list);
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 }

@@ -1,11 +1,11 @@
 package de.swe_wi2223_praktikum;
 
-public class Item {
+public class Med {
     String medName;
-    int medCount;
-    int recipeCount;
+    String medCount;
+    String recipeCount;
 
-    public Item(String medName, int medCount, int recipeCount) {
+    public Med(String medName, String medCount, String recipeCount) {
         this.medName = medName;
         this.medCount = medCount;
         this.recipeCount = recipeCount;
@@ -15,11 +15,11 @@ public class Item {
         return medName;
     }
 
-    public int getMedCount() {
+    public String getMedCount() {
         return medCount;
     }
 
-    public int getRecipeCount() {
+    public String getRecipeCount() {
         return recipeCount;
     }
 }
