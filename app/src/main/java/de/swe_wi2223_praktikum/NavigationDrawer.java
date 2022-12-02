@@ -62,29 +62,29 @@ public class NavigationDrawer extends AppCompatActivity {
                     setTitle(getResources().getString(R.string.app_name));
                     //TODO: Später auskommentieren.
 //                    loadFragment(homescreen);
-                    Toast.makeText(this,"Home", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,getResources().getString(R.string.Home), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navKalender:
-                    setTitle("Kalender");
+                    setTitle(getResources().getString(R.string.Kalender));
                     //TODO: Später auskommentieren.
 //                    loadFragment(kalender);
-                    Toast.makeText(this,"Kalender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,getResources().getString(R.string.Kalender), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navPläne:
-                    setTitle("Pläne");
+                    setTitle(getResources().getString(R.string.Plaene));
                     //TODO: Navigation zu den Plänen.
-                    Toast.makeText(this,"Pläne", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,getResources().getString(R.string.Plaene), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navMedikamente:
-                    setTitle("Medikamente");
+                    setTitle(getResources().getString(R.string.Medikamente));
                     //TODO: Navgiation zu drecks Penix drogenschrank.
-                    Toast.makeText(this,"Medikamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,getResources().getString(R.string.Medikamente), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navBestellungen:
-                    setTitle("Bestellungen");
+                    setTitle(getResources().getString(R.string.Bestellungen));
                     //TODO: Später auskommentieren.
 //                    loadFragment(bestellungsOverView);
-                    Toast.makeText(this,"Bestellungen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,getResources().getString(R.string.Bestellungen), Toast.LENGTH_SHORT).show();
                     break;
             }
 
