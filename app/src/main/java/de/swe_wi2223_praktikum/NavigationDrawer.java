@@ -1,5 +1,10 @@
 package de.swe_wi2223_praktikum;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,15 +14,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.widget.Toast;
+
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationDrawer extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+
+    //Instancen der Fragmente
+    //TODO: Später auskommentieren
+//    private final Homescreen homescreen = new Homescreen();
+//    private final BestellungsOverView bestellungsOverView = new BestellungsOverView();
+//    private final Fragment_Kalender kalender = new Fragment_Kalender();
+    //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -25,7 +34,7 @@ public class NavigationDrawer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
         setTitle(getResources().getString(R.string.app_name));
-//        loadFragment(new Homescreen()); //TODO: Beim Merge auskommentieren
+//        loadFragment(new Homescreen()); //TODO: Später auskommentieren
 
         //region Zuordnungen
         drawerLayout = findViewById(R.id.layout_drawer);
@@ -52,12 +61,13 @@ public class NavigationDrawer extends AppCompatActivity {
                 case R.id.navHome:
                     setTitle(getResources().getString(R.string.app_name));
                     //TODO: Später auskommentieren.
-//                    loadFragment(new Homescreen());
+//                    loadFragment(homescreen);
                     Toast.makeText(this,"Home", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navKalender:
                     setTitle("Kalender");
-                    //TODO: Navigation zum Kalender.
+                    //TODO: Später auskommentieren.
+//                    loadFragment(kalender);
                     Toast.makeText(this,"Kalender", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navPläne:
@@ -73,7 +83,7 @@ public class NavigationDrawer extends AppCompatActivity {
                 case R.id.navBestellungen:
                     setTitle("Bestellungen");
                     //TODO: Später auskommentieren.
-//                    loadFragment(new BestellungsOverView());
+//                    loadFragment(bestellungsOverView);
                     Toast.makeText(this,"Bestellungen", Toast.LENGTH_SHORT).show();
                     break;
             }
