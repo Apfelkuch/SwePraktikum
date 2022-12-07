@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.med_bib);
+        setContentView(R.layout.activity_main);
 
         MedStorage medStorage = new MedStorage();
         getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, medStorage).commit();
