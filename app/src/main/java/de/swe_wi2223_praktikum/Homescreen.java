@@ -65,7 +65,7 @@ public class Homescreen extends Fragment {
 //                startTimer();
 //            }
 //        });
-        setmTimeLeftInMillis(10000);
+        setmTimeLeftInMillis(System.currentTimeMillis()+ 10000);
 
         mBtnNext.setOnClickListener(NextView -> {
             startTimer();
@@ -101,7 +101,9 @@ public class Homescreen extends Fragment {
 
     //Setter für verbleibende Millisekunden
     public void setmTimeLeftInMillis(long givenTime) {
-        this.mTimeLeftInMillis =givenTime;
+        //rein logisch, wäre das richtig. Alternativ System.currentTimeMillis hier
+        //und in Zeile 68 entfernen, damit nur die verbleibende Zeit angezeigt wird.
+        this.mTimeLeftInMillis =givenTime-System.currentTimeMillis();
         startTimer();
     }
     //endregion
