@@ -11,4 +11,10 @@
     <string name="MaxMustermann">Max Mustermann</string>
     <string name="Kundennummer">Kundennummer: 0123456789</string>
     <string name="Home">Home</string>
+    <string name="Menge">Menge</string>
+    <string name="Medikament">Medikament</string>
+    <string name="Bestellmenge">Bestellmenge</string>
+    <string name="OeffnetDialogZumBestellen">Soll Dialog zum bestellen öffnen.</string>
+    <string name="LieferungBestaetigen">Lieferung Bestätigen</string>
+    <string name="LieferungStornieren">Lieferung stornieren</string>
 </resources>
