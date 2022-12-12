@@ -39,7 +39,9 @@ public class Kalender_ArrayAdapter extends RecyclerView.Adapter<Kalender_ArrayAd
             if (kalender_entry == null)
                 return;
             holder.name.setText(kalender_entry.getMedicament().getName());
-            holder.time.setText(kalender_entry.getLocalTime().getHour() + ":" + (kalender_entry.getLocalTime().getMinute() < 10 ? "0" + kalender_entry.getLocalTime().getMinute() : kalender_entry.getLocalTime().getMinute()));
+            holder.time.setText(kalender_entry.getLocalDateTime().toLocalTime().getHour() + ":" +
+                                (kalender_entry.getLocalDateTime().toLocalTime().getMinute() < 10 ?
+                                        "0" + kalender_entry.getLocalDateTime().toLocalTime().getMinute() : kalender_entry.getLocalDateTime().toLocalTime().getMinute()));
             holder.amount.setText(String.valueOf(kalender_entry.getAmount()));
         }
     }

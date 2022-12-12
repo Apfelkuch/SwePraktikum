@@ -1,17 +1,16 @@
 package de.swe_wi2223_praktikum;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Kalender_Entry {
     private Medicament medicament;
-    private LocalTime localTime;
+    private LocalDateTime localDateTime;
     private String amount;
 
-    public Kalender_Entry(Medicament medicament,LocalTime localTime, String amount) {
+    public Kalender_Entry(Medicament medicament,LocalDateTime localDateTime, String amount) {
         this.medicament = medicament;
-        this.localTime = localTime;
+        this.localDateTime = localDateTime;
         this.amount = amount;
-
     }
 
     /// GETTER && SETTER
@@ -20,8 +19,8 @@ public class Kalender_Entry {
         return medicament;
     }
 
-    public LocalTime getLocalTime() {
-        return localTime;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
     public String getAmount() {
@@ -32,8 +31,8 @@ public class Kalender_Entry {
         this.medicament = medicament;
     }
 
-    public void setLocalTime(LocalTime localTime) {
-        this.localTime = localTime;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public void setAmount(String amount) {
