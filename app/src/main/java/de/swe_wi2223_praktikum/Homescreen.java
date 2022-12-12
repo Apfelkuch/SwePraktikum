@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.health.SystemHealthManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +18,31 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class Homescreen extends Fragment {
 
     //region Variablen
-    private static final long START_TIME_IN_MILLIS = 86400000;
+//    private static final long START_TIME_IN_MILLIS = 86400000;
     private TextView mTextViewCountDown;
-    private Button mBtnStartPause;
-    private Button mBtnReset;
+    //    private Button mBtnStartPause;
+//    private Button mBtnReset;
+    private Button mBtnNext;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
-    private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
+    private long mTimeLeftInMillis=getmTimeLeftInMillis();
     private NotificationManagerCompat notificationManagerCompat;
     private Notification notification;
     //endregion
-
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -41,21 +52,27 @@ public class Homescreen extends Fragment {
 
         //region Zuordnungen
         mTextViewCountDown = view.findViewById(R.id.Timer);
-        mBtnStartPause = view.findViewById(R.id.btnStartPause);
-        mBtnReset = view.findViewById(R.id.btnReset);
+//        mBtnStartPause = view.findViewById(R.id.btnStartPause);
+//        mBtnReset = view.findViewById(R.id.btnReset);
+        mBtnNext = view.findViewById(R.id.btnNext);
         //endregion
 
         //region Countdowntimer auf dem Startmenu
-        mBtnStartPause.setOnClickListener(StartPauseView -> {
-            if (mTimerRunning){
-                pauseTimer();
-            } else {
-                startTimer();
-            }
+//        mBtnStartPause.setOnClickListener(StartPauseView -> {
+//            if (mTimerRunning){
+//                pauseTimer();
+//            } else {
+//                startTimer();
+//            }
+//        });
+        setmTimeLeftInMillis(10000);
+
+        mBtnNext.setOnClickListener(NextView -> {
+            startTimer();
         });
 
-        mBtnReset.setOnClickListener(ResetView -> resetTimer());
-        updateCountDownText();
+//        mBtnReset.setOnClickListener(ResetView -> resetTimer());
+//        updateCountDownText();
 
         // Notification setup
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -76,6 +93,19 @@ public class Homescreen extends Fragment {
         return view;
     }
 
+    //region Getter und Setter
+    //Getter für verbleibende Millisekunden
+    public long getmTimeLeftInMillis() {
+        return mTimeLeftInMillis;
+    }
+
+    //Setter für verbleibende Millisekunden
+    public void setmTimeLeftInMillis(long givenTime) {
+        this.mTimeLeftInMillis =givenTime;
+        startTimer();
+    }
+    //endregion
+
     //region Countdowntimer-Button-Funktionen
     @SuppressLint("SetTextI18n")
     private void startTimer() {
@@ -89,16 +119,17 @@ public class Homescreen extends Fragment {
             @Override
             public void onFinish() {
                 mTimerRunning=false;
-                mBtnStartPause.setText("Start");
-                mBtnStartPause.setVisibility(View.INVISIBLE);
-                mBtnReset.setVisibility(View.VISIBLE);
+//                mBtnStartPause.setText("Start");
+//                mBtnStartPause.setVisibility(View.INVISIBLE);
+//                mBtnReset.setVisibility(View.VISIBLE);
+                mBtnNext.setVisibility(View.VISIBLE);
                 reminderNotification();
             }
         }.start();
 
         mTimerRunning = true;
-        mBtnStartPause.setText("Pause");
-        mBtnReset.setVisibility(View.INVISIBLE);
+//        mBtnStartPause.setText("Pause");
+//        mBtnReset.setVisibility(View.INVISIBLE);
     }
 
     //Push-Benachrichtigung
@@ -106,20 +137,20 @@ public class Homescreen extends Fragment {
         notificationManagerCompat.notify(1, notification);
     }
 
-    @SuppressLint("SetTextI18n")
-    private void pauseTimer() {
-        mCountDownTimer.cancel();
-        mTimerRunning=false;
-        mBtnStartPause.setText("Start");
-        mBtnReset.setVisibility(View.VISIBLE);
-    }
+//    @SuppressLint("SetTextI18n")
+//    private void pauseTimer() {
+//        mCountDownTimer.cancel();
+//        mTimerRunning=false;
+//        mBtnStartPause.setText("Start");
+//        mBtnReset.setVisibility(View.VISIBLE);
+//    }
 
-    private void resetTimer() {
-        mTimeLeftInMillis = START_TIME_IN_MILLIS;
-        updateCountDownText();
-        mBtnReset.setVisibility(View.INVISIBLE);
-        mBtnStartPause.setVisibility(View.VISIBLE);
-    }
+//    private void resetTimer() {
+//        mTimeLeftInMillis = getmTimeLeftInMillis();
+//        updateCountDownText();
+//        mBtnReset.setVisibility(View.INVISIBLE);
+//        mBtnStartPause.setVisibility(View.VISIBLE);
+//    }
 
     private void updateCountDownText() {
         int hours = (int) (mTimeLeftInMillis/3600000);
