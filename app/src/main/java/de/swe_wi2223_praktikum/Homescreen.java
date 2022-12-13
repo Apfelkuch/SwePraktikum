@@ -4,10 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.health.SystemHealthManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,29 +17,24 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Homescreen extends Fragment {
 
+    //Arraylist für die Millisekunden, die der Timer Anzeigen soll.
+    ArrayList<Long> futureDates = new ArrayList<>();
+
     //region Variablen
-//    private static final long START_TIME_IN_MILLIS = 86400000;
-    private TextView mTextViewCountDown;
-    //    private Button mBtnStartPause;
-//    private Button mBtnReset;
+    private TextView mMain_Countdown_Timer;
+    private TextView mSub_Countdown_Timer;
     private Button mBtnNext;
-    private CountDownTimer mCountDownTimer;
-    private boolean mTimerRunning;
-    private long mTimeLeftInMillis=getmTimeLeftInMillis();
+    private boolean mTimerRunning = true;
+    private long mTimeLeftInMillis = getmTimeLeftInMillis();
     private NotificationManagerCompat notificationManagerCompat;
     private Notification notification;
+    private int mMain_Count = 0;
+    private final long currentTime = System.currentTimeMillis();
     //endregion
 
     @SuppressLint("MissingInflatedId")
@@ -51,30 +44,31 @@ public class Homescreen extends Fragment {
         View view = inflater.inflate(R.layout.homescreen_main,container,false);
 
         //region Zuordnungen
-        mTextViewCountDown = view.findViewById(R.id.Timer);
-//        mBtnStartPause = view.findViewById(R.id.btnStartPause);
-//        mBtnReset = view.findViewById(R.id.btnReset);
+        mMain_Countdown_Timer = view.findViewById(R.id.Timer);
+        mSub_Countdown_Timer = view.findViewById(R.id.Timer2);
         mBtnNext = view.findViewById(R.id.btnNext);
         //endregion
 
-        //region Countdowntimer auf dem Startmenu
-//        mBtnStartPause.setOnClickListener(StartPauseView -> {
-//            if (mTimerRunning){
-//                pauseTimer();
-//            } else {
-//                startTimer();
-//            }
-//        });
-        setmTimeLeftInMillis(System.currentTimeMillis()+ 10000);
+        //Beispiel Zeiten. Später entfernen.
+        futureDates.add(currentTime+5000);
+        futureDates.add(currentTime+10000);
+        futureDates.add(currentTime + (1000*60*60*24));
+        futureDates.add(currentTime+(1000*60*60*24*2));
+        futureDates.add(currentTime+(1000*60*60*24*3));
 
+        //startbedingungen
+        setmTimeLeftInMillis(futureDates.get(mMain_Count));
+
+        //Was soll beim Klick auf den Next Button passieren?
         mBtnNext.setOnClickListener(NextView -> {
-            startTimer();
+            updateCountDownText();
+            mSub_Countdown_Timer.setVisibility(View.INVISIBLE);
+            mBtnNext.setVisibility(View.INVISIBLE);
+            mTimerRunning=true;
+            //TODO: Ggf. Inhalt des Kalenders überschreiben. -> Janis.
         });
 
-//        mBtnReset.setOnClickListener(ResetView -> resetTimer());
-//        updateCountDownText();
-
-        // Notification setup
+        //region Notification setup
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("SWE", "Praktikum", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = requireActivity().getSystemService(NotificationManager.class);
@@ -83,35 +77,30 @@ public class Homescreen extends Fragment {
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(requireActivity(), "SWE")
                 .setSmallIcon(android.R.drawable.stat_notify_sync)
-                .setContentTitle("MedikamentenAPP") //TODO: Name der APP?
+                .setContentTitle("MedikamentenAPP") //TODO: Name der APP
                 .setContentText("Zeit die Drugs einzunehmen :)");
 
         notification = builder.build();
         notificationManagerCompat = NotificationManagerCompat.from(requireActivity());
         //endregion
-
         return view;
     }
 
-    //region Getter und Setter
-    //Getter für verbleibende Millisekunden
+    //region Getter und Setter für verbleibende Millisekunden
     public long getmTimeLeftInMillis() {
         return mTimeLeftInMillis;
     }
 
-    //Setter für verbleibende Millisekunden
     public void setmTimeLeftInMillis(long givenTime) {
-        //rein logisch, wäre das richtig. Alternativ System.currentTimeMillis hier
-        //und in Zeile 68 entfernen, damit nur die verbleibende Zeit angezeigt wird.
-        this.mTimeLeftInMillis =givenTime-System.currentTimeMillis();
+        this.mTimeLeftInMillis = givenTime - currentTime;
         startTimer();
     }
     //endregion
 
-    //region Countdowntimer-Button-Funktionen
+    //region Timer starten & updaten
     @SuppressLint("SetTextI18n")
     private void startTimer() {
-        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+        new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
@@ -121,38 +110,14 @@ public class Homescreen extends Fragment {
             @Override
             public void onFinish() {
                 mTimerRunning=false;
-//                mBtnStartPause.setText("Start");
-//                mBtnStartPause.setVisibility(View.INVISIBLE);
-//                mBtnReset.setVisibility(View.VISIBLE);
+                mMain_Count = mMain_Count +1;
+                setmTimeLeftInMillis(futureDates.get(mMain_Count));
+                mSub_Countdown_Timer.setVisibility(View.VISIBLE);
                 mBtnNext.setVisibility(View.VISIBLE);
                 reminderNotification();
             }
         }.start();
-
-        mTimerRunning = true;
-//        mBtnStartPause.setText("Pause");
-//        mBtnReset.setVisibility(View.INVISIBLE);
     }
-
-    //Push-Benachrichtigung
-    private void reminderNotification() {
-        notificationManagerCompat.notify(1, notification);
-    }
-
-//    @SuppressLint("SetTextI18n")
-//    private void pauseTimer() {
-//        mCountDownTimer.cancel();
-//        mTimerRunning=false;
-//        mBtnStartPause.setText("Start");
-//        mBtnReset.setVisibility(View.VISIBLE);
-//    }
-
-//    private void resetTimer() {
-//        mTimeLeftInMillis = getmTimeLeftInMillis();
-//        updateCountDownText();
-//        mBtnReset.setVisibility(View.INVISIBLE);
-//        mBtnStartPause.setVisibility(View.VISIBLE);
-//    }
 
     private void updateCountDownText() {
         int hours = (int) (mTimeLeftInMillis/3600000);
@@ -160,7 +125,17 @@ public class Homescreen extends Fragment {
         int seconds = (int) (mTimeLeftInMillis/1000)%60;
 
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hours,minutes, seconds);
-        mTextViewCountDown.setText(timeLeftFormatted);
+
+        if(mTimerRunning){
+            mMain_Countdown_Timer.setText(timeLeftFormatted);
+        }else{
+            mSub_Countdown_Timer.setText(timeLeftFormatted);
+        }
     }
     //endregion
+
+    //Push-Benachrichtigung
+    private void reminderNotification() {
+        notificationManagerCompat.notify(1, notification);
+    }
 }
