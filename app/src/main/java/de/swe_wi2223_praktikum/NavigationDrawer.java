@@ -24,8 +24,8 @@ public class NavigationDrawer extends AppCompatActivity {
     //Instancen der Fragmente
     //TODO: Später auskommentieren
 //    private final Homescreen homescreen = new Homescreen();
-//    private final BestellungsOverView bestellungsOverView = new BestellungsOverView();
-//    private final Fragment_Kalender kalender = new Fragment_Kalender();
+    private BestellungsOverView bestellungsOverView;
+    private Fragment_Kalender kalender;
     //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -35,6 +35,10 @@ public class NavigationDrawer extends AppCompatActivity {
         setContentView(R.layout.navigation_drawer_main);
         setTitle(getResources().getString(R.string.app_name));
 //        loadFragment(new Homescreen()); //TODO: Später auskommentieren
+
+        // construct Fragments
+        bestellungsOverView = new BestellungsOverView();
+        kalender = new Fragment_Kalender();
 
         //region Zuordnungen
         drawerLayout = findViewById(R.id.layout_drawer);
@@ -66,8 +70,7 @@ public class NavigationDrawer extends AppCompatActivity {
                     break;
                 case R.id.navKalender:
                     setTitle(getResources().getString(R.string.Kalender));
-                    //TODO: Später auskommentieren.
-//                    loadFragment(kalender);
+                    loadFragment(kalender);
                     Toast.makeText(this,getResources().getString(R.string.Kalender), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navPläne:
@@ -82,8 +85,7 @@ public class NavigationDrawer extends AppCompatActivity {
                     break;
                 case R.id.navBestellungen:
                     setTitle(getResources().getString(R.string.Bestellungen));
-                    //TODO: Später auskommentieren.
-//                    loadFragment(bestellungsOverView);
+                    loadFragment(bestellungsOverView);
                     Toast.makeText(this,getResources().getString(R.string.Bestellungen), Toast.LENGTH_SHORT).show();
                     break;
             }

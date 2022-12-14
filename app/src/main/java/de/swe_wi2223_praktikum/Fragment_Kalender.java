@@ -48,10 +48,10 @@ public class Fragment_Kalender extends Fragment {
             addEntry(LocalDateTime.of(2022,11,16,20,0), new Medicament("Medicament C"), "0.2 g");
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Kalender_Entry kalender_entry = this.getNextEntry(LocalDateTime.of(2022, 11, 6, 15, 30));
-            System.out.println("Kalender entry: " + (kalender_entry == null ? "" : kalender_entry.getLocalDateTime().toString()));
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            Kalender_Entry kalender_entry = this.getNextEntry(LocalDateTime.of(2022, 11, 6, 15, 30));
+//            System.out.println("Kalender entry: " + (kalender_entry == null ? "" : kalender_entry.getLocalDateTime().toString()));
+//        }
 
         dailyKalenderEntries = new ArrayList<>();
     }
@@ -70,10 +70,10 @@ public class Fragment_Kalender extends Fragment {
         // get the elements of the fragment
         CalendarView calenderView_calendar = view.findViewById(R.id.calendarView);
         recyclerView_dayMed = view.findViewById(R.id.dayMedList);
-        MainActivity mainActivity = (MainActivity) getActivity();
+        NavigationDrawer navigationDrawer = (NavigationDrawer) getActivity();
 
         // set a layout for the dynamic list (essentially)
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(navigationDrawer);
         recyclerView_dayMed.setLayoutManager(linearLayoutManager);
 
         // create and add the ArrayAdapter to synchronise the kalender entries with the dynamic list
