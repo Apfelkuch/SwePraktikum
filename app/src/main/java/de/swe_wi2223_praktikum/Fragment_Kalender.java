@@ -21,11 +21,11 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-public class Fragment_Kalender extends Fragment {
+public class Fragment_Kalender extends Fragment implements Load {
 
     private RecyclerView recyclerView_dayMed;
     private ArrayList<Kalender_Entry> dailyKalenderEntries;
-    private final HashMap<LocalDate, ArrayList<Kalender_Entry>> kalenderEntries;
+    private HashMap<LocalDate, ArrayList<Kalender_Entry>> kalenderEntries;
 
     private final int maxLookupDistance = 10;
 
@@ -34,20 +34,21 @@ public class Fragment_Kalender extends Fragment {
         // example data
         kalenderEntries = new HashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            addEntry(LocalDateTime.of(2022,11,23,15,0), new Medicament("Medikament A"), "10.2 g");
-            addEntry(LocalDateTime.of(2022,11,23,12,30), new Medicament("Medikament B"), "12.4 g");
-            addEntry(LocalDateTime.of(2022,11,2,18,0), new Medicament("M_A"), "20 g");
-            addEntry(LocalDateTime.of(2022,11,2,12,15), new Medicament("M_B"), "0.4 g");
-            addEntry(LocalDateTime.of(2022,11,2,13,0), new Medicament("M_C"), "12.3 g");
-            addEntry(LocalDateTime.of(2022,11,16,14,0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022,11,16,15,0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022,11,16,16,0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022,11,16,17,0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022,11,16,18,0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022,11,16,19,0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022,11,16,20,0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 23, 15, 0), new Medicament("Medikament A"), "10.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 23, 12, 30), new Medicament("Medikament B"), "12.4 g");
+            addEntry(LocalDateTime.of(2022, 11, 2, 18, 0), new Medicament("M_A"), "20 g");
+            addEntry(LocalDateTime.of(2022, 11, 2, 12, 15), new Medicament("M_B"), "0.4 g");
+            addEntry(LocalDateTime.of(2022, 11, 2, 13, 0), new Medicament("M_C"), "12.3 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 14, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 15, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 16, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 17, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Medicament("Medicament C"), "0.2 g");
         }
 
+//        // test the getNextEntry-Method
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            Kalender_Entry kalender_entry = this.getNextEntry(LocalDateTime.of(2022, 11, 6, 15, 30));
 //            System.out.println("Kalender entry: " + (kalender_entry == null ? "" : kalender_entry.getLocalDateTime().toString()));
@@ -106,6 +107,7 @@ public class Fragment_Kalender extends Fragment {
 
     /**
      * Returns the next entry after a given day and time.
+     *
      * @param localDateTime The day and time after which the next entry s returned.
      * @return The next entry after the given day and time.
      */
@@ -133,6 +135,7 @@ public class Fragment_Kalender extends Fragment {
 
     /**
      * Builds an ordered list of all entries for a specific day.
+     *
      * @param localDate The Day of the list with Entries.
      * @return Null if the day has no entries and otherwise the list of all entries, ordered by the time of the entry.
      */
@@ -164,9 +167,10 @@ public class Fragment_Kalender extends Fragment {
 
     /**
      * Add the Entry to the Calender.
+     *
      * @param localDateTime The day and time of the entry
-     * @param medicament The medicament which is taken
-     * @param amount The amount in which the medicament is taken
+     * @param medicament    The medicament which is taken
+     * @param amount        The amount in which the medicament is taken
      */
     public void addEntry(LocalDateTime localDateTime, Medicament medicament, String amount) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -184,8 +188,9 @@ public class Fragment_Kalender extends Fragment {
 
     /**
      * Deletes the first Medicament where the day, time and medicament are identical from the Calender.
+     *
      * @param localDateTime The day and time of the entry
-     * @param medicament The Medicament which is taken
+     * @param medicament    The Medicament which is taken
      * @return True if successfully, otherwise false.
      */
     public boolean removeEntry(LocalDateTime localDateTime, Medicament medicament) {
@@ -213,4 +218,14 @@ public class Fragment_Kalender extends Fragment {
         return false;
     }
 
+    @Override
+    public void load(Object o) {
+        if (o == null) return;
+        kalenderEntries = (HashMap<LocalDate, ArrayList<Kalender_Entry>>) o;
+    }
+
+    @Override
+    public Object saveData() {
+        return kalenderEntries;
+    }
 }

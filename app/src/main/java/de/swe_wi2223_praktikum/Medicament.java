@@ -1,7 +1,7 @@
 package de.swe_wi2223_praktikum;
 
 // TODO: dummy class
-public class Medicament {
+public class Medicament implements java.io.Serializable {
     String name;
 
     public Medicament(String name) {

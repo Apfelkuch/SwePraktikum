@@ -2,7 +2,7 @@ package de.swe_wi2223_praktikum;
 
 import java.time.LocalDateTime;
 
-public class Kalender_Entry {
+public class Kalender_Entry implements java.io.Serializable {
     private Medicament medicament;
     private LocalDateTime localDateTime;
     private String amount;
@@ -13,7 +13,7 @@ public class Kalender_Entry {
         this.amount = amount;
     }
 
-    /// GETTER && SETTER
+    // GETTER && SETTER
 
     public Medicament getMedicament() {
         return medicament;

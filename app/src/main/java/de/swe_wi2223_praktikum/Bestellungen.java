@@ -2,7 +2,7 @@ package de.swe_wi2223_praktikum;
 
 //Basic Stuff.
 //Constructor, Getter und Setter
-public class Bestellungen {
+public class Bestellungen implements java.io.Serializable {
     private String name;
     private String menge;
 

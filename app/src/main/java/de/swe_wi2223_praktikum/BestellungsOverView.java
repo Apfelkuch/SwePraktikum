@@ -16,7 +16,7 @@ import android.widget.EditText;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
-public class BestellungsOverView extends Fragment {
+public class BestellungsOverView extends Fragment implements Load {
     ArrayList<Bestellungen> list = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -26,7 +26,7 @@ public class BestellungsOverView extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bestellungs_overview,container,false);
+        View view = inflater.inflate(R.layout.bestellungs_overview, container, false);
 
         //Zuweisung der Objekte aus der activity_main.xml
         recyclerView = view.findViewById(R.id.rcvBestellung);
@@ -54,8 +54,8 @@ public class BestellungsOverView extends Fragment {
 
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende.
                         list.add(new Bestellungen(tmpMedikament, tmpMenge));
-                        adapter.notifyItemInserted(list.size()-1);
-                        recyclerView.scrollToPosition(list.size()-1);
+                        adapter.notifyItemInserted(list.size() - 1);
+                        recyclerView.scrollToPosition(list.size() - 1);
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
@@ -67,5 +67,16 @@ public class BestellungsOverView extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void load(Object o) {
+        if (o == null) return;
+        this.list = (ArrayList<Bestellungen>) o;
+    }
+
+    @Override
+    public Object saveData() {
+        return list;
     }
 }

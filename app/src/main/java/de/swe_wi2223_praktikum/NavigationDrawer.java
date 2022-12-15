@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class NavigationDrawer extends AppCompatActivity {
+public class NavigationDrawer extends AppCompatActivity{
 
     private DrawerLayout drawerLayout;
 
@@ -36,9 +36,13 @@ public class NavigationDrawer extends AppCompatActivity {
         setTitle(getResources().getString(R.string.app_name));
 //        loadFragment(new Homescreen()); //TODO: Später auskommentieren
 
-        // construct Fragments
+        // construct or load Fragments
         bestellungsOverView = new BestellungsOverView();
+        bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
         kalender = new Fragment_Kalender();
+        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
+
+//        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
         //region Zuordnungen
         drawerLayout = findViewById(R.id.layout_drawer);
@@ -61,32 +65,32 @@ public class NavigationDrawer extends AppCompatActivity {
 
         //Link menus
         navigationView.setNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.navHome:
                     setTitle(getResources().getString(R.string.app_name));
                     //TODO: Später auskommentieren.
 //                    loadFragment(homescreen);
-                    Toast.makeText(this,getResources().getString(R.string.Home), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.Home), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navKalender:
                     setTitle(getResources().getString(R.string.Kalender));
                     loadFragment(kalender);
-                    Toast.makeText(this,getResources().getString(R.string.Kalender), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.Kalender), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navPläne:
                     setTitle(getResources().getString(R.string.Plaene));
                     //TODO: Navigation zu den Plänen.
-                    Toast.makeText(this,getResources().getString(R.string.Plaene), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.Plaene), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navMedikamente:
                     setTitle(getResources().getString(R.string.Medikamente));
                     //TODO: Navgiation zu drecks Penix drogenschrank.
-                    Toast.makeText(this,getResources().getString(R.string.Medikamente), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.Medikamente), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navBestellungen:
                     setTitle(getResources().getString(R.string.Bestellungen));
                     loadFragment(bestellungsOverView);
-                    Toast.makeText(this,getResources().getString(R.string.Bestellungen), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.Bestellungen), Toast.LENGTH_SHORT).show();
                     break;
             }
 
@@ -95,6 +99,17 @@ public class NavigationDrawer extends AppCompatActivity {
             return true;
         });
         //endregion
+    }
+
+    @Override
+    protected void onPause() {
+        System.out.println(FileManager.BESTELLUNGEN + " is " +
+                (FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData()) ? "" : "not")
+                + "saved.");
+        System.out.println(FileManager.KALENDER + " is " +
+                (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not")
+                        + "saved.");
+        super.onPause();
     }
 
     private void loadFragment(Fragment fragment) {
@@ -107,9 +122,9 @@ public class NavigationDrawer extends AppCompatActivity {
     //Wenn man in den Hintergrund klickt, dann verschwindet das Fenster.
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else{
+        } else {
             super.onBackPressed();
         }
     }
