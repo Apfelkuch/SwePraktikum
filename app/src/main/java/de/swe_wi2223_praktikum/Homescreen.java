@@ -70,7 +70,7 @@ public class Homescreen extends Fragment {
 
         //startbedingungen
         if(mMainTimerRunning){
-//            setmTimeLeftInMillis(futureDates.get(mMain_Count)); //Problem wahrscheinlich hier.
+            System.out.println("Hier könnte Ihre Werbung stehen.");
         }else{
             System.out.println("Fehler");
             mSub_Countdown_Timer.setVisibility(View.VISIBLE);
