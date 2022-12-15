@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,15 +35,19 @@
                 android:id="@+id/trashbin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:layout_marginEnd="3dp"
                 android:layout_alignParentEnd="true"
+                android:layout_below="@+id/Med_name"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="3dp"
+                android:backgroundTint="@color/red"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
             <Button
                 android:id="@+id/Order_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/Med_name"
+                android:layout_marginTop="0dp"
                 android:layout_marginStart="5dp"
                 android:layout_toStartOf="@+id/trashbin"
                 android:backgroundTint="@color/orange"
@@ -54,32 +58,43 @@
 
             <TextView
                 android:id="@+id/recipe"
-                android:layout_below="@+id/Med_name"
+                android:layout_below="@+id/Med_count_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:text="Recipe:" />
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="3dp"
+                android:text="Rezeptdauer:" />
 
             <TextView
                 android:id="@+id/day_count"
-                android:layout_below="@+id/Med_name"
-                android:layout_marginTop="10dp"
+                android:layout_below="@+id/Med_count_text"
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/recipe"
                 android:layout_marginStart="3dp"
-                android:text="300 Days" />
+                android:text="300" />
+
+            <TextView
+                android:id="@+id/strDay"
+                android:layout_below="@+id/Med_count_text"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/day_count"
+                android:layout_marginStart="3dp"
+                android:text=" Tage" />
 
             <TextView
                 android:id="@+id/Med_count_text"
                 android:layout_below="@+id/Med_name"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/day_count"
-                android:layout_marginStart="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Count:" />
+                android:text="Vorrätig:" />
 
             <TextView
                 android:id="@+id/Med_count"
@@ -87,14 +102,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/Med_count_text"
-
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="2dp"
                 android:text="30" />
 
+            <TextView
+                android:id="@+id/Med_count_str"
+                android:layout_below="@+id/Med_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/Med_count"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:text="Stk." />
+
 
         </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
 

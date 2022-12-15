@@ -53,7 +53,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context)
                     .setTitle("Medikament Löschen")
                     .setMessage("Sind Sie sicher, dass Sie das Medikament löschen möchten?")
-                    .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
+                    .setPositiveButton("Löschen", (dialogInterface, i) -> {
                         list.remove(holder.getAdapterPosition());
                         notifyItemRemoved(holder.getAdapterPosition());
                     })

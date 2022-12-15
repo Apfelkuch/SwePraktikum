@@ -50,8 +50,8 @@ public class MedStorage extends Fragment {
 
             //Der Builder, um das Fenster zu tatäschlich zu befüllen
             builder.setView(dialog_view)
-                    .setTitle("Shop")
-                    .setPositiveButton("Bestellen", (dialogInterface, i) -> {
+                    .setTitle("Medikament Hinzufügen: ")
+                    .setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
                         String tmpMed = editMed.getText().toString();
                         String tmpCount = editCount.getText().toString();
                         String tmpRecip = editRecip.getText().toString();
