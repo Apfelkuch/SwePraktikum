@@ -29,8 +29,8 @@ public class Homescreen extends Fragment {
     private TextView mMain_Countdown_Timer;
     private TextView mSub_Countdown_Timer;
     private Button mBtnNext;
-    private boolean mTimerRunning = true;
-    private long mTimeLeftInMillis = getmTimeLeftInMillis();
+    private boolean mMainTimerRunning = true;
+    private long mTimeLeftInMillis;
     private NotificationManagerCompat notificationManagerCompat;
     private Notification notification;
     private int mMain_Count = 0;
@@ -52,19 +52,25 @@ public class Homescreen extends Fragment {
         //Beispiel Zeiten. Später entfernen.
         futureDates.add(currentTime+5000);
         futureDates.add(currentTime+10000);
-        futureDates.add(currentTime + (1000*60*60*24));
+        futureDates.add(currentTime+(1000*60*60*24));
         futureDates.add(currentTime+(1000*60*60*24*2));
         futureDates.add(currentTime+(1000*60*60*24*3));
 
         //startbedingungen
-        setmTimeLeftInMillis(futureDates.get(mMain_Count));
+        if(mMainTimerRunning){
+            setmTimeLeftInMillis(futureDates.get(mMain_Count)); //Problem wahrscheinlich hier.
+        }else{
+            System.out.println("Fehler");
+            mSub_Countdown_Timer.setVisibility(View.VISIBLE);
+            mBtnNext.setVisibility(View.VISIBLE);
+        }
 
         //Was soll beim Klick auf den Next Button passieren?
         mBtnNext.setOnClickListener(NextView -> {
-            updateCountDownText();
+            mMainTimerRunning = true;
             mSub_Countdown_Timer.setVisibility(View.INVISIBLE);
             mBtnNext.setVisibility(View.INVISIBLE);
-            mTimerRunning=true;
+            updateCountDownText();
             //TODO: Ggf. Inhalt des Kalenders überschreiben. -> Janis.
         });
 
@@ -100,7 +106,7 @@ public class Homescreen extends Fragment {
     //region Timer starten & updaten
     @SuppressLint("SetTextI18n")
     private void startTimer() {
-        new CountDownTimer(mTimeLeftInMillis, 1000) {
+        new CountDownTimer(getmTimeLeftInMillis(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
@@ -109,8 +115,8 @@ public class Homescreen extends Fragment {
 
             @Override
             public void onFinish() {
-                mTimerRunning=false;
-                mMain_Count = mMain_Count +1;
+                mMainTimerRunning = false;
+                mMain_Count = ++mMain_Count;
                 setmTimeLeftInMillis(futureDates.get(mMain_Count));
                 mSub_Countdown_Timer.setVisibility(View.VISIBLE);
                 mBtnNext.setVisibility(View.VISIBLE);
@@ -120,13 +126,13 @@ public class Homescreen extends Fragment {
     }
 
     private void updateCountDownText() {
-        int hours = (int) (mTimeLeftInMillis/3600000);
-        int minutes = (int) (mTimeLeftInMillis/60000)%60;
-        int seconds = (int) (mTimeLeftInMillis/1000)%60;
+        int hours = (int) (getmTimeLeftInMillis()/3600000);
+        int minutes = (int) (getmTimeLeftInMillis()/60000)%60;
+        int seconds = (int) (getmTimeLeftInMillis()/1000)%60;
 
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hours,minutes, seconds);
 
-        if(mTimerRunning){
+        if(mMainTimerRunning){
             mMain_Countdown_Timer.setText(timeLeftFormatted);
         }else{
             mSub_Countdown_Timer.setText(timeLeftFormatted);
