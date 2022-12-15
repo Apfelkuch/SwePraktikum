@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -17,13 +18,15 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class Homescreen extends Fragment {
 
     //Arraylist für die Millisekunden, die der Timer Anzeigen soll.
-    ArrayList<Long> futureDates = new ArrayList<>();
+    ArrayList<Kalender_Entry> futureEntries = new ArrayList<>();
+    ArrayList<Kalender_Entry> pastEntries = new ArrayList<>();
 
     //region Variablen
     private TextView mMain_Countdown_Timer;
@@ -34,8 +37,24 @@ public class Homescreen extends Fragment {
     private NotificationManagerCompat notificationManagerCompat;
     private Notification notification;
     private int mMain_Count = 0;
-    private final long currentTime = System.currentTimeMillis();
     //endregion
+
+    public Homescreen(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+            //TODO: dummyMedicament bekommen wir von Felix. Später nochmal die Test-Entries testen.
+            Medicament dummyMedicament = new Medicament("A");
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 5000), "5"));
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 15000), "10"));
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 30000), "15"));
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000), "20"));
+            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalTime().toNanoOfDay());
+        }
+    }
+
+    public void addFutureEntries(Kalender_Entry futureEntry){
+        futureEntries.add(futureEntry);
+    }
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -49,16 +68,9 @@ public class Homescreen extends Fragment {
         mBtnNext = view.findViewById(R.id.btnNext);
         //endregion
 
-        //Beispiel Zeiten. Später entfernen.
-        futureDates.add(currentTime+5000);
-        futureDates.add(currentTime+10000);
-        futureDates.add(currentTime+(1000*60*60*24));
-        futureDates.add(currentTime+(1000*60*60*24*2));
-        futureDates.add(currentTime+(1000*60*60*24*3));
-
         //startbedingungen
         if(mMainTimerRunning){
-            setmTimeLeftInMillis(futureDates.get(mMain_Count)); //Problem wahrscheinlich hier.
+//            setmTimeLeftInMillis(futureDates.get(mMain_Count)); //Problem wahrscheinlich hier.
         }else{
             System.out.println("Fehler");
             mSub_Countdown_Timer.setVisibility(View.VISIBLE);
@@ -70,8 +82,8 @@ public class Homescreen extends Fragment {
             mMainTimerRunning = true;
             mSub_Countdown_Timer.setVisibility(View.INVISIBLE);
             mBtnNext.setVisibility(View.INVISIBLE);
+            pastEntries.remove(mMain_Count);
             updateCountDownText();
-            //TODO: Ggf. Inhalt des Kalenders überschreiben. -> Janis.
         });
 
         //region Notification setup
@@ -98,7 +110,8 @@ public class Homescreen extends Fragment {
     }
 
     public void setmTimeLeftInMillis(long givenTime) {
-        this.mTimeLeftInMillis = givenTime - currentTime;
+        this.mTimeLeftInMillis = givenTime - System.currentTimeMillis();
+//        System.out.println(mTimeLeftInMillis);
         startTimer();
     }
     //endregion
@@ -116,8 +129,10 @@ public class Homescreen extends Fragment {
             @Override
             public void onFinish() {
                 mMainTimerRunning = false;
-                mMain_Count = ++mMain_Count;
-                setmTimeLeftInMillis(futureDates.get(mMain_Count));
+                pastEntries.add(futureEntries.remove(mMain_Count));
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalTime().toNanoOfDay());
+                }
                 mSub_Countdown_Timer.setVisibility(View.VISIBLE);
                 mBtnNext.setVisibility(View.VISIBLE);
                 reminderNotification();
