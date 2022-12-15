@@ -17,4 +17,7 @@
     <string name="OeffnetDialogZumBestellen">Soll Dialog zum bestellen öffnen.</string>
     <string name="LieferungBestaetigen">Lieferung Bestätigen</string>
     <string name="LieferungStornieren">Lieferung stornieren</string>
+    <string name="LogTitle">Medikamenten Log</string>
+    <string name="Log">Log</string>
+    <string name="logLoeschen">Log löschen</string>
 </resources>

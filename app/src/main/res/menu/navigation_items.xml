@@ -21,4 +21,8 @@
         android:id="@+id/navBestellungen"
         android:title="@string/Bestellungen"
         android:icon="@drawable/ic_baseline_history_24"/>
+    <item
+        android:id="@+id/navLog"
+        android:icon="@drawable/log"
+        android:title="@string/Log" />
 </menu>

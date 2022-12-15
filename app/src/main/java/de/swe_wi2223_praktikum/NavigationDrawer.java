@@ -26,6 +26,7 @@ public class NavigationDrawer extends AppCompatActivity{
 //    private final Homescreen homescreen = new Homescreen();
     private BestellungsOverView bestellungsOverView;
     private Fragment_Kalender kalender;
+    private Fragment_Log log;
     //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -41,6 +42,8 @@ public class NavigationDrawer extends AppCompatActivity{
         bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
         kalender = new Fragment_Kalender();
         kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
+        log = new Fragment_Log();
+        log.load(FileManager.load(FileManager.LOG, getApplicationContext()));
 
 //        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
@@ -92,6 +95,10 @@ public class NavigationDrawer extends AppCompatActivity{
                     loadFragment(bestellungsOverView);
                     Toast.makeText(this, getResources().getString(R.string.Bestellungen), Toast.LENGTH_SHORT).show();
                     break;
+                case R.id.navLog:
+                    setTitle(getResources().getString(R.string.Log));
+                    loadFragment(log);
+                    Toast.makeText(this, getResources().getString(R.string.Log), Toast.LENGTH_SHORT).show();
             }
 
             //Fenster soll nach Klick schließen.
@@ -101,15 +108,34 @@ public class NavigationDrawer extends AppCompatActivity{
         //endregion
     }
 
-    @Override
-    protected void onPause() {
+    private void save() {
         System.out.println(FileManager.BESTELLUNGEN + " is " +
                 (FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData()) ? "" : "not")
                 + "saved.");
         System.out.println(FileManager.KALENDER + " is " +
                 (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not")
-                        + "saved.");
+                + "saved.");
+        System.out.println(FileManager.LOG + " is " +
+                (FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData()) ? "" : "not")
+                + "saved.");
+    }
+
+    @Override
+    protected void onPause() {
+        save();
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        save();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        save();
+        super.onDestroy();
     }
 
     private void loadFragment(Fragment fragment) {
