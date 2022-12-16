@@ -11,21 +11,11 @@
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
 
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="200dp"
-            android:textSize="24sp"
-            android:text="@string/Next"
-            android:visibility="invisible"
-            tools:visibility="visible"/>
-
         <TextView
             android:id="@+id/Timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="150dp"
             android:text="@string/_00_00_00"
             android:textSize="60sp"
             android:textColor="@color/black"
@@ -36,10 +26,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_00_00_00"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="200dp"
             android:textSize="30sp"
             android:textColor="@color/black"
             android:layout_gravity="center"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:label="@string/Medikament"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp">
+
+            <!--RecycleView-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvHomescreen"
+                android:foregroundGravity="center"
+                android:layout_width="250dp"
+                android:layout_height="290dp"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:textSize="24sp"
+            android:text="@string/Next"
             android:visibility="invisible"
             tools:visibility="visible"/>
     </FrameLayout>
