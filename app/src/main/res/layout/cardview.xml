@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Darstellung der einzelnen Bestellungen als "Karte".-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <!--Bestellname also "Bestellung 1" z.B.-->
+            <TextView
+                android:id="@+id/itemName"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/Bestellungen"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!--Bestellmenge-->
+            <TextView
+                android:id="@+id/itemMenge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="100dp"
+                android:textAlignment="textEnd"
+                android:text="@string/Menge"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!--Button zum entfernen von Bestellungen-->
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="-50dp"
+                android:layout_marginEnd="0dp"
+                android:layout_gravity="end"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/kreuz_rot"
+                android:contentDescription="@string/LieferungStornieren" />
+
+            <!--Button zum bestätigen von Bestellungen-->
+            <ImageButton
+                android:id="@+id/btnApprove"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="-100dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="end"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/haken_gruen"
+                android:contentDescription="@string/LieferungBestaetigen" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

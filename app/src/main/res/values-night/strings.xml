@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DailyMedic</string>
+    <string name="app_name">SWE_Wi2223_Praktikum</string>
     <string name="OpenDrawer">Open navigation drawer</string>
     <string name="CloseDrawer">Close navigation drawer</string>
     <string name="Kalender">Kalender</string>
@@ -10,7 +11,6 @@
     <string name="MaxMustermann">Max Mustermann</string>
     <string name="Kundennummer">Kundennummer: 0123456789</string>
     <string name="Home">Home</string>
-    <dimen name="fontsize_text">8pt</dimen>
     <string name="Menge">Menge</string>
     <string name="Medikament">Medikament</string>
     <string name="Bestellmenge">Bestellmenge</string>
