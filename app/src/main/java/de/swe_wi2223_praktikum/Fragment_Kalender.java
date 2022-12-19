@@ -34,18 +34,18 @@ public class Fragment_Kalender extends Fragment implements Load {
         // example data
         kalenderEntries = new HashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            addEntry(LocalDateTime.of(2022, 11, 23, 15, 0), new Medicament("Medikament A"), "10.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 23, 12, 30), new Medicament("Medikament B"), "12.4 g");
-            addEntry(LocalDateTime.of(2022, 11, 2, 18, 0), new Medicament("M_A"), "20 g");
-            addEntry(LocalDateTime.of(2022, 11, 2, 12, 15), new Medicament("M_B"), "0.4 g");
-            addEntry(LocalDateTime.of(2022, 11, 2, 13, 0), new Medicament("M_C"), "12.3 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 14, 0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 15, 0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 16, 0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 17, 0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Medicament("Medicament C"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Medicament("Medicament C"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 23, 15, 0), new Med("Medikament A","0","0"), "10.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 23, 12, 30), new Med("Medikament B","0","0"), "12.4 g");
+            addEntry(LocalDateTime.of(2022, 11, 2, 18, 0), new Med("M_A","0","0"), "20 g");
+            addEntry(LocalDateTime.of(2022, 11, 2, 12, 15), new Med("M_B","0","0"), "0.4 g");
+            addEntry(LocalDateTime.of(2022, 11, 2, 13, 0), new Med("M_C","0","0"), "12.3 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 14, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 15, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 16, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 17, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Med("Medicament C","0","0"), "0.2 g");
         }
 
 //        // test the getNextEntry-Method
@@ -172,7 +172,7 @@ public class Fragment_Kalender extends Fragment implements Load {
      * @param medicament    The medicament which is taken
      * @param amount        The amount in which the medicament is taken
      */
-    public void addEntry(LocalDateTime localDateTime, Medicament medicament, String amount) {
+    public void addEntry(LocalDateTime localDateTime, Med medicament, String amount) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ArrayList<Kalender_Entry> entries = null;
             if (kalenderEntries.containsKey(localDateTime.toLocalDate())) {
@@ -193,7 +193,7 @@ public class Fragment_Kalender extends Fragment implements Load {
      * @param medicament    The Medicament which is taken
      * @return True if successfully, otherwise false.
      */
-    public boolean removeEntry(LocalDateTime localDateTime, Medicament medicament) {
+    public boolean removeEntry(LocalDateTime localDateTime, Med medicament) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ArrayList<Kalender_Entry> entries;
             // check if the date of the entry is in the list

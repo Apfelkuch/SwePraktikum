@@ -1,6 +1,8 @@
 package de.swe_wi2223_praktikum;
 
-public class Med {
+import java.util.Objects;
+
+public class Med implements java.io.Serializable{
     String medName;
     String medCount;
     String recipeCount;
@@ -9,6 +11,19 @@ public class Med {
         this.medName = medName;
         this.medCount = medCount;
         this.recipeCount = recipeCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Med med = (Med) o;
+        return medName.equals(med.medName) && medCount.equals(med.medCount) && recipeCount.equals(med.recipeCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(medName, medCount, recipeCount);
     }
 
     public String getMedName() {

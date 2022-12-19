@@ -26,6 +26,7 @@ public class NavigationDrawer extends AppCompatActivity{
 //    private final Homescreen homescreen = new Homescreen();
     private BestellungsOverView bestellungsOverView;
     private Fragment_Kalender kalender;
+    private MedStorage storage;
     //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -41,6 +42,8 @@ public class NavigationDrawer extends AppCompatActivity{
         bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
         kalender = new Fragment_Kalender();
         kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
+        storage = new MedStorage();
+        storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
 
 //        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
@@ -84,7 +87,7 @@ public class NavigationDrawer extends AppCompatActivity{
                     break;
                 case R.id.navMedikamente:
                     setTitle(getResources().getString(R.string.Medikamente));
-                    //TODO: Navgiation zu drecks Penix drogenschrank.
+                    loadFragment(storage);
                     Toast.makeText(this, getResources().getString(R.string.Medikamente), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navBestellungen:
@@ -109,6 +112,10 @@ public class NavigationDrawer extends AppCompatActivity{
         System.out.println(FileManager.KALENDER + " is " +
                 (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not")
                         + "saved.");
+        System.out.println(FileManager.MEDIKAMENT + " is " +
+                (FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData()) ? "" : "not")
+                + "saved.");
+
         super.onPause();
     }
 

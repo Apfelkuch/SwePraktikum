@@ -12,6 +12,7 @@ public class FileManager {
 
     public static final String BESTELLUNGEN = "bestellungen.med";
     public static final String KALENDER = "kalender.med";
+    public static final String MEDIKAMENT = "medikamente.med";
     // TODO: Adding of other features
 
     public static boolean save(String filename, Context context, Object o) {

@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MedStorage extends Fragment {
+public class MedStorage extends Fragment implements Load {
     ArrayList<Med> list = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -71,6 +71,21 @@ public class MedStorage extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void load(Object o) {
+        System.out.println("LOAD"+o);
+        if (o == null){
+            return;
+        }
+        this.list = (ArrayList<Med>) o;
+    }
+
+    @Override
+    public Object saveData() {
+        System.out.println("SAVE"+list);
+        return list;
     }
 }
 
