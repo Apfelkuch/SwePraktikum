@@ -37,7 +37,7 @@ public class MedStorage extends Fragment {
         //Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        //Button zum shoppen
+        //Button zum Hinzufügen
         addMed.setOnClickListener(dialog_view -> {
             //Baut das Dialogfenster auf
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -48,7 +48,7 @@ public class MedStorage extends Fragment {
             EditText editCount = dialog_view.findViewById(R.id.editTextNumber);
             EditText editRecip = dialog_view.findViewById(R.id.editTextNumber2);
 
-            //Der Builder, um das Fenster zu tatäschlich zu befüllen
+            //Der Builder, um das Fenster zu tatsächlich zu befüllen
             builder.setView(dialog_view)
                     .setTitle("Medikament Hinzufügen: ")
                     .setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
@@ -56,7 +56,7 @@ public class MedStorage extends Fragment {
                         String tmpCount = editCount.getText().toString();
                         String tmpRecip = editRecip.getText().toString();
 
-                        //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende.
+
                         list.add(new Med(tmpMed, tmpCount, tmpRecip));
                         adapter.notifyItemInserted(list.size()-1);
                         recyclerView.scrollToPosition(list.size()-1);
