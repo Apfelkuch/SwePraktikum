@@ -23,10 +23,10 @@ public class NavigationDrawer extends AppCompatActivity{
 
     //Instancen der Fragmente
     //TODO: Später auskommentieren
-//    private final Homescreen homescreen = new Homescreen();
     private BestellungsOverView bestellungsOverView;
     private Fragment_Kalender kalender;
     private MedStorage storage;
+    private final Homescreen homescreen = new Homescreen();
     //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -35,8 +35,7 @@ public class NavigationDrawer extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
         setTitle(getResources().getString(R.string.app_name));
-//        loadFragment(new Homescreen()); //TODO: Später auskommentieren
-
+        loadFragment(homescreen);
         // construct or load Fragments
         bestellungsOverView = new BestellungsOverView();
         bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
@@ -44,6 +43,10 @@ public class NavigationDrawer extends AppCompatActivity{
         kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
         storage = new MedStorage();
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
+//        homescreen = new Homescreen();
+//        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
+//TODO: Einzunehmende Medis auf dem Homescreen müssen noch gespeichert werden
+//TODO: Jannis und sergey machen liebe !!
 
 //        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
@@ -71,8 +74,7 @@ public class NavigationDrawer extends AppCompatActivity{
             switch (item.getItemId()) {
                 case R.id.navHome:
                     setTitle(getResources().getString(R.string.app_name));
-                    //TODO: Später auskommentieren.
-//                    loadFragment(homescreen);
+                    loadFragment(homescreen);
                     Toast.makeText(this, getResources().getString(R.string.Home), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navKalender:
@@ -114,6 +116,9 @@ public class NavigationDrawer extends AppCompatActivity{
                         + "saved.");
         System.out.println(FileManager.MEDIKAMENT + " is " +
                 (FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData()) ? "" : "not")
+                + "saved.");
+        System.out.println(FileManager.HOME + " is " +
+                (FileManager.save(FileManager.HOME, getApplicationContext(), homescreen.saveData()) ? "" : "not")
                 + "saved.");
 
         super.onPause();

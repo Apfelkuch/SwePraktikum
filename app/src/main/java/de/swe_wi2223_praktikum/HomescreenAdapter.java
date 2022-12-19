@@ -43,7 +43,7 @@ public class HomescreenAdapter extends RecyclerView.Adapter<HomescreenAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.Medikament.setText(pastEntries.get(position).getMedicament().name);
+        holder.Medikament.setText(pastEntries.get(position).getMedicament().getMedName());
         holder.Menge.setText(pastEntries.get(position).getAmount());
     }
 

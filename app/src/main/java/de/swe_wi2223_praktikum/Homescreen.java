@@ -22,11 +22,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Homescreen extends Fragment {
+public class Homescreen extends Fragment implements Load{
 
     ArrayList<Kalender_Entry> futureEntries = new ArrayList<>(); //Entries für die Timer
     ArrayList<Kalender_Entry> pastEntries = new ArrayList<>(); //Entries für die Medikamenten Anzeige
@@ -46,12 +48,12 @@ public class Homescreen extends Fragment {
     public Homescreen(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             //TODO: dummyMedicament bekommen wir von Felix. Später nochmal die Test-Entries testen.
-            Medicament dummyMedicament = new Medicament("A");
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 5000), "5"));
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 15000), "10"));
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 30000), "15"));
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000), "20"));
-            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalTime().toNanoOfDay());
+            Med dummyMedicament = new Med("A","0","0");
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 5000)), "5"));
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 15000)), "10"));
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 30000)), "15"));
+            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000)), "20"));
+            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
         }
     }
 
@@ -134,7 +136,7 @@ public class Homescreen extends Fragment {
 
     //region Timer starten & updaten
     @SuppressLint("SetTextI18n")
-    private void startTimer() {
+    public void startTimer() {
         new CountDownTimer(getmTimeLeftInMillis(), 1000) {
             /*
              * Gets the left time in millis and counts down with an interval of 1000 milliseconds (1s).
@@ -157,23 +159,33 @@ public class Homescreen extends Fragment {
                  * display a message that tells the user there are no more entries.
                  * Finally we set the seconds timer, the next button to visible, notify the adapter
                  * of every change and send a push notification.
-                 * */
+                 **/
                 mMainTimerRunning = false;
+
+                if (futureEntries.isEmpty())
+                    return;
+
+
                 pastEntries.add(futureEntries.remove(mMain_Count));
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !futureEntries.isEmpty()) {
-                    setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalTime().toNanoOfDay());
+                    setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
                 }else{
-                    Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
+                    if(getContext() != null)
+                        Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
                 }
-                mSub_Countdown_Timer.setVisibility(View.VISIBLE);
-                mBtnNext.setVisibility(View.VISIBLE);
-                adapterHomescreen.notifyDataSetChanged();
-                reminderNotification();
+                if(mSub_Countdown_Timer != null)
+                    mSub_Countdown_Timer.setVisibility(View.VISIBLE);
+                if(mBtnNext != null)
+                    mBtnNext.setVisibility(View.VISIBLE);
+                if(adapterHomescreen != null) {
+                    adapterHomescreen.notifyDataSetChanged();
+                    reminderNotification();
+                }
             }
         }.start();
     }
 
-    private void updateCountDownText() {
+    public void updateCountDownText() {
         /*
          * Calculates the milliseconds into the correct form (hours, minutes or seconds) and casts
          * them to an int. We bundle it in the format we want and give it to the timers.
@@ -185,10 +197,13 @@ public class Homescreen extends Fragment {
 
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hours,minutes, seconds);
 
-        if(mMainTimerRunning){
-            mMain_Countdown_Timer.setText(timeLeftFormatted);
-        }else{
-            mSub_Countdown_Timer.setText(timeLeftFormatted);
+        if (mMain_Countdown_Timer != null) {
+
+            if (mMainTimerRunning) {
+                mMain_Countdown_Timer.setText(timeLeftFormatted);
+            } else {
+                mSub_Countdown_Timer.setText(timeLeftFormatted);
+            }
         }
     }
     //endregion
@@ -196,5 +211,22 @@ public class Homescreen extends Fragment {
     //Push notification
     private void reminderNotification() {
         notificationManagerCompat.notify(1, notification);
+    }
+
+    @Override
+    public void load(Object o) {
+        if( o ==null)
+            return;
+        Object[] objects = (Object[]) o;
+        this.pastEntries = (ArrayList<Kalender_Entry>) objects[0];
+        this.futureEntries = (ArrayList<Kalender_Entry>) objects[1];
+    }
+
+    @Override
+    public Object saveData() {
+        Object[] objects = new Object[2];
+        objects[0] = pastEntries;
+        objects[1] = futureEntries;
+        return objects;
     }
 }

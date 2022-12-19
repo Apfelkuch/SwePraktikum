@@ -75,7 +75,6 @@ public class MedStorage extends Fragment implements Load {
 
     @Override
     public void load(Object o) {
-        System.out.println("LOAD"+o);
         if (o == null){
             return;
         }
@@ -84,7 +83,6 @@ public class MedStorage extends Fragment implements Load {
 
     @Override
     public Object saveData() {
-        System.out.println("SAVE"+list);
         return list;
     }
 }
