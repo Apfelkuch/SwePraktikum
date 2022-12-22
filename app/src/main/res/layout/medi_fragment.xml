@@ -31,7 +31,7 @@
                 tools:ignore="RtlSymmetry" />
 
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/add_recip_day_bttn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

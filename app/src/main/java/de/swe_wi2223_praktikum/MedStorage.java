@@ -67,7 +67,7 @@ public class MedStorage extends Fragment implements Load {
             builder.show();
         });
 
-        adapter = new MedAdapter(requireActivity(), list);
+        adapter = new MedAdapter(requireActivity(), list,this);
         recyclerView.setAdapter(adapter);
 
         return view;

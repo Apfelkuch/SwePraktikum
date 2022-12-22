@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,14 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
     //Globale variablen
     Context context;
     ArrayList<Med> list;
+    MedStorage vMedstorage;
+    View.OnClickListener click ;
 
     //Constructor für den Adapter
     MedAdapter(Context context, ArrayList<Med> list,  MedStorage vMedstorage ){
         this.context = context;
         this.list = list;
-        this.vMedstorage = vMedstorage
+        this.vMedstorage = vMedstorage;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -44,34 +47,77 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
         View view = LayoutInflater.from(context).inflate(R.layout.medi_fragment, parent,false);
 
         Button addOrder = view.findViewById(R.id.order_button);
+        ImageButton addRecipDays = view.findViewById(R.id.add_recip_day_bttn);
+
+
         addOrder.setOnClickListener(dialog_view -> {
             //Baut das Dialogfenster auf
-            AlertDialog.Builder builder = new AlertDialog.Builder();
-            dialog_view = getLayoutInflater().inflate(R.layout.add_med_dialog, null);
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(vMedstorage.requireActivity());
+            dialog_view = vMedstorage.getLayoutInflater().inflate(R.layout.order_med_dialog, null);
             //Variablen, zum editieren aus der XML-Datei
-            EditText editMed = dialog_view.findViewById(R.id.editTextTextMed);
-            EditText editCount = dialog_view.findViewById(R.id.editTextNumber);
-            EditText editRecip = dialog_view.findViewById(R.id.editTextNumber2);
+
+            EditText addMedCount = dialog_view.findViewById(R.id.order_med_count);
 
             //Der Builder, um das Fenster zu tatsächlich zu befüllen
             builder.setView(dialog_view)
-                    .setTitle("Medikament Hinzufügen: ")
-                    .setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
-                        String tmpMed = editMed.getText().toString();
-                        String tmpCount = editCount.getText().toString();
-                        String tmpRecip = editRecip.getText().toString();
+                    .setTitle("Medikament Bestellen: ")
+                    .setPositiveButton("Bestellen", (dialogInterface, i) -> {
+                        String tmpCount = addMedCount.getText().toString();
 
+                        //TODO: Bestellübergabe
 
-                        list.add(new Med(tmpMed, tmpCount, tmpRecip));
-                        adapter.notifyItemInserted(list.size()-1);
-                        recyclerView.scrollToPosition(list.size()-1);
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
                     });
             builder.show();
         });
+
+        click = new View.OnClickListener() {
+            public AlertDialog.Builder builder;
+            @Override
+            public void onClick(View view) {
+                builder = new AlertDialog.Builder(vMedstorage.requireActivity());
+                view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
+
+                //Variablen, zum editieren aus der XML-Datei
+
+                EditText addDays = view.findViewById(R.id.add_recip_days);
+
+                //Der Builder, um das Fenster zu tatsächlich zu befüllen
+
+                builder.setView(view)
+                        .setTitle("Rezept verlängern: ")
+
+                        .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+                            //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
+                        });
+
+            }
+
+//        addRecipDays.setOnClickListener(dialog_view -> {
+//            //Baut das Dialogfenster auf
+//            builder = new AlertDialog.Builder(vMedstorage.requireActivity());
+//            dialog_view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
+//
+//            //Variablen, zum editieren aus der XML-Datei
+//
+//            EditText addDays = dialog_view.findViewById(R.id.add_recip_days);
+//
+//            //Der Builder, um das Fenster zu tatsächlich zu befüllen
+//
+//            builder.setView(dialog_view)
+//                    .setTitle("Rezept verlängern: ")
+//
+//                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+//                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
+//                    });
+//
+        };
+
+
+
+
 
 
         return new ViewHolder(view);
@@ -99,21 +145,36 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
             builder.show();
         });
 
-//        //Order Button
-//        holder.itemView.findViewById(R.id.Order_button).setOnClickListener(view -> {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(context)
-//            view = (R.layout.order_med_dialog, null);
-//                    .setTitle("Medikament Bestellen")
-//                    .setPositiveButton("Bestellen", (dialogInterface, i) -> {
-//                        list.remove(holder.getAdapterPosition());
-//                        notifyItemRemoved(holder.getAdapterPosition());
+//        //Recipy Button
+//        addRecipDays.setOnClickListener(dialog_view -> {
+//            //Baut das Dialogfenster auf
+//            AlertDialog.Builder builder = new AlertDialog.Builder(vMedstorage.requireActivity());
+//            dialog_view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
+//
+//            //Variablen, zum editieren aus der XML-Datei
+//
+//            EditText addDays = dialog_view.findViewById(R.id.add_recip_days);
+//
+//            //Der Builder, um das Fenster zu tatsächlich zu befüllen
+//            dialog_view.requestFocus();
+//
+//            builder.setView(dialog_view)
+//                    .setTitle("Rezept verlängern: ")
+//                    .setPositiveButton("Verlängern", (dialogInterface, i) -> {
+//                        String tmpCount = addDays.getText().toString();
+//                        System.out.println("WERT VON IIIIIIIIIIIIII"+parent.indexOfChild(parent.getFocusedChild()));
 //                    })
 //                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-//
+//                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
 //                    });
 //            builder.show();
 //        });
-
+        click.builder
+                .setpositiveButton("Löschen", (dialogInterface, i)-> {
+            System.out.println(position);
+        })
+                .show();
+        holder.itemView.findViewById(R.id.add_recip_day_bttn).setOnClickListener(click);
 
 
     }
