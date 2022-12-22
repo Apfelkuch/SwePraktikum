@@ -24,6 +24,12 @@ public class MedStorage extends Fragment implements Load {
     private RecyclerView recyclerView;
     private MedAdapter adapter;
 
+    private NavigationDrawer navigationDrawer;
+
+    public MedStorage(NavigationDrawer navigationDrawer) {
+        this.navigationDrawer = navigationDrawer;
+    }
+
     @SuppressLint("InflateParams")
     @Nullable
     @Override

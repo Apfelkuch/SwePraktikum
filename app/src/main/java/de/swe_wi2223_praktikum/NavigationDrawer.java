@@ -22,11 +22,10 @@ public class NavigationDrawer extends AppCompatActivity{
     private DrawerLayout drawerLayout;
 
     //Instancen der Fragmente
-    //TODO: Später auskommentieren
     private BestellungsOverView bestellungsOverView;
     private Fragment_Kalender kalender;
     private MedStorage storage;
-    private final Homescreen homescreen = new Homescreen();
+    private Homescreen homescreen;
     //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -35,18 +34,17 @@ public class NavigationDrawer extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
         setTitle(getResources().getString(R.string.app_name));
-        loadFragment(homescreen);
         // construct or load Fragments
-        bestellungsOverView = new BestellungsOverView();
+        bestellungsOverView = new BestellungsOverView(this);
         bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
-        kalender = new Fragment_Kalender();
-        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
-        storage = new MedStorage();
+        kalender = new Fragment_Kalender(this);
+//        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
+        storage = new MedStorage(this);
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
-//        homescreen = new Homescreen();
-//        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
-//TODO: Einzunehmende Medis auf dem Homescreen müssen noch gespeichert werden
-//TODO: Jannis und sergey machen liebe !!
+        homescreen = new Homescreen(this);
+        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
+
+        loadFragment(homescreen);
 
 //        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
@@ -140,4 +138,11 @@ public class NavigationDrawer extends AppCompatActivity{
             super.onBackPressed();
         }
     }
+
+    // GETTER && SETTER
+
+    public Fragment_Kalender getKalender() {
+        return kalender;
+    }
+
 }

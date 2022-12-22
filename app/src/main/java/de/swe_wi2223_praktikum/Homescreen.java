@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -30,7 +29,8 @@ import java.util.Locale;
 
 public class Homescreen extends Fragment implements Load{
 
-    ArrayList<Kalender_Entry> futureEntries = new ArrayList<>(); //Entries für die Timer
+//    ArrayList<Kalender_Entry> futureEntries = new ArrayList<>(); //Entries für die Timer
+    Kalender_Entry futureEntry = null;
     ArrayList<Kalender_Entry> pastEntries = new ArrayList<>(); //Entries für die Medikamenten Anzeige
 
     //region Variablen
@@ -43,24 +43,27 @@ public class Homescreen extends Fragment implements Load{
     private Notification notification;
     private final int mMain_Count = 0;
     private HomescreenAdapter adapterHomescreen;
+
+    private final NavigationDrawer navigationDrawer;
     //endregion
 
-    public Homescreen(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            //TODO: dummyMedicament bekommen wir von Felix. Später nochmal die Test-Entries testen.
-            Med dummyMedicament = new Med("A","0","0");
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 5000)), "5"));
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 15000)), "10"));
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 30000)), "15"));
-            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000)), "20"));
-            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
-        }
+    public Homescreen(NavigationDrawer navigationDrawer) {
+        this.navigationDrawer = navigationDrawer;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            Med dummyMedicament = new Med("A", "0", "0");
+//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 5000)), "5"));
+//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 15000)), "10"));
+//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 30000)), "15"));
+//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000)), "20"));
+//            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
+//        }
+        startTimer();
+        mMainTimerRunning = true;
     }
 
-    //Schnittstelle für Janis
-    public void addFutureEntries(Kalender_Entry futureEntry){
-        futureEntries.add(futureEntry);
-    }
+//    public void addFutureEntries(Kalender_Entry futureEntry){
+//        futureEntries.add(futureEntry);
+//    }
 
     @SuppressWarnings("CollectionAddedToSelf")
     @SuppressLint({"MissingInflatedId", "NotifyDataSetChanged"})
@@ -79,6 +82,9 @@ public class Homescreen extends Fragment implements Load{
         //region Start conditions
         recyclerView_homescreen.setLayoutManager(new LinearLayoutManager(requireActivity()));
         if(mMainTimerRunning){
+            if (!pastEntries.isEmpty()) {
+                mBtnNext.setVisibility(Button.VISIBLE);
+            }
             System.out.println("Hier könnte Ihre Werbung stehen.");
         }else{
             System.out.println("Fehler");
@@ -128,9 +134,12 @@ public class Homescreen extends Fragment implements Load{
         return mTimeLeftInMillis;
     }
 
-    public void setmTimeLeftInMillis(long givenTime) {
-        this.mTimeLeftInMillis = givenTime - System.currentTimeMillis();
-        startTimer();
+    public void setFutureTimeInSeconds(long givenTime) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            this.mTimeLeftInMillis = givenTime - System.currentTimeMillis();
+            this.mTimeLeftInMillis = (givenTime - LocalTime.now().toSecondOfDay()) * 1000L; // (*1000) working internally with milliseconds
+            startTimer();
+        }
     }
     //endregion
 
@@ -138,59 +147,62 @@ public class Homescreen extends Fragment implements Load{
     @SuppressLint("SetTextI18n")
     public void startTimer() {
         new CountDownTimer(getmTimeLeftInMillis(), 1000) {
-            /*
+            /**
              * Gets the left time in millis and counts down with an interval of 1000 milliseconds (1s).
              * With every tick we call the method updateCountDownText, so we get the correct time.
-             * */
+             **/
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
             }
 
+            /**
+             * When the timer runs out we set the boolean to false and add the current Kalender_Entry
+             * information to a new array, so we can further use it for the medicament box. At the same
+             * time we remove the information from the futureEntries list. Next we check if the
+             * futureEntries list still has some entries. If true the next timer starts, else we
+             * display a message that tells the user there are no more entries.
+             * Finally we set the seconds timer, the next button to visible, notify the adapter
+             * of every change and send a push notification.
+             **/
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onFinish() {
-                /*
-                 * When the timer runs out we set the boolean to false and add the current Kalender_Entry
-                 * information to a new array, so we can further use it for the medicament box. At the same
-                 * time we remove the information from the futureEntries list. Next we check if the
-                 * futureEntries list still has some entries. If true the next timer starts, else we
-                 * display a message that tells the user there are no more entries.
-                 * Finally we set the seconds timer, the next button to visible, notify the adapter
-                 * of every change and send a push notification.
-                 **/
-                mMainTimerRunning = false;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    mMainTimerRunning = false;
 
-                if (futureEntries.isEmpty())
-                    return;
+                    if (futureEntry != null)
+                        pastEntries.add(futureEntry);
 
+                    futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
+                    System.out.println(futureEntry);
 
-                pastEntries.add(futureEntries.remove(mMain_Count));
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !futureEntries.isEmpty()) {
-                    setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
-                }else{
-                    if(getContext() != null)
-                        Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
-                }
-                if(mSub_Countdown_Timer != null)
-                    mSub_Countdown_Timer.setVisibility(View.VISIBLE);
-                if(mBtnNext != null)
-                    mBtnNext.setVisibility(View.VISIBLE);
-                if(adapterHomescreen != null) {
-                    adapterHomescreen.notifyDataSetChanged();
-                    reminderNotification();
+                    if(futureEntry != null) {
+                        setFutureTimeInSeconds(futureEntry.getLocalDateTime().toLocalTime().toSecondOfDay());
+                    }else{
+                        if(getContext() != null)
+                            Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
+                    }
+                    if(mSub_Countdown_Timer != null)
+                        mSub_Countdown_Timer.setVisibility(View.VISIBLE);
+                    if(mBtnNext != null)
+                        mBtnNext.setVisibility(View.VISIBLE);
+                    if(adapterHomescreen != null) {
+                        adapterHomescreen.notifyDataSetChanged();
+                        reminderNotification();
+                    }
                 }
             }
         }.start();
     }
 
+    /**
+     * Calculates the milliseconds into the correct form (hours, minutes or seconds) and casts
+     * them to an int. We bundle it in the format we want and give it to the timers.
+     * We check what timer should get the text.
+     **/
     public void updateCountDownText() {
-        /*
-         * Calculates the milliseconds into the correct form (hours, minutes or seconds) and casts
-         * them to an int. We bundle it in the format we want and give it to the timers.
-         * We check what timer should get the text.
-         * */
         int hours = (int) (getmTimeLeftInMillis()/3600000);
         int minutes = (int) (getmTimeLeftInMillis()/60000)%60;
         int seconds = (int) (getmTimeLeftInMillis()/1000)%60;
@@ -217,16 +229,11 @@ public class Homescreen extends Fragment implements Load{
     public void load(Object o) {
         if( o ==null)
             return;
-        Object[] objects = (Object[]) o;
-        this.pastEntries = (ArrayList<Kalender_Entry>) objects[0];
-        this.futureEntries = (ArrayList<Kalender_Entry>) objects[1];
+        this.pastEntries = (ArrayList<Kalender_Entry>) o;
     }
 
     @Override
     public Object saveData() {
-        Object[] objects = new Object[2];
-        objects[0] = pastEntries;
-        objects[1] = futureEntries;
-        return objects;
+        return pastEntries;
     }
 }

@@ -22,6 +22,12 @@ public class BestellungsOverView extends Fragment implements Load {
     private RecyclerView recyclerView;
     private BestellungenAdapter adapter;
 
+    private NavigationDrawer navigationDrawer;
+
+    public BestellungsOverView(NavigationDrawer navigationDrawer) {
+        this.navigationDrawer = navigationDrawer;
+    }
+
     @SuppressLint("InflateParams")
     @Nullable
     @Override
