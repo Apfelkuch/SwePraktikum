@@ -20,4 +20,7 @@
     <string name="Reset">Reset</string>
     <string name="_00_00_00">00:00:00</string>
     <string name="Next">Next</string>
+    <string name="LogTitle">Medikamenten Log</string>
+    <string name="Log">Log</string>
+    <string name="logLoeschen">Log löschen</string>
 </resources>
