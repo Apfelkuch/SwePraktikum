@@ -31,6 +31,18 @@
                 tools:ignore="RtlSymmetry" />
 
 
+            <ImageView
+                android:id="@+id/add_recip_day_bttn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Med_count_text"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="-1dp"
+                android:layout_toEndOf="@id/strDay"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                app:srcCompat="@android:drawable/ic_input_add" />
+
             <ImageButton
                 android:id="@+id/trashbin"
                 android:layout_width="wrap_content"
@@ -43,7 +55,7 @@
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
             <Button
-                android:id="@+id/Order_button"
+                android:id="@+id/order_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Med_name"

@@ -21,6 +21,14 @@ public class Med implements java.io.Serializable{
         return medName.equals(med.medName) && medCount.equals(med.medCount) && recipeCount.equals(med.recipeCount);
     }
 
+    public void setMedCount(String medCount) {
+        this.medCount = medCount;
+    }
+
+    public void setRecipeCount(String recipeCount) {
+        this.recipeCount = recipeCount;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(medName, medCount, recipeCount);
