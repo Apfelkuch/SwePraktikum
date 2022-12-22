@@ -71,7 +71,7 @@ public class Fragment_Log extends Fragment implements Load {
     }
 
     public void addLogEntry(Kalender_Entry kalender_entry) {
-        logEntries.add(new Log_Entry(kalender_entry.getMedicament().getName(), kalender_entry.getLocalDateTime(), kalender_entry.getAmount()));
+        logEntries.add(new Log_Entry(kalender_entry.getMedicament().getMedName(), kalender_entry.getLocalDateTime(), kalender_entry.getAmount()));
         while (logEntries.size() >= maxLogLength) {
             logEntries.remove(0);
         }

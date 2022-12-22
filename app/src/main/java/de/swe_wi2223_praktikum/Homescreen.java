@@ -102,6 +102,12 @@ public class Homescreen extends Fragment implements Load{
             mMainTimerRunning = true;
             mSub_Countdown_Timer.setVisibility(View.INVISIBLE);
             mBtnNext.setVisibility(View.INVISIBLE);
+
+            // add the entries to the log
+            for (Kalender_Entry entry : pastEntries) {
+                this.navigationDrawer.getLog().addLogEntry(entry);
+            }
+
             pastEntries.removeAll(pastEntries);
             adapterHomescreen.notifyDataSetChanged();
             updateCountDownText();

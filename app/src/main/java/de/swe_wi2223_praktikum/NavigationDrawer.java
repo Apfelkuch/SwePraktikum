@@ -170,4 +170,7 @@ public class NavigationDrawer extends AppCompatActivity{
         return kalender;
     }
 
+    public Fragment_Log getLog() {
+        return log;
+    }
 }
