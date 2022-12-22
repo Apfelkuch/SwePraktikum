@@ -1,19 +1,18 @@
 package de.swe_wi2223_praktikum;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 public class BestellungsOverView extends Fragment implements Load {
@@ -26,9 +25,6 @@ public class BestellungsOverView extends Fragment implements Load {
 
     public BestellungsOverView(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
-        addBestellung("M A", 1);
-        addBestellung("M B", 2);
-        addBestellung("M C", 3);
     }
 
     public void addBestellung(String title, int menge) {
@@ -51,6 +47,13 @@ public class BestellungsOverView extends Fragment implements Load {
 
         adapter = new BestellungenAdapter(requireActivity(), list);
         recyclerView.setAdapter(adapter);
+
+        // TODO: example Content
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            navigationDrawer.getBestellungsOverView().addBestellung("M A", 1);
+            navigationDrawer.getBestellungsOverView().addBestellung("M B", 2);
+            navigationDrawer.getBestellungsOverView().addBestellung("M C", 3);
+        }
 
         return view;
     }

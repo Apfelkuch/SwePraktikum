@@ -145,4 +145,7 @@ public class NavigationDrawer extends AppCompatActivity{
         return kalender;
     }
 
+    public BestellungsOverView getBestellungsOverView() {
+        return bestellungsOverView;
+    }
 }

@@ -44,7 +44,7 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Medikament.setText(list.get(position).getName());
-        holder.Menge.setText(list.get(position).getMenge());
+        holder.Menge.setText(String.valueOf(list.get(position).getMenge()));
 
         //Delete Button mit Dialog-Bestätigung
         holder.itemView.findViewById(R.id.btnDelete).setOnClickListener(view -> {
@@ -52,8 +52,8 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
                     .setTitle("Bestellung Löschen")
                     .setMessage("Sind Sie sicher, dass Sie diese Bestellung löschen möchten?")
                     .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
-                        list.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
+                        list.remove(holder.getAbsoluteAdapterPosition());
+                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
 
