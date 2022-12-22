@@ -4,11 +4,15 @@ package de.swe_wi2223_praktikum;
 //Constructor, Getter und Setter
 public class Bestellungen implements java.io.Serializable {
     private String name;
-    private String menge;
+    private int menge;
 
-    public Bestellungen(String name, String menge) {
+    public Bestellungen(String name, int menge) {
         this.name = name;
         this.menge = menge;
+    }
+
+    public void addMenge(int addMenge) {
+        this.menge += addMenge;
     }
 
     public void setName(String name) {
@@ -17,10 +21,10 @@ public class Bestellungen implements java.io.Serializable {
     public String getName() {
         return name;
     }
-    public void setMenge(String menge) {
+    public void setMenge(int menge) {
         this.menge = menge;
     }
-    public String getMenge() {
+    public int getMenge() {
         return menge;
     }
 }
