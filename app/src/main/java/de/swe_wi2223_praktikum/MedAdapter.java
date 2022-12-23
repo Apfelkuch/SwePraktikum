@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
@@ -21,7 +22,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
     Context context;
     ArrayList<Med> list;
     MedStorage vMedstorage;
-    View.OnClickListener click ;
 
     //Constructor für den Adapter
     MedAdapter(Context context, ArrayList<Med> list,  MedStorage vMedstorage ){
@@ -73,11 +73,40 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
             builder.show();
         });
 
-        click = new View.OnClickListener() {
-            public AlertDialog.Builder builder;
+        return new ViewHolder(view);
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        super.onBindViewHolder(holder, position, payloads);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.Med_Name.setText(list.get(holder.getAbsoluteAdapterPosition()).getMedName());
+        holder.Med_Count.setText(list.get(holder.getAbsoluteAdapterPosition()).getMedCount());
+        holder.Rep_Count.setText(list.get(holder.getAbsoluteAdapterPosition()).getRecipeCount());
+
+        //Delete Button mit Dialog-Bestätigung
+        holder.itemView.findViewById(R.id.trashbin).setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                    .setTitle("Medikament Löschen")
+                    .setMessage("Sind Sie sicher, dass Sie das Medikament löschen möchten?")
+                    .setPositiveButton("Löschen", (dialogInterface, i) -> {
+                        list.remove(holder.getAbsoluteAdapterPosition());
+                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+                    })
+                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+
+                    });
+            builder.show();
+        });
+
+        holder.itemView.findViewById(R.id.add_recip_day_bttn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                builder = new AlertDialog.Builder(vMedstorage.requireActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(vMedstorage.requireActivity());
                 view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
 
                 //Variablen, zum editieren aus der XML-Datei
@@ -88,93 +117,16 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
                 builder.setView(view)
                         .setTitle("Rezept verlängern: ")
-
+                        .setPositiveButton("Löschen", (dialogInterface, i) -> {
+                            vMedstorage.list.get(holder.getAbsoluteAdapterPosition()).setRecipeCount(addDays.getText().toString());
+                            notifyItemChanged(holder.getAbsoluteAdapterPosition());
+                        })
                         .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                             //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
-                        });
-
+                        })
+                        .show();
             }
-
-//        addRecipDays.setOnClickListener(dialog_view -> {
-//            //Baut das Dialogfenster auf
-//            builder = new AlertDialog.Builder(vMedstorage.requireActivity());
-//            dialog_view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
-//
-//            //Variablen, zum editieren aus der XML-Datei
-//
-//            EditText addDays = dialog_view.findViewById(R.id.add_recip_days);
-//
-//            //Der Builder, um das Fenster zu tatsächlich zu befüllen
-//
-//            builder.setView(dialog_view)
-//                    .setTitle("Rezept verlängern: ")
-//
-//                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-//                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
-//                    });
-//
-        };
-
-
-
-
-
-
-        return new ViewHolder(view);
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.Med_Name.setText(list.get(position).getMedName());
-        holder.Med_Count.setText(list.get(position).getMedCount());
-        holder.Rep_Count.setText(list.get(position).getRecipeCount());
-
-        //Delete Button mit Dialog-Bestätigung
-        holder.itemView.findViewById(R.id.trashbin).setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                    .setTitle("Medikament Löschen")
-                    .setMessage("Sind Sie sicher, dass Sie das Medikament löschen möchten?")
-                    .setPositiveButton("Löschen", (dialogInterface, i) -> {
-                        list.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
-                    })
-                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-
-                    });
-            builder.show();
         });
-
-//        //Recipy Button
-//        addRecipDays.setOnClickListener(dialog_view -> {
-//            //Baut das Dialogfenster auf
-//            AlertDialog.Builder builder = new AlertDialog.Builder(vMedstorage.requireActivity());
-//            dialog_view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
-//
-//            //Variablen, zum editieren aus der XML-Datei
-//
-//            EditText addDays = dialog_view.findViewById(R.id.add_recip_days);
-//
-//            //Der Builder, um das Fenster zu tatsächlich zu befüllen
-//            dialog_view.requestFocus();
-//
-//            builder.setView(dialog_view)
-//                    .setTitle("Rezept verlängern: ")
-//                    .setPositiveButton("Verlängern", (dialogInterface, i) -> {
-//                        String tmpCount = addDays.getText().toString();
-//                        System.out.println("WERT VON IIIIIIIIIIIIII"+parent.indexOfChild(parent.getFocusedChild()));
-//                    })
-//                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-//                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
-//                    });
-//            builder.show();
-//        });
-        click.builder
-                .setpositiveButton("Löschen", (dialogInterface, i)-> {
-            System.out.println(position);
-        })
-                .show();
-        holder.itemView.findViewById(R.id.add_recip_day_bttn).setOnClickListener(click);
 
 
     }
