@@ -29,8 +29,10 @@ public class Fragment_Kalender extends Fragment implements Load {
 
     private final int maxLookupDistance = 10;
 
+    private NavigationDrawer navigationDrawer;
 
-    public Fragment_Kalender() {
+    public Fragment_Kalender(NavigationDrawer navigationDrawer) {
+        this.navigationDrawer = navigationDrawer;
         // example data
         kalenderEntries = new HashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -46,6 +48,9 @@ public class Fragment_Kalender extends Fragment implements Load {
             addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Med("Medicament C","0","0"), "0.2 g");
             addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Med("Medicament C","0","0"), "0.2 g");
             addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Med("Medicament C","0","0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M A", "0", "0"), "0.2 g");
+            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M B", "0", "0"), "0.4 g");
+            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M C", "0", "0"), "0.2 g");
         }
 
 //        // test the getNextEntry-Method
@@ -121,7 +126,7 @@ public class Fragment_Kalender extends Fragment implements Load {
                 dailyKalenderEntries = getEntriesOnDay(currentLocalDate);
                 lookupDistance--;
             }
-            if (lookupDistance < 0) {
+            if (lookupDistance < 0 || dailyKalenderEntries == null) {
                 return null;
             }
             for (Kalender_Entry kalender_entry : dailyKalenderEntries) {

@@ -22,11 +22,11 @@ public class NavigationDrawer extends AppCompatActivity{
     private DrawerLayout drawerLayout;
 
     //Instancen der Fragmente
-    //TODO: Später auskommentieren
     private BestellungsOverView bestellungsOverView;
     private Fragment_Kalender kalender;
     private MedStorage storage;
-    private final Homescreen homescreen = new Homescreen();
+    private Homescreen homescreen;
+    private Fragment_Log log;
     //TODO: Restliche Fragmente von den anderen instanzieren
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -35,18 +35,19 @@ public class NavigationDrawer extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_main);
         setTitle(getResources().getString(R.string.app_name));
-        loadFragment(homescreen);
         // construct or load Fragments
-        bestellungsOverView = new BestellungsOverView();
+        bestellungsOverView = new BestellungsOverView(this);
         bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
-        kalender = new Fragment_Kalender();
-        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
-        storage = new MedStorage();
+        kalender = new Fragment_Kalender(this);
+//        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
+        storage = new MedStorage(this);
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
-//        homescreen = new Homescreen();
-//        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
-//TODO: Einzunehmende Medis auf dem Homescreen müssen noch gespeichert werden
-//TODO: Jannis und sergey machen liebe !!
+        homescreen = new Homescreen(this);
+        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
+        log = new Fragment_Log();
+        log.load(FileManager.load(FileManager.LOG, getApplicationContext()));
+
+        loadFragment(homescreen);
 
 //        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
@@ -97,6 +98,10 @@ public class NavigationDrawer extends AppCompatActivity{
                     loadFragment(bestellungsOverView);
                     Toast.makeText(this, getResources().getString(R.string.Bestellungen), Toast.LENGTH_SHORT).show();
                     break;
+                case R.id.navLog:
+                    setTitle(getResources().getString(R.string.Log));
+                    loadFragment(log);
+                    Toast.makeText(this, getResources().getString(R.string.Log), Toast.LENGTH_SHORT).show();
             }
 
             //Fenster soll nach Klick schließen.
@@ -106,22 +111,40 @@ public class NavigationDrawer extends AppCompatActivity{
         //endregion
     }
 
-    @Override
-    protected void onPause() {
+    private void save() {
         System.out.println(FileManager.BESTELLUNGEN + " is " +
                 (FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData()) ? "" : "not")
                 + "saved.");
         System.out.println(FileManager.KALENDER + " is " +
                 (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not")
-                        + "saved.");
+                + "saved.");
         System.out.println(FileManager.MEDIKAMENT + " is " +
                 (FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData()) ? "" : "not")
                 + "saved.");
         System.out.println(FileManager.HOME + " is " +
                 (FileManager.save(FileManager.HOME, getApplicationContext(), homescreen.saveData()) ? "" : "not")
                 + "saved.");
+        System.out.println(FileManager.LOG + " is " +
+                (FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData()) ? "" : "not")
+                + "saved.");
+    }
 
+    @Override
+    protected void onPause() {
+        save();
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        save();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        save();
+        super.onDestroy();
     }
 
     private void loadFragment(Fragment fragment) {
@@ -139,5 +162,19 @@ public class NavigationDrawer extends AppCompatActivity{
         } else {
             super.onBackPressed();
         }
+    }
+
+    // GETTER && SETTER
+
+    public Fragment_Kalender getKalender() {
+        return kalender;
+    }
+
+    public BestellungsOverView getBestellungsOverView() {
+        return bestellungsOverView;
+    }
+
+    public Fragment_Log getLog() {
+        return log;
     }
 }

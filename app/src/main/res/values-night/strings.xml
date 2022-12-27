@@ -14,7 +14,6 @@
     <string name="Menge">Menge</string>
     <string name="Medikament">Medikament</string>
     <string name="Bestellmenge">Bestellmenge</string>
-    <string name="OeffnetDialogZumBestellen">Soll Dialog zum bestellen öffnen.</string>
     <string name="LieferungBestaetigen">Lieferung Bestätigen</string>
     <string name="LieferungStornieren">Lieferung stornieren</string>
     <string name="Start">Start</string>
