@@ -166,6 +166,8 @@ public class NavigationDrawer extends AppCompatActivity{
 
     // GETTER && SETTER
 
+    public MedStorage getStorage() {return storage;  }
+
     public Fragment_Kalender getKalender() {
         return kalender;
     }

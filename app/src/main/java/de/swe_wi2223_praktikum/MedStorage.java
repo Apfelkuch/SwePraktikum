@@ -19,12 +19,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class MedStorage extends Fragment implements Load {
-    ArrayList<Med> list = new ArrayList<>();
+    ArrayList<Med> storage = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private MedAdapter adapter;
 
-    private NavigationDrawer navigationDrawer;
+    NavigationDrawer navigationDrawer;
 
     public MedStorage(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
@@ -63,9 +63,9 @@ public class MedStorage extends Fragment implements Load {
                         String tmpRecip = editRecip.getText().toString();
 
 
-                        list.add(new Med(tmpMed, tmpCount, tmpRecip));
-                        adapter.notifyItemInserted(list.size()-1);
-                        recyclerView.scrollToPosition(list.size()-1);
+                        storage.add(new Med(tmpMed, tmpCount, tmpRecip));
+                        adapter.notifyItemInserted(storage.size()-1);
+                        recyclerView.scrollToPosition(storage.size()-1);
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
@@ -73,7 +73,7 @@ public class MedStorage extends Fragment implements Load {
             builder.show();
         });
 
-        adapter = new MedAdapter(requireActivity(), list,this);
+        adapter = new MedAdapter(requireActivity(), storage,this);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -84,12 +84,12 @@ public class MedStorage extends Fragment implements Load {
         if (o == null){
             return;
         }
-        this.list = (ArrayList<Med>) o;
+        this.storage = (ArrayList<Med>) o;
     }
 
     @Override
     public Object saveData() {
-        return list;
+        return storage;
     }
 }
 

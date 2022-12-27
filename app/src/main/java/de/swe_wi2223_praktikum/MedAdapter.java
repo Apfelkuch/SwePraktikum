@@ -20,13 +20,13 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
     //Globale variablen
     Context context;
-    ArrayList<Med> list;
+    ArrayList<Med> storage;
     MedStorage vMedstorage;
 
     //Constructor für den Adapter
-    MedAdapter(Context context, ArrayList<Med> list,  MedStorage vMedstorage ){
+    MedAdapter(Context context, ArrayList<Med> storage, MedStorage vMedstorage ){
         this.context = context;
-        this.list = list;
+        this.storage = storage;
         this.vMedstorage = vMedstorage;
     }
 
@@ -84,9 +84,9 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.Med_Name.setText(list.get(holder.getAbsoluteAdapterPosition()).getMedName());
-        holder.Med_Count.setText(list.get(holder.getAbsoluteAdapterPosition()).getMedCount());
-        holder.Rep_Count.setText(list.get(holder.getAbsoluteAdapterPosition()).getRecipeCount());
+        holder.Med_Name.setText(storage.get(holder.getAbsoluteAdapterPosition()).getMedName());
+        holder.Med_Count.setText(storage.get(holder.getAbsoluteAdapterPosition()).getMedCount());
+        holder.Rep_Count.setText(storage.get(holder.getAbsoluteAdapterPosition()).getRecipeCount());
 
         //Delete Button mit Dialog-Bestätigung
         holder.itemView.findViewById(R.id.trashbin).setOnClickListener(view -> {
@@ -94,7 +94,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
                     .setTitle("Medikament Löschen")
                     .setMessage("Sind Sie sicher, dass Sie das Medikament löschen möchten?")
                     .setPositiveButton("Löschen", (dialogInterface, i) -> {
-                        list.remove(holder.getAbsoluteAdapterPosition());
+                        storage.remove(holder.getAbsoluteAdapterPosition());
                         notifyItemRemoved(holder.getAbsoluteAdapterPosition());
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
@@ -117,9 +117,36 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
                 builder.setView(view)
                         .setTitle("Rezept verlängern: ")
-                        .setPositiveButton("Löschen", (dialogInterface, i) -> {
-                            vMedstorage.list.get(holder.getAbsoluteAdapterPosition()).setRecipeCount(addDays.getText().toString());
+                        .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
+                            vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).setRecipeCount(addDays.getText().toString());
                             notifyItemChanged(holder.getAbsoluteAdapterPosition());
+                        })
+                        .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+                            //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
+                        })
+                        .show();
+            }
+        });
+
+        holder.itemView.findViewById(R.id.order_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(vMedstorage.requireActivity());
+                view = vMedstorage.getLayoutInflater().inflate(R.layout.order_med_dialog, null);
+
+                //Variablen, zum editieren aus der XML-Datei
+
+                EditText orderCount = view.findViewById(R.id.order_med_count);
+
+                //Der Builder, um das Fenster zu tatsächlich zu befüllen
+
+                builder.setView(view)
+                        .setTitle("Bestellen: ")
+                        .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
+                            //TODO: Null abfangen ( Also wenn nichts eingegeben wird aber trotzdem auf bestätigen gedrückt wird!!!!!!!!!
+                            String medName = vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).getMedName();
+
+                            vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(medName, Integer.parseInt(orderCount.getText().toString()));
                         })
                         .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                             //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
@@ -133,6 +160,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return storage.size();
     }
 }
