@@ -4,23 +4,23 @@ package de.swe_wi2223_praktikum;
 //Constructor, Getter und Setter
 public class Bestellungen implements java.io.Serializable {
     Med med;
-    private int menge;
+    private float menge;
 
-    public Bestellungen(Med med, int menge) {
+    public Bestellungen(Med med, float menge) {
         this.med = med;
         this.menge = menge;
     }
 
-    public void addMenge(int addMenge) {
+    public void addMenge(float addMenge) {
         this.menge += addMenge;
     }
 
     public Med getMed() {return med;}
 
-    public void setMenge(int menge) {
+    public void setMenge(float menge) {
         this.menge = menge;
     }
-    public int getMenge() {
+    public float getMenge() {
         return menge;
     }
 }

@@ -36,21 +36,21 @@ public class Fragment_Kalender extends Fragment implements Load {
         // example data
         kalenderEntries = new HashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            addEntry(LocalDateTime.of(2022, 11, 23, 15, 0), new Med("Medikament A","0","0"), "10.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 23, 12, 30), new Med("Medikament B","0","0"), "12.4 g");
-            addEntry(LocalDateTime.of(2022, 11, 2, 18, 0), new Med("M_A","0","0"), "20 g");
-            addEntry(LocalDateTime.of(2022, 11, 2, 12, 15), new Med("M_B","0","0"), "0.4 g");
-            addEntry(LocalDateTime.of(2022, 11, 2, 13, 0), new Med("M_C","0","0"), "12.3 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 14, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 15, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 16, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 17, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Med("Medicament C","0","0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M A", "0", "0"), "0.2 g");
-            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M B", "0", "0"), "0.4 g");
-            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M C", "0", "0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 23, 15, 0), new Med("Medikament A","0","0"), "10.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 23, 12, 30), new Med("Medikament B","0","0"), "12.4 g");
+//            addEntry(LocalDateTime.of(2022, 11, 2, 18, 0), new Med("M_A","0","0"), "20 g");
+//            addEntry(LocalDateTime.of(2022, 11, 2, 12, 15), new Med("M_B","0","0"), "0.4 g");
+//            addEntry(LocalDateTime.of(2022, 11, 2, 13, 0), new Med("M_C","0","0"), "12.3 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 14, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 15, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 16, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 17, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Med("Medicament C","0","0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M A", "0", "0"), "0.2 g");
+//            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M B", "0", "0"), "0.4 g");
+//            addEntry(LocalDateTime.of(2022, 12, 22, 16, 12), new Med("M C", "0", "0"), "0.2 g");
         }
 
 //        // test the getNextEntry-Method

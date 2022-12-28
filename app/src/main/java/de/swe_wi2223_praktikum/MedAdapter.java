@@ -1,6 +1,7 @@
 package de.swe_wi2223_praktikum;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
+public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
 
     //Globale variablen
     Context context;
     ArrayList<Med> storage;
     MedStorage vMedstorage;
 
+
     //Constructor für den Adapter
     MedAdapter(Context context, ArrayList<Med> storage, MedStorage vMedstorage ){
         this.context = context;
         this.storage = storage;
         this.vMedstorage = vMedstorage;
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,16 +81,13 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-    }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Med_Name.setText(storage.get(holder.getAbsoluteAdapterPosition()).getMedName());
-        holder.Med_Count.setText(storage.get(holder.getAbsoluteAdapterPosition()).getMedCount());
-        holder.Rep_Count.setText(storage.get(holder.getAbsoluteAdapterPosition()).getRecipeCount());
+        holder.Med_Count.setText(String.valueOf(storage.get(holder.getAbsoluteAdapterPosition()).getMedCount()));
+        holder.Rep_Count.setText(String.valueOf(storage.get(holder.getAbsoluteAdapterPosition()).getRecipeCount()));
 
         //Delete Button mit Dialog-Bestätigung
         holder.itemView.findViewById(R.id.trashbin).setOnClickListener(view -> {
@@ -103,6 +104,9 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
             builder.show();
         });
 
+
+
+
         holder.itemView.findViewById(R.id.add_recip_day_bttn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +122,8 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
                 builder.setView(view)
                         .setTitle("Rezept verlängern: ")
                         .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
-                            vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).setRecipeCount(addDays.getText().toString());
+                            vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).setRecipeCount(addDays.getText().toString().isEmpty() ? 0 :
+                                    Integer.parseInt(addDays.getText().toString()));
                             notifyItemChanged(holder.getAbsoluteAdapterPosition());
                         })
                         .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
@@ -145,9 +150,10 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
                         .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
                             //TODO: Null abfangen ( Also wenn nichts eingegeben wird aber trotzdem auf bestätigen gedrückt wird!!!!!!!!!
                             String medName = vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).getMedName();
-
-                            vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()),
-                                    Integer.parseInt(orderCount.getText().toString()));
+                            if ( !orderCount.getText().toString().isEmpty() && Float.parseFloat(orderCount.getText().toString()) != 0f ) {
+                                vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()),
+                                        Float.parseFloat(orderCount.getText().toString()));
+                            }
                             //.isEmpty()? 0 :orderCount.getText().toString()
                         })
                         .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
@@ -164,4 +170,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
     public int getItemCount() {
         return storage.size();
     }
+
+
 }

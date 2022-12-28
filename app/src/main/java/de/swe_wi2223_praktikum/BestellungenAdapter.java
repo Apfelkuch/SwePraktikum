@@ -17,11 +17,12 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
     //Globale variablen
     Context context;
     ArrayList<Bestellungen> list;
-
+    BestellungsOverView bestellung;
     //Constructor für den Adapter
-    BestellungenAdapter(Context context, ArrayList<Bestellungen> list){
+    BestellungenAdapter(Context context, ArrayList<Bestellungen> list, BestellungsOverView bestellung ){
         this.context = context;
         this.list = list;
+        this.bestellung = bestellung;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,6 +71,13 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
                         //TODO: Hier muss durchs bestätigen der Medikamentenschrank bearbeitet werden (Menge ändern).
                         //TODO: Ggf. noch der Artikel hinzugefügt werden?
                         //TODO: Was soll mit der Bestellung passieren? Einfach entfernen?
+                        for( Med med :bestellung.getNavigationDrawer().getStorage().storage) {
+                            if (med.getMedName() == bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMed().getMedName())
+                                med.setMedCount(bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMenge()+
+                                        med.medCount);
+                        }
+                        list.remove(holder.getAbsoluteAdapterPosition());
+                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Kein Inhalt nötig. Da "Default"-Einstellung alles Abbrechen.

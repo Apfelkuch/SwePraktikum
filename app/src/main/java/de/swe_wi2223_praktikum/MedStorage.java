@@ -1,6 +1,7 @@
 package de.swe_wi2223_praktikum;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MedStorage extends Fragment implements Load {
@@ -23,12 +26,18 @@ public class MedStorage extends Fragment implements Load {
 
     private RecyclerView recyclerView;
     private MedAdapter adapter;
+    LocalDate currentDay;
 
     NavigationDrawer navigationDrawer;
 
     public MedStorage(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            currentDay = LocalDate.now();
+//        }
     }
+
+
 
     @SuppressLint("InflateParams")
     @Nullable
@@ -59,8 +68,8 @@ public class MedStorage extends Fragment implements Load {
                     .setTitle("Medikament Hinzufügen: ")
                     .setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
                         String tmpMed = editMed.getText().toString();
-                        String tmpCount = editCount.getText().toString();
-                        String tmpRecip = editRecip.getText().toString();
+                        float tmpCount = editCount.getText().toString().isEmpty() ? 0 : Float.parseFloat(editCount.getText().toString());
+                        int tmpRecip = editRecip.getText().toString().isEmpty() ? 0 : Integer.parseInt(editRecip.getText().toString());
 
 
                         storage.add(new Med(tmpMed, tmpCount, tmpRecip));
@@ -75,6 +84,27 @@ public class MedStorage extends Fragment implements Load {
 
         adapter = new MedAdapter(requireActivity(), storage,this);
         recyclerView.setAdapter(adapter);
+        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate dateNow = LocalDate.now();
+            if( currentDay == null)
+                currentDay = LocalDate.now();
+            if(dateNow.isAfter(currentDay)){
+                int diff =  (int) LocalDate.now().toEpochDay()-  (int)currentDay.toEpochDay();
+                System.out.printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+ currentDay);
+                if ( diff >0) {
+                    for ( Med med: storage){
+                        if(med.getRecipeCount()-diff <0)
+                            med.setRecipeCount(0);
+                        else
+                            med.setRecipeCount(med.getRecipeCount()-diff);
+
+                    }
+                    currentDay = LocalDate.now();
+                }
+
+            }
+        }
 
         return view;
     }
@@ -84,12 +114,17 @@ public class MedStorage extends Fragment implements Load {
         if (o == null){
             return;
         }
-        this.storage = (ArrayList<Med>) o;
+        Object o2[] = (Object[])o;
+        this.storage = (ArrayList<Med>) o2[0];
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.currentDay = (LocalDate) o2[1];
+        }
     }
 
     @Override
     public Object saveData() {
-        return storage;
+        Object o[] = {storage,currentDay};
+        return o;
     }
 }
 

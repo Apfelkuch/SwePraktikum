@@ -106,6 +106,7 @@ public class Homescreen extends Fragment implements Load{
             // add the entries to the log
             for (Kalender_Entry entry : pastEntries) {
                 this.navigationDrawer.getLog().addLogEntry(entry);
+                entry.getMedicament().setMedCount(entry.getMedicament().getMedCount() - Float.parseFloat(entry.getAmount()));
             }
 
             pastEntries.removeAll(pastEntries);

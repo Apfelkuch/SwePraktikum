@@ -23,11 +23,17 @@ public class BestellungsOverView extends Fragment implements Load {
 
     private NavigationDrawer navigationDrawer;
 
+    public NavigationDrawer getNavigationDrawer() {
+        return navigationDrawer;
+    }
+
+
+
     public BestellungsOverView(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
     }
 
-    public void addBestellung(Med med, int menge) {
+    public void addBestellung(Med med, float menge) {
         list.add(new Bestellungen(med, menge));
         if (adapter != null) {
             adapter.notifyItemInserted(list.size() - 1);
@@ -47,7 +53,7 @@ public class BestellungsOverView extends Fragment implements Load {
         //Dient dem RecycleViewer, um eine vertikale Liste zu erstellen.
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        adapter = new BestellungenAdapter(requireActivity(), list);
+        adapter = new BestellungenAdapter(requireActivity(), list, this);
         recyclerView.setAdapter(adapter);
 
         // TODO: example Content

@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class Med implements java.io.Serializable{
     String medName;
-    String medCount;
-    String recipeCount;
+    float medCount;
+    int recipeCount;
 
-    public Med(String medName, String medCount, String recipeCount) {
+    public Med(String medName, float medCount, int recipeCount) {
         this.medName = medName;
         this.medCount = medCount;
         this.recipeCount = recipeCount;
@@ -18,14 +18,16 @@ public class Med implements java.io.Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Med med = (Med) o;
-        return medName.equals(med.medName) && medCount.equals(med.medCount) && recipeCount.equals(med.recipeCount);
+        return Float.compare(med.medCount, medCount) == 0 && recipeCount == med.recipeCount && medName.equals(med.medName);
     }
 
-    public void setMedCount(String medCount) {
+
+
+    public void setMedCount(float medCount) {
         this.medCount = medCount;
     }
 
-    public void setRecipeCount(String recipeCount) {
+    public void setRecipeCount(int recipeCount) {
         this.recipeCount = recipeCount;
     }
 
@@ -38,11 +40,11 @@ public class Med implements java.io.Serializable{
         return medName;
     }
 
-    public String getMedCount() {
+    public float getMedCount() {
         return medCount;
     }
 
-    public String getRecipeCount() {
+    public int getRecipeCount() {
         return recipeCount;
     }
 }
