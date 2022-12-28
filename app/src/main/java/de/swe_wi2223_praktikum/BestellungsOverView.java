@@ -27,10 +27,12 @@ public class BestellungsOverView extends Fragment implements Load {
         this.navigationDrawer = navigationDrawer;
     }
 
-    public void addBestellung(String title, int menge) {
-        list.add(new Bestellungen(title, menge));
-        adapter.notifyItemInserted(list.size() - 1);
-        recyclerView.scrollToPosition(list.size() - 1);
+    public void addBestellung(Med med, int menge) {
+        list.add(new Bestellungen(med, menge));
+        if (adapter != null) {
+            adapter.notifyItemInserted(list.size() - 1);
+            recyclerView.scrollToPosition(list.size() - 1);
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -50,9 +52,9 @@ public class BestellungsOverView extends Fragment implements Load {
 
         // TODO: example Content
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            navigationDrawer.getBestellungsOverView().addBestellung("M A", 1);
-            navigationDrawer.getBestellungsOverView().addBestellung("M B", 2);
-            navigationDrawer.getBestellungsOverView().addBestellung("M C", 3);
+//            navigationDrawer.getBestellungsOverView().addBestellung("M A", 1);
+//            navigationDrawer.getBestellungsOverView().addBestellung("M B", 2);
+//            navigationDrawer.getBestellungsOverView().addBestellung("M C", 3);
         }
 
         return view;

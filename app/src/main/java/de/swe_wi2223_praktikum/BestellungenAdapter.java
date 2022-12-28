@@ -43,7 +43,7 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.Medikament.setText(list.get(position).getName());
+        holder.Medikament.setText(list.get(position).getMed().getMedName());
         holder.Menge.setText(String.valueOf(list.get(position).getMenge()));
 
         //Delete Button mit Dialog-Bestätigung

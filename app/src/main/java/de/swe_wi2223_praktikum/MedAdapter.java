@@ -146,7 +146,9 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
                             //TODO: Null abfangen ( Also wenn nichts eingegeben wird aber trotzdem auf bestätigen gedrückt wird!!!!!!!!!
                             String medName = vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).getMedName();
 
-                            vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(medName, Integer.parseInt(orderCount.getText().toString()));
+                            vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()),
+                                    Integer.parseInt(orderCount.getText().toString()));
+                            //.isEmpty()? 0 :orderCount.getText().toString()
                         })
                         .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                             //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
