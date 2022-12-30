@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 public class Kalender_Entry implements java.io.Serializable {
     private Med medicament;
     private LocalDateTime localDateTime;
-    private String amount;
+    private float amount;
 
-    public Kalender_Entry(Med medicament,LocalDateTime localDateTime, String amount) {
+    public Kalender_Entry(Med medicament,LocalDateTime localDateTime, float amount) {
         this.medicament = medicament;
         this.localDateTime = localDateTime;
         this.amount = amount;
@@ -23,7 +23,7 @@ public class Kalender_Entry implements java.io.Serializable {
         return localDateTime;
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 
@@ -35,7 +35,7 @@ public class Kalender_Entry implements java.io.Serializable {
         this.localDateTime = localDateTime;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 }

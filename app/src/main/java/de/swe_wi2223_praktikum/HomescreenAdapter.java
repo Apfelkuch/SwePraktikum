@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class HomescreenAdapter extends RecyclerView.Adapter<HomescreenAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Medikament.setText(pastEntries.get(position).getMedicament().getMedName());
-        holder.Menge.setText(pastEntries.get(position).getAmount());
+        holder.Menge.setText(String.valueOf(pastEntries.get(position).getAmount()));
     }
 
     @Override

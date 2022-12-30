@@ -42,12 +42,15 @@ public class NavigationDrawer extends AppCompatActivity{
 //        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
         storage = new MedStorage(this);
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
-        homescreen = new Homescreen(this);
-        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
         log = new Fragment_Log();
         log.load(FileManager.load(FileManager.LOG, getApplicationContext()));
+        homescreen = new Homescreen(this);
+        homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
 
         loadFragment(homescreen);
+        // restart the timer
+        homescreen.restartTimer();
+
 
 //        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
@@ -113,19 +116,19 @@ public class NavigationDrawer extends AppCompatActivity{
 
     private void save() {
         System.out.println(FileManager.BESTELLUNGEN + " is " +
-                (FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData()) ? "" : "not")
+                (FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData()) ? "" : "not ")
                 + "saved.");
         System.out.println(FileManager.KALENDER + " is " +
-                (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not")
+                (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not ")
                 + "saved.");
         System.out.println(FileManager.MEDIKAMENT + " is " +
-                (FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData()) ? "" : "not")
+                (FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData()) ? "" : "not ")
                 + "saved.");
         System.out.println(FileManager.HOME + " is " +
-                (FileManager.save(FileManager.HOME, getApplicationContext(), homescreen.saveData()) ? "" : "not")
+                (FileManager.save(FileManager.HOME, getApplicationContext(), homescreen.saveData()) ? "" : "not ")
                 + "saved.");
         System.out.println(FileManager.LOG + " is " +
-                (FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData()) ? "" : "not")
+                (FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData()) ? "" : "not ")
                 + "saved.");
     }
 
@@ -179,4 +182,9 @@ public class NavigationDrawer extends AppCompatActivity{
     public Fragment_Log getLog() {
         return log;
     }
+
+    public Homescreen getHomescreen() {
+        return homescreen;
+    }
+
 }

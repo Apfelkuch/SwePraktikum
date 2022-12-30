@@ -22,8 +22,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -43,6 +43,7 @@ public class Homescreen extends Fragment implements Load{
     private Notification notification;
     private final int mMain_Count = 0;
     private HomescreenAdapter adapterHomescreen;
+    private CountDownTimer countDownTimer;
 
     private final NavigationDrawer navigationDrawer;
     //endregion
@@ -57,7 +58,6 @@ public class Homescreen extends Fragment implements Load{
 //            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000)), "20"));
 //            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
 //        }
-        startTimer();
         mMainTimerRunning = true;
     }
 
@@ -106,7 +106,7 @@ public class Homescreen extends Fragment implements Load{
             // add the entries to the log
             for (Kalender_Entry entry : pastEntries) {
                 this.navigationDrawer.getLog().addLogEntry(entry);
-                entry.getMedicament().setMedCount(entry.getMedicament().getMedCount() - Float.parseFloat(entry.getAmount()));
+                entry.getMedicament().setMedCount(entry.getMedicament().getMedCount() -entry.getAmount());
             }
 
             pastEntries.removeAll(pastEntries);
@@ -144,7 +144,7 @@ public class Homescreen extends Fragment implements Load{
     public void setFutureTimeInSeconds(long givenTime) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            this.mTimeLeftInMillis = givenTime - System.currentTimeMillis();
-            this.mTimeLeftInMillis = (givenTime - LocalTime.now().toSecondOfDay()) * 1000L; // (*1000) working internally with milliseconds
+            this.mTimeLeftInMillis = givenTime * 1000L; // (*1000) working internally with milliseconds
             startTimer();
         }
     }
@@ -153,7 +153,7 @@ public class Homescreen extends Fragment implements Load{
     //region Timer starten & updaten
     @SuppressLint("SetTextI18n")
     public void startTimer() {
-        new CountDownTimer(getmTimeLeftInMillis(), 1000) {
+        countDownTimer = new CountDownTimer(getmTimeLeftInMillis(), 1000) {
             /**
              * Gets the left time in millis and counts down with an interval of 1000 milliseconds (1s).
              * With every tick we call the method updateCountDownText, so we get the correct time.
@@ -177,31 +177,53 @@ public class Homescreen extends Fragment implements Load{
             @Override
             public void onFinish() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    mMainTimerRunning = false;
-
-                    if (futureEntry != null)
+                    if (futureEntry != null) {
+                        mMainTimerRunning = false;
                         pastEntries.add(futureEntry);
 
+                        if(mSub_Countdown_Timer != null)
+                            mSub_Countdown_Timer.setVisibility(View.VISIBLE);
+                        if(mBtnNext != null)
+                            mBtnNext.setVisibility(View.VISIBLE);
+                        if(adapterHomescreen != null) {
+                            adapterHomescreen.notifyDataSetChanged();
+                            reminderNotification();
+                        }
+                    }
+
                     futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
-                    System.out.println(futureEntry);
 
                     if(futureEntry != null) {
-                        setFutureTimeInSeconds(futureEntry.getLocalDateTime().toLocalTime().toSecondOfDay());
+                        setFutureTimeInSeconds(differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime()));
                     }else{
                         if(getContext() != null)
                             Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
                     }
-                    if(mSub_Countdown_Timer != null)
-                        mSub_Countdown_Timer.setVisibility(View.VISIBLE);
-                    if(mBtnNext != null)
-                        mBtnNext.setVisibility(View.VISIBLE);
-                    if(adapterHomescreen != null) {
-                        adapterHomescreen.notifyDataSetChanged();
-                        reminderNotification();
-                    }
+
                 }
             }
         }.start();
+    }
+
+    public void restartTimer() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
+
+            if(futureEntry != null) {
+                setFutureTimeInSeconds(differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime()));
+            } else {
+                if (countDownTimer != null)
+                    countDownTimer.cancel();
+            }
+        }
+    }
+
+    public long differenceTo(LocalDateTime start, LocalDateTime end) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Duration duration = Duration.between(start, end);
+            return duration.getSeconds();
+        }
+        return 0L;
     }
 
     /**

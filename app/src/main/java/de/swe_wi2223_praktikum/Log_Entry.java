@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 public class Log_Entry implements java.io.Serializable {
     private String name;
     private LocalDateTime localDateTime;
-    private String amount;
+    private float amount;
 
-    public Log_Entry(String name, LocalDateTime timeStemp, String amount) {
+    public Log_Entry(String name, LocalDateTime timeStemp, float amount) {
         this.name = name;
         this.localDateTime = timeStemp;
         this.amount = amount;
@@ -23,7 +23,7 @@ public class Log_Entry implements java.io.Serializable {
         return localDateTime;
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 
@@ -35,7 +35,7 @@ public class Log_Entry implements java.io.Serializable {
         this.localDateTime = localDateTime;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 }
