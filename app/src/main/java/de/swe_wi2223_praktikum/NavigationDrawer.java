@@ -27,7 +27,7 @@ public class NavigationDrawer extends AppCompatActivity{
     private MedStorage storage;
     private Homescreen homescreen;
     private Fragment_Log log;
-    //TODO: Restliche Fragmente von den anderen instanzieren
+    private PlanList plan;
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -44,6 +44,8 @@ public class NavigationDrawer extends AppCompatActivity{
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
         log = new Fragment_Log();
         log.load(FileManager.load(FileManager.LOG, getApplicationContext()));
+        plan = new PlanList();
+        plan.load(FileManager.load(FileManager.PLAN, getApplicationContext()));
         homescreen = new Homescreen(this);
         homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));
 
@@ -88,7 +90,7 @@ public class NavigationDrawer extends AppCompatActivity{
                     break;
                 case R.id.navPläne:
                     setTitle(getResources().getString(R.string.Plaene));
-                    //TODO: Navigation zu den Plänen.
+                    loadFragment(plan);
                     Toast.makeText(this, getResources().getString(R.string.Plaene), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.navMedikamente:
@@ -129,6 +131,9 @@ public class NavigationDrawer extends AppCompatActivity{
                 + "saved.");
         System.out.println(FileManager.LOG + " is " +
                 (FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData()) ? "" : "not ")
+                + "saved.");
+        System.out.println(FileManager.PLAN + " is " +
+                (FileManager.save(FileManager.PLAN, getApplicationContext(), plan.saveData()) ? "" : "not ")
                 + "saved.");
     }
 
