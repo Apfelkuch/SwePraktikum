@@ -56,7 +56,7 @@ public class BestellungsOverView extends Fragment implements Load {
         adapter = new BestellungenAdapter(requireActivity(), list, this);
         recyclerView.setAdapter(adapter);
 
-        // TODO: example Content
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            navigationDrawer.getBestellungsOverView().addBestellung("M A", 1);
 //            navigationDrawer.getBestellungsOverView().addBestellung("M B", 2);

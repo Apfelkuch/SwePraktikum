@@ -49,34 +49,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.medi_fragment, parent,false);
-
-        Button addOrder = view.findViewById(R.id.order_button);
-        ImageButton addRecipDays = view.findViewById(R.id.add_recip_day_bttn);
-
-
-        addOrder.setOnClickListener(dialog_view -> {
-            //Baut das Dialogfenster auf
-            AlertDialog.Builder builder = new AlertDialog.Builder(vMedstorage.requireActivity());
-            dialog_view = vMedstorage.getLayoutInflater().inflate(R.layout.order_med_dialog, null);
-            //Variablen, zum editieren aus der XML-Datei
-
-            EditText addMedCount = dialog_view.findViewById(R.id.order_med_count);
-
-            //Der Builder, um das Fenster zu tatsächlich zu befüllen
-            builder.setView(dialog_view)
-                    .setTitle("Medikament Bestellen: ")
-                    .setPositiveButton("Bestellen", (dialogInterface, i) -> {
-                        String tmpCount = addMedCount.getText().toString();
-
-                    })
-                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-                        //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
-                    });
-            builder.show();
-        });
-
         return new ViewHolder(view);
-
     }
 
 

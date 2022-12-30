@@ -84,14 +84,12 @@ public class MedStorage extends Fragment implements Load {
 
         adapter = new MedAdapter(requireActivity(), storage,this);
         recyclerView.setAdapter(adapter);
-        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDate dateNow = LocalDate.now();
             if( currentDay == null)
                 currentDay = LocalDate.now();
             if(dateNow.isAfter(currentDay)){
                 int diff =  (int) LocalDate.now().toEpochDay()-  (int)currentDay.toEpochDay();
-                System.out.printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+ currentDay);
                 if ( diff >0) {
                     for ( Med med: storage){
                         if(med.getRecipeCount()-diff <0)

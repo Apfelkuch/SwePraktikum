@@ -123,7 +123,7 @@ public class Homescreen extends Fragment implements Load{
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(requireActivity(), "SWE")
                 .setSmallIcon(android.R.drawable.stat_notify_sync)
-                .setContentTitle("MedikamentenAPP") //TODO: Name der APP
+                .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText("Zeit die Drugs einzunehmen :)");
 
         notification = builder.build();
