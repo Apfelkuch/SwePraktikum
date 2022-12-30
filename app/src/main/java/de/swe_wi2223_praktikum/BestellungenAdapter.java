@@ -68,9 +68,7 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
                     .setTitle("Lieferung bestätigen")
                     .setMessage("Sind Sie sicher, dass Sie die Lieferung bestätigen möchten?")
                     .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
-                        //TODO: Hier muss durchs bestätigen der Medikamentenschrank bearbeitet werden (Menge ändern).
-                        //TODO: Ggf. noch der Artikel hinzugefügt werden?
-                        //TODO: Was soll mit der Bestellung passieren? Einfach entfernen?
+
                         for( Med med :bestellung.getNavigationDrawer().getStorage().storage) {
                             if (med.getMedName() == bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMed().getMedName())
                                 med.setMedCount(bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMenge()+

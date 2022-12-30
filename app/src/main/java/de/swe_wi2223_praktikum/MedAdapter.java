@@ -68,8 +68,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
                     .setPositiveButton("Bestellen", (dialogInterface, i) -> {
                         String tmpCount = addMedCount.getText().toString();
 
-                        //TODO: Bestellübergabe
-
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
@@ -148,7 +146,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
                 builder.setView(view)
                         .setTitle("Bestellen: ")
                         .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
-                            //TODO: Null abfangen ( Also wenn nichts eingegeben wird aber trotzdem auf bestätigen gedrückt wird!!!!!!!!!
                             String medName = vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).getMedName();
                             if ( !orderCount.getText().toString().isEmpty() && Float.parseFloat(orderCount.getText().toString()) != 0f ) {
                                 vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()),
