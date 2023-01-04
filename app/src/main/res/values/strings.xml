@@ -10,7 +10,6 @@
     <string name="MaxMustermann">Max Mustermann</string>
     <string name="Kundennummer">Kundennummer: 0123456789</string>
     <string name="Home">Home</string>
-    <dimen name="fontsize_text">8pt</dimen>
     <string name="Menge">Menge</string>
     <string name="Medikament">Medikament</string>
     <string name="Bestellmenge">Bestellmenge</string>
@@ -23,4 +22,7 @@
     <string name="LogTitle">Medikamenten Log</string>
     <string name="Log">Log</string>
     <string name="logLoeschen">Log löschen</string>
+
+    <dimen name="fontsize_text">8pt</dimen>
+    <dimen name="fontsize_text_small">6pt</dimen>
 </resources>

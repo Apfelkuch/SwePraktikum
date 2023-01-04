@@ -16,8 +16,6 @@
     <string name="Bestellmenge">Bestellmenge</string>
     <string name="LieferungBestaetigen">Lieferung Bestätigen</string>
     <string name="LieferungStornieren">Lieferung stornieren</string>
-    <string name="Start">Start</string>
-    <string name="Reset">Reset</string>
     <string name="_00_00_00">00:00:00</string>
     <string name="Next">Next</string>
 </resources>

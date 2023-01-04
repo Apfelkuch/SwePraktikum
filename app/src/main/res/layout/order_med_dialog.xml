@@ -23,6 +23,9 @@
         android:layout_marginStart="15dp"
         android:hint="Stk."
         android:ems="10"
-        android:inputType="number" />
+        android:textSize="@dimen/fontsize_text"
+        android:textColor="@color/black"
+        android:inputType="number"
+        android:autofillHints="" />
 
 </RelativeLayout>

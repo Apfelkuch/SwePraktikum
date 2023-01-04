@@ -27,7 +27,7 @@
                 android:layout_marginStart="2dp"
                 android:textColor="@color/black"
                 android:paddingEnd="10dp"
-                android:textSize="17sp"
+                android:textSize="@dimen/fontsize_text"
                 tools:ignore="RtlSymmetry" />
 
 
@@ -41,7 +41,8 @@
                 android:layout_toEndOf="@id/strDay"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
-                app:srcCompat="@android:drawable/ic_input_add" />
+                app:srcCompat="@android:drawable/ic_input_add"
+                android:contentDescription="extend recipe duration" />
 
             <ImageButton
                 android:id="@+id/trashbin"
@@ -52,7 +53,8 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="3dp"
                 android:backgroundTint="@color/red"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
+                app:srcCompat="@android:drawable/ic_menu_delete"
+                android:contentDescription="delete med" />
 
             <Button
                 android:id="@+id/order_button"
@@ -76,7 +78,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="3dp"
-                android:text="Rezeptdauer:" />
+                android:text="Rezeptdauer:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text_small" />
 
             <TextView
                 android:id="@+id/day_count"
@@ -86,7 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/recipe"
                 android:layout_marginStart="3dp"
-                android:text="300" />
+                android:text="300"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text_small" />
 
             <TextView
                 android:id="@+id/strDay"
@@ -96,7 +102,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/day_count"
                 android:layout_marginStart="3dp"
-                android:text=" Tage" />
+                android:text=" Tage"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text_small" />
 
             <TextView
                 android:id="@+id/Med_count_text"
@@ -106,6 +114,8 @@
                 android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text_small"
                 android:text="Vorrätig:" />
 
             <TextView
@@ -117,7 +127,9 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="2dp"
-                android:text="30" />
+                android:text="30"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text_small" />
 
             <TextView
                 android:id="@+id/Med_count_str"
@@ -128,7 +140,9 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="2dp"
-                android:text="Stk." />
+                android:text="Stk."
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text_small" />
 
 
         </RelativeLayout>

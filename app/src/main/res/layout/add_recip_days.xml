@@ -23,6 +23,9 @@
         android:layout_marginStart="15dp"
         android:hint="Tage/n"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textSize="@dimen/fontsize_text"
+        android:autofillHints="" />
 
 </RelativeLayout>

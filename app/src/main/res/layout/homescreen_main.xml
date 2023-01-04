@@ -54,10 +54,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
-            android:textSize="24sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="@string/Next"
+            android:backgroundTint="@color/purple_500"
+            android:textSize="24sp"
+            android:textColor="@color/black"
             android:visibility="invisible"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
     </FrameLayout>
 
 </LinearLayout>

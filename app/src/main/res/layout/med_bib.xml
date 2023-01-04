@@ -23,7 +23,9 @@
         android:layout_marginStart="28dp"
         android:layout_marginBottom="25dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:focusable="true"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:contentDescription="add a med" />
 
 
 </RelativeLayout>

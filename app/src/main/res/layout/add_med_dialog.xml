@@ -29,7 +29,10 @@
             android:layout_marginStart="0dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Medikament" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontsize_text"
+            android:hint="Medikament"
+            android:autofillHints="" />
 
         <TextView
             android:id="@+id/textView2"
@@ -37,10 +40,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/editTextTextMed"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/fontsize_text"
+            android:layout_marginTop="19dp"
+            android:text="Anzahl:"
             android:textColor="@color/black"
-            android:text="Anzahl:" />
+            android:textSize="@dimen/fontsize_text" />
 
         <EditText
             android:id="@+id/editTextNumber"
@@ -52,7 +55,10 @@
             android:layout_marginStart="15dp"
             android:hint="Stk."
             android:ems="10"
-            android:inputType="number"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontsize_text"
+            android:inputType="number"
+            android:autofillHints="" />
 
         <TextView
             android:id="@+id/textView3"
@@ -75,7 +81,10 @@
             android:layout_marginStart="15dp"
             android:ems="10"
             android:hint="Tage"
-            android:inputType="number"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontsize_text"
+            android:inputType="number"
+            android:autofillHints="" />
 
     </RelativeLayout>
 

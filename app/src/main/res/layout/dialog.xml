@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Medikament"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/fontsize_text"
         android:autofillHints=""
         android:inputType="text" />
 
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Bestellmenge"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/fontsize_text"
         android:digits="0123456789"
         android:inputType="number"
         android:layout_marginTop="50dp"

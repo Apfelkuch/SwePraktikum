@@ -1,22 +1,17 @@
 package de.swe_wi2223_praktikum;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
 

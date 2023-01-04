@@ -1,14 +1,13 @@
 package de.swe_wi2223_praktikum;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -28,6 +27,13 @@ public class NavigationDrawer extends AppCompatActivity{
     private Homescreen homescreen;
     private Fragment_Log log;
     //TODO: Restliche Fragmente von den anderen instanzieren
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation_items, menu);
+        return true;
+    }
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -66,12 +72,6 @@ public class NavigationDrawer extends AppCompatActivity{
                 this, drawerLayout, toolbar, R.string.OpenDrawer, R.string.CloseDrawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        //Neues Icon für die Navigationsleiste
-        toolbar.post(() -> {
-            Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_format_list_bulleted_24, null);
-            toolbar.setNavigationIcon(icon);
-        });
 
         //Link menus
         navigationView.setNavigationItemSelectedListener(item -> {

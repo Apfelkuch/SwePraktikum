@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Medicamenten Name"
+            android:textColor="@color/black"
             android:textSize="@dimen/fontsize_text" />
 
         <LinearLayout
@@ -29,7 +30,8 @@
                 android:padding="2dp"
                 android:text="dd.MM.yyyy hh:mm:ss"
                 android:textAlignment="center"
-                android:textSize="@dimen/fontsize_text"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/fontsize_text" />
             <TextView
                 android:id="@+id/logMedAmount"
                 android:layout_width="wrap_content"
@@ -38,6 +40,7 @@
                 android:padding="2dp"
                 android:text="xxxxx"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="@dimen/fontsize_text" />
         </LinearLayout>
 
