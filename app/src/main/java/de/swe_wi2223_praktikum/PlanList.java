@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -41,7 +42,8 @@ public class PlanList extends Fragment implements Load{
     private LocalDateTime evening;
     NavigationDrawer navigationDrawer;
 
-    //
+    private Med placeHolderMed = new Med("Medikamente auswählen", 0f,0);
+
     public PlanList(NavigationDrawer navigationDrawer) {
 
         this.navigationDrawer = navigationDrawer;
@@ -71,6 +73,7 @@ public class PlanList extends Fragment implements Load{
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
             dialog_view = getLayoutInflater().inflate(R.layout.add_plan_dialog, null);
 
+            ArrayList<PlanMed> usedMeds = new ArrayList<>();
 
 
             //Variablen, zum editieren aus der XML-Datei
@@ -79,10 +82,47 @@ public class PlanList extends Fragment implements Load{
             EditText editMedic = dialog_view.findViewById(R.id.editTextMedikament);
             Spinner spinner = (Spinner) dialog_view.findViewById(R.id.spinner_med);
 
+            RecyclerView medList = dialog_view.findViewById(R.id.medList);
+            medList.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+            PlanMedAdapter planMedAdapter = new PlanMedAdapter(requireActivity());
+            planMedAdapter.setMeds(usedMeds);
+            medList.setAdapter(planMedAdapter);
 
 
+            // build drop down menu
+            PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(navigationDrawer, (ArrayList<Med>) navigationDrawer.getStorage().getStorage().clone(), placeHolderMed);
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(R.layout.plan_spinner_item);
+            // Apply Adapter to spinner
+            spinner.setAdapter(adapter);
+            // Set a default position
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    Med med = (Med) parent.getItemAtPosition(pos);
+                    // check if the med is not the placeholder
+                    if (med.getMedName().equals(placeHolderMed.getMedName()))
+                        return;
+                    // check if the med is already used
+                    for (PlanMed planMed : usedMeds) {
+                        if (planMed.getMed().equals(med)) {
+                            spinner.setSelection(0);
+                            return;
+                        }
+                    }
 
+                    usedMeds.add(new PlanMed(med, 0f));
+                    planMedAdapter.notifyDataSetChanged();
+                    // jump to the top after a med is added to the plan
+                    spinner.setSelection(0);
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
             //Checkboxen der Wochentage
             cBMonday = dialog_view.findViewById(R.id.checkBox_Mo);
@@ -236,7 +276,7 @@ public class PlanList extends Fragment implements Load{
 
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
                         list.add(new Plan(tmpPlanName,day_list,morning,midday,evening));
-                        adapter.notifyItemInserted(list.size()-1);
+                        planMedAdapter.notifyItemInserted(list.size()-1);
                         recyclerView.scrollToPosition(list.size()-1);
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
