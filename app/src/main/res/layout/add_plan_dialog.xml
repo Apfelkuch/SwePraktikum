@@ -171,5 +171,11 @@ android:layout_height="wrap_content">
         android:layout_toEndOf="@+id/checkBox_Midday"
         android:text="Abends" />
 
+    <Spinner
+        android:id="@+id/spinner_med"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="32dp" />
+
 
 </RelativeLayout>

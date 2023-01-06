@@ -44,7 +44,7 @@ public class NavigationDrawer extends AppCompatActivity{
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
         log = new Fragment_Log();
         log.load(FileManager.load(FileManager.LOG, getApplicationContext()));
-        plan = new PlanList();
+        plan = new PlanList(this);
         plan.load(FileManager.load(FileManager.PLAN, getApplicationContext()));
         homescreen = new Homescreen(this);
         homescreen.load(FileManager.load(FileManager.HOME, getApplicationContext()));

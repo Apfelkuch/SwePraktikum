@@ -48,15 +48,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
     }
 
 
-    public void onCreate(View view) {
 
-
-    }
 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Plan_Name.setText(list.get(position).getPlanName());
+
+
 
 
         //Delete Button mit Dialog-Bestätigung

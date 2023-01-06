@@ -1,12 +1,15 @@
 package de.swe_wi2223_praktikum;
 
+
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,15 +20,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class PlanList extends Fragment implements Load{
+    
     ArrayList<Plan> list = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private PlanAdapter adapter;
     private CheckBox cBMonday, cBTuesday, cBWednesday, cBThursday, cBFriday, cBSaturday, cBSunday;
     private CheckBox cBMorning, cBMidday, cBEvening;
+    private LocalDateTime localDateTime;
+    private LocalDateTime morning;
+    private LocalDateTime midday;
+    private LocalDateTime evening;
+    NavigationDrawer navigationDrawer;
+
+    //
+    public PlanList(NavigationDrawer navigationDrawer) {
+
+        this.navigationDrawer = navigationDrawer;
+    }
+
 
 
 
@@ -56,6 +77,12 @@ public class PlanList extends Fragment implements Load{
             EditText editPlanName = dialog_view.findViewById(R.id.editTextPlanName);
             // TODO: Medikamente aus der Medikamenten Listen nehmen
             EditText editMedic = dialog_view.findViewById(R.id.editTextMedikament);
+            Spinner spinner = (Spinner) dialog_view.findViewById(R.id.spinner_med);
+
+
+
+
+
 
             //Checkboxen der Wochentage
             cBMonday = dialog_view.findViewById(R.id.checkBox_Mo);
@@ -65,97 +92,150 @@ public class PlanList extends Fragment implements Load{
             cBFriday = dialog_view.findViewById(R.id.checkBox_Fr);
             cBSaturday = dialog_view.findViewById(R.id.checkBox_Sa);
             cBSunday = dialog_view.findViewById(R.id.checkBox_So);
+            
+            DayOfWeek[] day_list;
+            day_list = new DayOfWeek[7];
 
             //Zeit der einahme
             cBMorning = dialog_view.findViewById(R.id.checkBox_Morning);
             cBMidday = dialog_view.findViewById(R.id.checkBox_Midday);
             cBEvening = dialog_view.findViewById(R.id.checkBox_Evening);
 
+
+
+            Fragment_Kalender test = new Fragment_Kalender(null);
+
+
             //Der Builder, um das Fenster zu tatäschlich zu befüllen
             builder.setView(dialog_view)
                     .setTitle("Pläne  erstellen: ")
                     .setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
-                        String tmpPlanName = editPlanName.getText().toString();
-                        //String tmpMedic = editMedic.getText().toString();
+                                String tmpPlanName = editPlanName.getText().toString();
+//                        String tmpMedic = editMedic.getText().toString();
 
-                        // TODO: Die Zeiten in Millisekunden zurück geben oder so das gleiche für die Wochentage abspache mit Kalender
-                        //Checkbox überprüfen
-                        if (cBMonday.isChecked()){
-                            System.out.println("Monday");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                // TODO: LOCALDATE TIME für die Zeit ... Array für Tage
+                                //Checkbox überprüfen
+                                if (cBMonday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[0] = DayOfWeek.MONDAY;
+                                    }
+                                    System.out.println(day_list[0]);
+                                } else {
+                                    System.out.println("nothing");
+                                }
 
-                        //Dienstag
-                        if (cBTuesday.isChecked()){
-                            System.out.println("Dienstag");
-                        } else{
-                            System.out.println("Nothing");
-                        }
+                                //Dienstag
+                                if (cBTuesday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[1] = DayOfWeek.TUESDAY;
+                                    }
+                                    System.out.println(day_list[1]);
+                                } else {
+                                    System.out.println("Nothing");
+                                }
 
-                        //Mittwoch
-                        if (cBWednesday.isChecked()){
-                            System.out.println("Mittwoch");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                //Mittwoch
+                                if (cBWednesday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[2] = DayOfWeek.WEDNESDAY;
+                                    }
+                                    System.out.println(day_list[2]);
+                                } else {
+                                    System.out.println("Nothing");
+                                }
 
-                        //Donnertsag
-                        if (cBThursday.isChecked()){
-                            System.out.println("Donnerstag");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                //Donnertsag
+                                if (cBThursday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[3] = DayOfWeek.THURSDAY;
+                                    }
+                                    System.out.println(day_list[3]);
+                                } else {
+                                    System.out.println("Nothing");
+                                }
 
-                        //Freitag
-                        if (cBFriday.isChecked()){
-                            System.out.println("Freitag");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                //Freitag
+                                if (cBFriday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[4] = DayOfWeek.FRIDAY;
+                                    }
+                                    System.out.println(day_list[4]);
+                                } else {
+                                    System.out.println("Nothing");
+                                }
 
-                        //Samstag
-                        if (cBSaturday.isChecked()){
-                            System.out.println("Samsatg");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                //Samstag
+                                if (cBSaturday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[5] = DayOfWeek.SATURDAY;
+                                    }
+                                    System.out.println(day_list[5]);
+                                } else {
+                                    System.out.println("Nothing");
+                                }
 
-                        //Sonntag
-                        if (cBSunday.isChecked()){
-                            System.out.println("Sonntag");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                //Sonntag
+                                if (cBSunday.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        day_list[6] = DayOfWeek.SUNDAY;
+                                    }
+                                    System.out.println(day_list[6]);
+                                } else {
+                                    System.out.println("Nothing");
+                                }
 
 
-                        //Zeiten der Einnahme
-                        //Morgens
-                        if (cBMorning.isChecked()){
-                            System.out.println("Morgens");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                //Zeiten der Einnahme
+                                //Morgens
+                                if (cBMorning.isChecked()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-                        //Mittag
-                        if (cBMidday.isChecked()){
-                            System.out.println("Mittag");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+                                        morning = LocalDateTime.now().with(LocalTime.of(9, 0));
+                                        System.out.println(morning.getHour());
+                                    }
+                                    System.out.println("Morning");
 
-                        //Abends
-                        if (cBEvening.isChecked()){
-                            System.out.println("Abends");
-                        }else {
-                            System.out.println("Nothing");
-                        }
+
+                                } else {
+                                    System.out.println("Nothing");
+                                }
+
+                                //Mittag
+                                if (cBMidday.isChecked()) {
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        midday = LocalDateTime.now().with(LocalTime.of(12, 0));
+
+                                        System.out.println(midday.getHour());
+                                    }
+
+                                    System.out.println("Mittag");
+
+
+                                } else {
+                                    System.out.println("Nothing");
+                                }
+
+                                //Abends
+                                if (cBEvening.isChecked()) {
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        evening = LocalDateTime.now().with(LocalTime.of(18, 0));
+                                        System.out.println(evening.getHour());
+                                    }
+
+                                    System.out.println("Abends");
+
+                                } else {
+                                    System.out.println("Nothing");
+                                }
+
 
 
 
 
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
-                        list.add(new Plan(tmpPlanName));
+                        list.add(new Plan(tmpPlanName,day_list,morning,midday,evening));
                         adapter.notifyItemInserted(list.size()-1);
                         recyclerView.scrollToPosition(list.size()-1);
                     })
