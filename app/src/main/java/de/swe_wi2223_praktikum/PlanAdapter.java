@@ -23,12 +23,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
     //Globale variablen
     Context context;
     ArrayList<Plan> list;
+    PlanList planList;
 
 
     //Constructor für den Adapter
-    PlanAdapter(Context context, ArrayList<Plan> list){
+    PlanAdapter(Context context, ArrayList<Plan> list, PlanList planList){
         this.context = context;
         this.list = list;
+        this.planList = planList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,14 +62,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
 
         //Delete Button mit Dialog-Bestätigung
         holder.itemView.findViewById(R.id.Edit_button).setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                    .setTitle("Plan Bearbeiten")
-                    .setPositiveButton("Akzeptieren", (dialogInterface, i) -> {
-                    })
-                    .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-
-                    });
-            builder.show();
+            planList.buildDialog(view, list.get(position));
         });
 
         //Delete Button mit Dialog-Bestätigung
@@ -76,8 +71,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                     .setTitle("Plan Löschen")
                     .setMessage("Sind Sie sicher, dass Sie diesen Plan löschen möchten?")
                     .setPositiveButton("Löschen", (dialogInterface, i) -> {
-                        list.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
+                        list.remove(holder.getAbsoluteAdapterPosition());
+                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         System.out.println("TEST");
