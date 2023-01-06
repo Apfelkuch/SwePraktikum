@@ -10,6 +10,7 @@ public class Plan implements java.io.Serializable {
 
 
 
+
     public Plan(String PlanName,DayOfWeek[] day_list,LocalDateTime morning,LocalDateTime midday,LocalDateTime evening) {
         this.PlanName = PlanName;
         this.day_list = day_list;

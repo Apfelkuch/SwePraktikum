@@ -192,4 +192,6 @@ public class NavigationDrawer extends AppCompatActivity{
         return homescreen;
     }
 
+    public Fragment_Kalender getFragmentKalender() {return kalender;}
+
 }

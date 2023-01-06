@@ -23,12 +23,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
     //Globale variablen
     Context context;
     ArrayList<Plan> list;
+    PlanList planList;
 
 
     //Constructor für den Adapter
-    PlanAdapter(Context context, ArrayList<Plan> list){
+    PlanAdapter(Context context, ArrayList<Plan> list, PlanList planList){
         this.context = context;
         this.list = list;
+        this.planList = planList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
