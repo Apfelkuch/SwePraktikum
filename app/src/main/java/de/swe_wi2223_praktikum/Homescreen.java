@@ -109,7 +109,7 @@ public class Homescreen extends Fragment implements Load{
                 entry.getMedicament().setMedCount(entry.getMedicament().getMedCount() -entry.getAmount());
             }
 
-            pastEntries.removeAll(pastEntries);
+            pastEntries.clear();
             adapterHomescreen.notifyDataSetChanged();
             updateCountDownText();
         });//endregion
@@ -194,7 +194,11 @@ public class Homescreen extends Fragment implements Load{
                     futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
 
                     if(futureEntry != null) {
-                        setFutureTimeInSeconds(differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime()));
+                        long diff = differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime());
+                        if (diff <= 0) {
+                            futureEntry = null;
+                        }
+                        setFutureTimeInSeconds(diff);
                     }else{
                         if(getContext() != null)
                             Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
