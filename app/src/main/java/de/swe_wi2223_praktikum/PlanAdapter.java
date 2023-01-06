@@ -2,6 +2,7 @@ package de.swe_wi2223_praktikum;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
@@ -68,8 +71,45 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                     .setTitle("Plan Löschen")
                     .setMessage("Sind Sie sicher, dass Sie diesen Plan löschen möchten?")
                     .setPositiveButton("Löschen", (dialogInterface, i) -> {
+                        Plan plan = list.get(holder.getAbsoluteAdapterPosition());
                         list.remove(holder.getAbsoluteAdapterPosition());
                         notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+
+
+
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            LocalDate dateNow = LocalDate.now();
+                            for (int week = 0 ; week <= 11 ; week++){
+                                for(int count = 0; count < 7; count++){
+
+
+
+                                    for (PlanMed planMed : plan.getPlanMeds()) {
+                                        LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
+                                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue()-1] != null ) {
+                                            if (plan.getMorning() != null) {
+                                                planList.navigationDrawer.getFragmentKalender().removeEntry(
+                                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), plan.getMorning().getHour()
+                                                        , plan.getMorning().getMinute()), planMed.getMed(), planMed.getAmount());
+                                            }
+                                            if (plan.getMidday() != null) {
+                                                planList.navigationDrawer.getFragmentKalender().removeEntry(
+                                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getMidday().getHour()
+                                                        , plan.getMidday().getMinute()), planMed.getMed(), planMed.getAmount());
+                                            }
+                                            if (plan.getEvening() != null) {
+                                                planList.navigationDrawer.getFragmentKalender().removeEntry(
+                                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getEvening().getHour()
+                                                        , plan.getEvening().getMinute()), planMed.getMed(), planMed.getAmount());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        planList.navigationDrawer.getHomescreen().restartTimer();
+
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         System.out.println("TEST");

@@ -106,7 +106,8 @@ public class Fragment_Kalender extends Fragment implements Load {
                 }
             }
         });
-
+        kalender_arrayAdapter.notifyDataSetChanged();
+        recyclerView_dayMed.getAdapter().notifyDataSetChanged();
         return view;
     }
 

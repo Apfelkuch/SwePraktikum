@@ -157,8 +157,6 @@ public class PlanList extends Fragment implements Load {
                         String tmpPlanName = editPlanName.getText().toString();
 //                        String tmpMedic = editMedic.getText().toString();
 
-                        // TODO: LOCALDATE TIME für die Zeit ... Array für Tage
-                        //Checkbox überprüfen
                         if (cBMonday.isChecked()) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[0] = DayOfWeek.MONDAY;
@@ -166,6 +164,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[0]);
                         } else {
                             System.out.println("nothing");
+                            day_list[0] =null;
                         }
 
                         //Dienstag
@@ -176,6 +175,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[1]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[1] =null;
                         }
 
                         //Mittwoch
@@ -186,6 +186,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[2]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[2] =null;
                         }
 
                         //Donnertsag
@@ -196,6 +197,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[3]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[3] = null ;
                         }
 
                         //Freitag
@@ -206,6 +208,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[4]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[4] =null ;
                         }
 
                         //Samstag
@@ -216,6 +219,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[5]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[5] =null ;
                         }
 
                         //Sonntag
@@ -226,6 +230,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[6]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[6] =null ;
                         }
 
 
@@ -242,6 +247,7 @@ public class PlanList extends Fragment implements Load {
 
                         } else {
                             System.out.println("Nothing");
+                            morning = null ;
                         }
 
                         //Mittag
@@ -258,6 +264,7 @@ public class PlanList extends Fragment implements Load {
 
                         } else {
                             System.out.println("Nothing");
+                            midday = null;
                         }
 
                         //Abends
@@ -272,6 +279,7 @@ public class PlanList extends Fragment implements Load {
 
                         } else {
                             System.out.println("Nothing");
+                            evening= null;
                         }
 
 
@@ -350,6 +358,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[0]);
                         } else {
                             System.out.println("nothing");
+                            day_list[0] =null;
                         }
 
                         //Dienstag
@@ -360,6 +369,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[1]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[1] =null;
                         }
 
                         //Mittwoch
@@ -370,6 +380,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[2]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[2] =null;
                         }
 
                         //Donnertsag
@@ -380,6 +391,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[3]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[3] = null ;
                         }
 
                         //Freitag
@@ -390,6 +402,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[4]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[4] =null ;
                         }
 
                         //Samstag
@@ -400,6 +413,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[5]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[5] =null ;
                         }
 
                         //Sonntag
@@ -410,6 +424,7 @@ public class PlanList extends Fragment implements Load {
                             System.out.println(day_list[6]);
                         } else {
                             System.out.println("Nothing");
+                            day_list[6] =null ;
                         }
 
 
@@ -426,6 +441,7 @@ public class PlanList extends Fragment implements Load {
 
                         } else {
                             System.out.println("Nothing");
+                            morning = null ;
                         }
 
                         //Mittag
@@ -442,6 +458,7 @@ public class PlanList extends Fragment implements Load {
 
                         } else {
                             System.out.println("Nothing");
+                            midday = null;
                         }
 
                         //Abends
@@ -456,6 +473,7 @@ public class PlanList extends Fragment implements Load {
 
                         } else {
                             System.out.println("Nothing");
+                            evening= null;
                         }
 
 
