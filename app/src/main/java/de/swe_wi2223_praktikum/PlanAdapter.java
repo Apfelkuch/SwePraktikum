@@ -60,7 +60,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Plan_Name.setText(list.get(position).getPlanName());
 
-
+        holder.itemView.findViewById(R.id.Edit_button).setOnClickListener(view -> {
+            planList.buildDialog(view, list.get(position));
+        });
 
 
 
@@ -74,41 +76,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                         Plan plan = list.get(holder.getAbsoluteAdapterPosition());
                         list.remove(holder.getAbsoluteAdapterPosition());
                         notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-
-
-
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            LocalDate dateNow = LocalDate.now();
-                            for (int week = 0 ; week <= 11 ; week++){
-                                for(int count = 0; count < 7; count++){
-
-
-
-                                    for (PlanMed planMed : plan.getPlanMeds()) {
-                                        LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
-                                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue()-1] != null ) {
-                                            if (plan.getMorning() != null) {
-                                                planList.navigationDrawer.getFragmentKalender().removeEntry(
-                                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), plan.getMorning().getHour()
-                                                        , plan.getMorning().getMinute()), planMed.getMed(), planMed.getAmount());
-                                            }
-                                            if (plan.getMidday() != null) {
-                                                planList.navigationDrawer.getFragmentKalender().removeEntry(
-                                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getMidday().getHour()
-                                                        , plan.getMidday().getMinute()), planMed.getMed(), planMed.getAmount());
-                                            }
-                                            if (plan.getEvening() != null) {
-                                                planList.navigationDrawer.getFragmentKalender().removeEntry(
-                                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getEvening().getHour()
-                                                        , plan.getEvening().getMinute()), planMed.getMed(), planMed.getAmount());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        planList.navigationDrawer.getHomescreen().restartTimer();
+                        planList.deactivate( plan);
 
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {

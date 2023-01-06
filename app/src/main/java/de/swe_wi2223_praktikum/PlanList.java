@@ -281,38 +281,11 @@ public class PlanList extends Fragment implements Load {
                             System.out.println("Nothing");
                             evening= null;
                         }
+                        Plan vPlan = new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds);
+                        activate(vPlan);
 
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            LocalDate dateNow = LocalDate.now();
-                            for (int week = 0 ; week <= 10 ; week++){
-                               for(int count = 0; count < 7; count++){
-
-
-
-                                   for (PlanMed planMed : usedMeds) {
-                                            LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
-                                           if (day_list[vdate.getDayOfWeek().getValue()-1] != null ) {
-                                               if (morning != null) {
-                                                   navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), morning.getHour()
-                                                           , morning.getMinute()), planMed.getMed(), planMed.getAmount());
-                                               }
-                                               if (midday != null) {
-                                                   navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), midday.getHour()
-                                                           , midday.getMinute()), planMed.getMed(), planMed.getAmount());
-                                               }
-                                               if (evening != null) {
-                                                   navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), evening.getHour()
-                                                           , evening.getMinute()), planMed.getMed(), planMed.getAmount());
-                                               }
-                                           }
-                                   }
-                               }
-                            }
-                        }
-                        navigationDrawer.getHomescreen().restartTimer();
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
-                        list.add(new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds));
+                        list.add(vPlan);
                         planMedAdapter.notifyItemInserted(list.size() - 1);
                         recyclerView.scrollToPosition(list.size() - 1);
                     })
@@ -323,20 +296,17 @@ public class PlanList extends Fragment implements Load {
         }
         else
         {
-            int index = list.indexOf(plan);
-            list.remove(plan);
-            planMedAdapter.notifyDataSetChanged();
-            planAdapter.notifyDataSetChanged();
+
 
             // Load old values
             editPlanName.setText(plan.getPlanName());
             cBMonday.setChecked(plan.getDay_list()[0] != null);
-            cBTuesday.setChecked(plan.getDay_list()[0] != null);
-            cBWednesday.setChecked(plan.getDay_list()[0] != null);
-            cBThursday.setChecked(plan.getDay_list()[0] != null);
-            cBFriday.setChecked(plan.getDay_list()[0] != null);
-            cBSunday.setChecked(plan.getDay_list()[0] != null);
-            cBSaturday.setChecked(plan.getDay_list()[0] != null);
+            cBTuesday.setChecked(plan.getDay_list()[1] != null);
+            cBWednesday.setChecked(plan.getDay_list()[2] != null);
+            cBThursday.setChecked(plan.getDay_list()[3] != null);
+            cBFriday.setChecked(plan.getDay_list()[4] != null);
+            cBSaturday.setChecked(plan.getDay_list()[5] != null);
+            cBSunday.setChecked(plan.getDay_list()[6] != null);
             cBMorning.setChecked(plan.getMorning() != null);
             cBMidday.setChecked(plan.getMidday() != null);
             cBEvening.setChecked(plan.getEvening() != null);
@@ -478,9 +448,19 @@ public class PlanList extends Fragment implements Load {
 
 
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
-                        list.add(index, new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds));
+                        int index = list.indexOf(plan);
+
+                        deactivate(plan);
+                        list.remove(plan);
+
+                        Plan vPlan = new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds);
+                        activate(vPlan);
+
+                        list.add(index, vPlan);
                         planMedAdapter.notifyDataSetChanged();
                         planAdapter.notifyDataSetChanged();
+
+
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
@@ -488,6 +468,71 @@ public class PlanList extends Fragment implements Load {
             builder.show();
         }
         planAdapter.notifyDataSetChanged();
+    }
+    public void deactivate(Plan plan) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate dateNow = LocalDate.now();
+            for (int week = 0 ; week <= 11 ; week++){
+                for(int count = 0; count < 7; count++){
+
+
+
+                    for (PlanMed planMed : plan.getPlanMeds()) {
+                        LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
+                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue()-1] != null ) {
+                            if (plan.getMorning() != null) {
+                                this.navigationDrawer.getFragmentKalender().removeEntry(
+                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), plan.getMorning().getHour()
+                                                , plan.getMorning().getMinute()), planMed.getMed(), planMed.getAmount());
+                            }
+                            if (plan.getMidday() != null) {
+                                this.navigationDrawer.getFragmentKalender().removeEntry(
+                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getMidday().getHour()
+                                                , plan.getMidday().getMinute()), planMed.getMed(), planMed.getAmount());
+                            }
+                            if (plan.getEvening() != null) {
+                                this.navigationDrawer.getFragmentKalender().removeEntry(
+                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getEvening().getHour()
+                                                , plan.getEvening().getMinute()), planMed.getMed(), planMed.getAmount());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        this.navigationDrawer.getHomescreen().restartTimer();
+    }
+    public void activate(Plan plan){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate dateNow = LocalDate.now();
+            for (int week = 0 ; week <= 10 ; week++){
+                for(int count = 0; count < 7; count++){
+
+
+
+                    for (PlanMed planMed : plan.getPlanMeds()) {
+                        LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
+                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue()-1] != null ) {
+                            if (morning != null) {
+                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), morning.getHour()
+                                        , morning.getMinute()), planMed.getMed(), planMed.getAmount());
+                            }
+                            if (midday != null) {
+                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), midday.getHour()
+                                        , midday.getMinute()), planMed.getMed(), planMed.getAmount());
+                            }
+                            if (evening != null) {
+                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), evening.getHour()
+                                        , evening.getMinute()), planMed.getMed(), planMed.getAmount());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        navigationDrawer.getHomescreen().restartTimer();
+
     }
 
     @Override

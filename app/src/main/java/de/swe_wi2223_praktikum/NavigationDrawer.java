@@ -29,11 +29,7 @@ public class NavigationDrawer extends AppCompatActivity{
     private PlanList plan;
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navigation_items, menu);
-        return true;
-    }
+
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override

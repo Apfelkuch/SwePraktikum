@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/fontsize_text"
         android:text="Placeholder Text"
+        android:textColor="@color/black"
         android:layout_weight="1" />
 
     <EditText
@@ -23,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
+        android:textColor="@color/black"
         android:textSize="@dimen/fontsize_text"
         android:ems="4"
         android:inputType="numberDecimal" />

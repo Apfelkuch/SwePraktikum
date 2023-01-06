@@ -211,8 +211,10 @@ public class Homescreen extends Fragment implements Load{
 
     public void restartTimer() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if( countDownTimer != null){
+                countDownTimer.cancel();
+            }
             futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
-
             if(futureEntry != null) {
                 setFutureTimeInSeconds(differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime()));
             } else {

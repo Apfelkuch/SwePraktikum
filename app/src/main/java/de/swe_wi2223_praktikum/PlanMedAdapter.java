@@ -46,6 +46,7 @@ public class PlanMedAdapter extends RecyclerView.Adapter<PlanMedAdapter.PlanMedH
         holder.amount.setText(String.valueOf(content.getAmount()));
 
 
+
         holder.isAktive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +62,7 @@ public class PlanMedAdapter extends RecyclerView.Adapter<PlanMedAdapter.PlanMedH
             public void beforeTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
 
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
