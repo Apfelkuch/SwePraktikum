@@ -40,7 +40,7 @@ public class Log_ArrayAdapter extends RecyclerView.Adapter<Log_ArrayAdapter.LogV
             if (log_entry == null)
                 return;
             holder.name.setText(log_entry.getName());
-            holder.time.setText(log_entry.getLocalDateTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
+            holder.time.setText(log_entry.getLocalDateTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
             holder.amount.setText(String.valueOf(log_entry.getAmount()));
         }
     }
