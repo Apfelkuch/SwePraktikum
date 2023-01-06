@@ -21,12 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 
 public class PlanList extends Fragment implements Load {
 
@@ -36,7 +35,6 @@ public class PlanList extends Fragment implements Load {
     private PlanAdapter planAdapter;
     private CheckBox cBMonday, cBTuesday, cBWednesday, cBThursday, cBFriday, cBSaturday, cBSunday;
     private CheckBox cBMorning, cBMidday, cBEvening;
-    private LocalDateTime localDateTime;
     private LocalDateTime morning;
     private LocalDateTime midday;
     private LocalDateTime evening;
@@ -148,23 +146,19 @@ public class PlanList extends Fragment implements Load {
         cBEvening = dialog_view.findViewById(R.id.checkBox_Evening);
 
 
-
         if (plan == null) {
             //Der Builder, um das Fenster zu tatäschlich zu befüllen
             builder.setView(dialog_view)
                     .setTitle("Pläne  erstellen: ")
                     .setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
                         String tmpPlanName = editPlanName.getText().toString();
-//                        String tmpMedic = editMedic.getText().toString();
 
                         if (cBMonday.isChecked()) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[0] = DayOfWeek.MONDAY;
                             }
-                            System.out.println(day_list[0]);
                         } else {
-                            System.out.println("nothing");
-                            day_list[0] =null;
+                            day_list[0] = null;
                         }
 
                         //Dienstag
@@ -172,10 +166,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[1] = DayOfWeek.TUESDAY;
                             }
-                            System.out.println(day_list[1]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[1] =null;
+                            day_list[1] = null;
                         }
 
                         //Mittwoch
@@ -183,10 +175,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[2] = DayOfWeek.WEDNESDAY;
                             }
-                            System.out.println(day_list[2]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[2] =null;
+                            day_list[2] = null;
                         }
 
                         //Donnertsag
@@ -194,10 +184,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[3] = DayOfWeek.THURSDAY;
                             }
-                            System.out.println(day_list[3]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[3] = null ;
+                            day_list[3] = null;
                         }
 
                         //Freitag
@@ -205,10 +193,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[4] = DayOfWeek.FRIDAY;
                             }
-                            System.out.println(day_list[4]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[4] =null ;
+                            day_list[4] = null;
                         }
 
                         //Samstag
@@ -216,10 +202,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[5] = DayOfWeek.SATURDAY;
                             }
-                            System.out.println(day_list[5]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[5] =null ;
+                            day_list[5] = null;
                         }
 
                         //Sonntag
@@ -227,27 +211,19 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[6] = DayOfWeek.SUNDAY;
                             }
-                            System.out.println(day_list[6]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[6] =null ;
+                            day_list[6] = null;
                         }
-
 
                         //Zeiten der Einnahme
                         //Morgens
                         if (cBMorning.isChecked()) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
                                 morning = LocalDateTime.now().with(LocalTime.of(9, 0));
-                                System.out.println(morning.getHour());
                             }
-                            System.out.println("Morning");
-
 
                         } else {
-                            System.out.println("Nothing");
-                            morning = null ;
+                            morning = null;
                         }
 
                         //Mittag
@@ -255,31 +231,18 @@ public class PlanList extends Fragment implements Load {
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 midday = LocalDateTime.now().with(LocalTime.of(12, 0));
-
-                                System.out.println(midday.getHour());
                             }
-
-                            System.out.println("Mittag");
-
-
                         } else {
-                            System.out.println("Nothing");
                             midday = null;
                         }
 
                         //Abends
                         if (cBEvening.isChecked()) {
-
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 evening = LocalDateTime.now().with(LocalTime.of(18, 0));
-                                System.out.println(evening.getHour());
                             }
-
-                            System.out.println("Abends");
-
                         } else {
-                            System.out.println("Nothing");
-                            evening= null;
+                            evening = null;
                         }
                         Plan vPlan = new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds);
                         activate(vPlan);
@@ -293,9 +256,7 @@ public class PlanList extends Fragment implements Load {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
                     });
             builder.show();
-        }
-        else
-        {
+        } else {
             int index = list.indexOf(plan);
 
             deactivate(plan);
@@ -320,18 +281,14 @@ public class PlanList extends Fragment implements Load {
                     .setTitle("Plan Bearbeiten")
                     .setPositiveButton("Akzeptieren", (dialogInterface, i) -> {
                         String tmpPlanName = editPlanName.getText().toString();
-//                        String tmpMedic = editMedic.getText().toString();
 
-                        // TODO: LOCALDATE TIME für die Zeit ... Array für Tage
                         //Checkbox überprüfen
                         if (cBMonday.isChecked()) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[0] = DayOfWeek.MONDAY;
                             }
-                            System.out.println(day_list[0]);
                         } else {
-                            System.out.println("nothing");
-                            day_list[0] =null;
+                            day_list[0] = null;
                         }
 
                         //Dienstag
@@ -339,10 +296,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[1] = DayOfWeek.TUESDAY;
                             }
-                            System.out.println(day_list[1]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[1] =null;
+                            day_list[1] = null;
                         }
 
                         //Mittwoch
@@ -350,10 +305,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[2] = DayOfWeek.WEDNESDAY;
                             }
-                            System.out.println(day_list[2]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[2] =null;
+                            day_list[2] = null;
                         }
 
                         //Donnertsag
@@ -361,10 +314,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[3] = DayOfWeek.THURSDAY;
                             }
-                            System.out.println(day_list[3]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[3] = null ;
+                            day_list[3] = null;
                         }
 
                         //Freitag
@@ -372,10 +323,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[4] = DayOfWeek.FRIDAY;
                             }
-                            System.out.println(day_list[4]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[4] =null ;
+                            day_list[4] = null;
                         }
 
                         //Samstag
@@ -383,10 +332,8 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[5] = DayOfWeek.SATURDAY;
                             }
-                            System.out.println(day_list[5]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[5] =null ;
+                            day_list[5] = null;
                         }
 
                         //Sonntag
@@ -394,43 +341,25 @@ public class PlanList extends Fragment implements Load {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 day_list[6] = DayOfWeek.SUNDAY;
                             }
-                            System.out.println(day_list[6]);
                         } else {
-                            System.out.println("Nothing");
-                            day_list[6] =null ;
+                            day_list[6] = null;
                         }
-
-
                         //Zeiten der Einnahme
                         //Morgens
                         if (cBMorning.isChecked()) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
                                 morning = LocalDateTime.now().with(LocalTime.of(9, 0));
-                                System.out.println(morning.getHour());
                             }
-                            System.out.println("Morning");
-
-
                         } else {
-                            System.out.println("Nothing");
-                            morning = null ;
+                            morning = null;
                         }
 
                         //Mittag
                         if (cBMidday.isChecked()) {
-
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 midday = LocalDateTime.now().with(LocalTime.of(12, 0));
-
-                                System.out.println(midday.getHour());
                             }
-
-                            System.out.println("Mittag");
-
-
                         } else {
-                            System.out.println("Nothing");
                             midday = null;
                         }
 
@@ -439,17 +368,10 @@ public class PlanList extends Fragment implements Load {
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 evening = LocalDateTime.now().with(LocalTime.of(18, 0));
-                                System.out.println(evening.getHour());
                             }
-
-                            System.out.println("Abends");
-
                         } else {
-                            System.out.println("Nothing");
-                            evening= null;
+                            evening = null;
                         }
-
-
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
 
 
@@ -475,31 +397,31 @@ public class PlanList extends Fragment implements Load {
         }
         planAdapter.notifyDataSetChanged();
     }
+
     public void deactivate(Plan plan) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDate dateNow = LocalDate.now();
-            for (int week = 0 ; week <= 11 ; week++){
-                for(int count = 0; count < 7; count++){
-
+            for (int week = 0; week <= 11; week++) {
+                for (int count = 0; count < 7; count++) {
 
 
                     for (PlanMed planMed : plan.getPlanMeds()) {
                         LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
-                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue()-1] != null ) {
+                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue() - 1] != null) {
                             if (plan.getMorning() != null) {
                                 this.navigationDrawer.getFragmentKalender().removeEntry(
-                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), plan.getMorning().getHour()
+                                        LocalDateTime.of(vdate.getYear(), vdate.getMonth(), vdate.getDayOfMonth(), plan.getMorning().getHour()
                                                 , plan.getMorning().getMinute()), planMed.getMed(), planMed.getAmount());
                             }
                             if (plan.getMidday() != null) {
                                 this.navigationDrawer.getFragmentKalender().removeEntry(
-                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getMidday().getHour()
+                                        LocalDateTime.of(vdate.getYear(), vdate.getMonth(), vdate.getDayOfMonth(), plan.getMidday().getHour()
                                                 , plan.getMidday().getMinute()), planMed.getMed(), planMed.getAmount());
                             }
                             if (plan.getEvening() != null) {
                                 this.navigationDrawer.getFragmentKalender().removeEntry(
-                                        LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), plan.getEvening().getHour()
+                                        LocalDateTime.of(vdate.getYear(), vdate.getMonth(), vdate.getDayOfMonth(), plan.getEvening().getHour()
                                                 , plan.getEvening().getMinute()), planMed.getMed(), planMed.getAmount());
                             }
                         }
@@ -509,27 +431,27 @@ public class PlanList extends Fragment implements Load {
         }
         this.navigationDrawer.getHomescreen().restartTimer();
     }
-    public void activate(Plan plan){
+
+    public void activate(Plan plan) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDate dateNow = LocalDate.now();
-            for (int week = 0 ; week <= 10 ; week++){
-                for(int count = 0; count < 7; count++){
-
+            for (int week = 0; week <= 10; week++) {
+                for (int count = 0; count < 7; count++) {
 
 
                     for (PlanMed planMed : plan.getPlanMeds()) {
                         LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
-                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue()-1] != null ) {
+                        if (plan.getDay_list()[vdate.getDayOfWeek().getValue() - 1] != null) {
                             if (morning != null) {
-                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), morning.getHour()
+                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(), vdate.getMonth(), vdate.getDayOfMonth(), morning.getHour()
                                         , morning.getMinute()), planMed.getMed(), planMed.getAmount());
                             }
                             if (midday != null) {
-                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), midday.getHour()
+                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(), vdate.getMonth(), vdate.getDayOfMonth(), midday.getHour()
                                         , midday.getMinute()), planMed.getMed(), planMed.getAmount());
                             }
                             if (evening != null) {
-                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), evening.getHour()
+                                navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(), vdate.getMonth(), vdate.getDayOfMonth(), evening.getHour()
                                         , evening.getMinute()), planMed.getMed(), planMed.getAmount());
                             }
                         }

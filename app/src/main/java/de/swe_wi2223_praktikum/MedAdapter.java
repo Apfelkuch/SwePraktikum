@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
+public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder> {
 
     //Globale variablen
     Context context;
@@ -22,7 +22,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
 
 
     //Constructor für den Adapter
-    MedAdapter(Context context, ArrayList<Med> storage, MedStorage vMedstorage ){
+    MedAdapter(Context context, ArrayList<Med> storage, MedStorage vMedstorage) {
         this.context = context;
         this.storage = storage;
         this.vMedstorage = vMedstorage;
@@ -31,6 +31,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView Med_Name, Med_Count, Rep_Count;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -43,10 +44,9 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.medi_fragment, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.medi_fragment, parent, false);
         return new ViewHolder(view);
     }
-
 
 
     @Override
@@ -71,8 +71,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
         });
 
 
-
-
         holder.itemView.findViewById(R.id.add_recip_day_bttn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,11 +78,9 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
                 view = vMedstorage.getLayoutInflater().inflate(R.layout.add_recip_days, null);
 
                 //Variablen, zum editieren aus der XML-Datei
-
                 EditText addDays = view.findViewById(R.id.add_recip_days);
 
                 //Der Builder, um das Fenster zu tatsächlich zu befüllen
-
                 builder.setView(view)
                         .setTitle("Rezept verlängern: ")
                         .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
@@ -114,12 +110,10 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.ViewHolder>{
                 builder.setView(view)
                         .setTitle("Bestellen: ")
                         .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
-                            String medName = vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()).getMedName();
-                            if ( !orderCount.getText().toString().isEmpty() && Float.parseFloat(orderCount.getText().toString()) != 0f ) {
+                            if (!orderCount.getText().toString().isEmpty() && Float.parseFloat(orderCount.getText().toString()) != 0f) {
                                 vMedstorage.navigationDrawer.getBestellungsOverView().addBestellung(vMedstorage.storage.get(holder.getAbsoluteAdapterPosition()),
                                         Float.parseFloat(orderCount.getText().toString()));
                             }
-                            //.isEmpty()? 0 :orderCount.getText().toString()
                         })
                         .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                             //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.

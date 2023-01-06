@@ -19,7 +19,6 @@ public class FileManager {
     public static final String PLAN = "plan.med";
 
     public static boolean save(String filename, Context context, Object o) {
-        System.out.println("Saving: " + filename);
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
@@ -34,7 +33,6 @@ public class FileManager {
     }
 
     public static Object load(String filename, Context context) {
-        System.out.println("Loading: " + filename);
         if (new File(filename).exists()) {
             return null;
         }

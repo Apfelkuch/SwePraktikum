@@ -41,16 +41,15 @@ public class PlanMedAdapter extends RecyclerView.Adapter<PlanMedAdapter.PlanMedH
         if (contentArrayList == null)
             return;
 
-        holder.isAktive.setChecked(true);
+        holder.isActive.setChecked(true);
         holder.name.setText(content.getMed().getMedName());
         holder.amount.setText(String.valueOf(content.getAmount()));
 
 
-
-        holder.isAktive.setOnClickListener(new View.OnClickListener() {
+        holder.isActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!holder.isAktive.isChecked()) {
+                if (!holder.isActive.isChecked()) {
                     contentArrayList.remove(holder.getAbsoluteAdapterPosition());
                     notifyDataSetChanged();
                 }
@@ -86,18 +85,16 @@ public class PlanMedAdapter extends RecyclerView.Adapter<PlanMedAdapter.PlanMedH
     }
 
     class PlanMedHolder extends RecyclerView.ViewHolder {
-        private CheckBox isAktive;
+        private CheckBox isActive;
         private TextView name;
         private EditText amount;
 
         public PlanMedHolder(View view) {
             super(view);
 
-            isAktive = view.findViewById(R.id.PlanMedisAktive);
+            isActive = view.findViewById(R.id.PlanMedisAktive);
             name = view.findViewById(R.id.PlanMedName);
             amount = view.findViewById(R.id.PlanMedAmount);
         }
     }
-
-
 }

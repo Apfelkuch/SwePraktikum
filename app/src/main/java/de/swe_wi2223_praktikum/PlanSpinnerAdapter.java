@@ -36,7 +36,7 @@ public class PlanSpinnerAdapter extends ArrayAdapter<Med> {
 
     public View getCustomView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        if(view == null)
+        if (view == null)
             view = LayoutInflater.from(context).inflate(R.layout.plan_spinner_item, parent, false);
 
         Med currentMed = meds.get(position);

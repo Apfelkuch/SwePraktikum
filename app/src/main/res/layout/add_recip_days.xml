@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,22 +9,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:textSize="@dimen/fontsize_text"
+        android:text="Nächstes Rezept fällig in "
         android:textColor="@color/black"
-        android:text="Nächstes Rezept fällig in " />
+        android:textSize="@dimen/fontsize_text" />
 
     <EditText
         android:id="@+id/add_recip_days"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/add_recip_days_str"
-        android:layout_marginTop="7dp"
         android:layout_marginStart="15dp"
-        android:hint="Tage/n"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/add_recip_days_str"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="Tage/n"
         android:inputType="number"
         android:textColor="@color/black"
-        android:textSize="@dimen/fontsize_text"
-        android:autofillHints="" />
+        android:textSize="@dimen/fontsize_text" />
 
 </RelativeLayout>

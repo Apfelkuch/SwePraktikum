@@ -1,7 +1,6 @@
 package de.swe_wi2223_praktikum;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ public class BestellungsOverView extends Fragment implements Load {
     public NavigationDrawer getNavigationDrawer() {
         return navigationDrawer;
     }
-
 
 
     public BestellungsOverView(NavigationDrawer navigationDrawer) {
@@ -55,13 +53,6 @@ public class BestellungsOverView extends Fragment implements Load {
 
         adapter = new BestellungenAdapter(requireActivity(), list, this);
         recyclerView.setAdapter(adapter);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            navigationDrawer.getBestellungsOverView().addBestellung("M A", 1);
-//            navigationDrawer.getBestellungsOverView().addBestellung("M B", 2);
-//            navigationDrawer.getBestellungsOverView().addBestellung("M C", 3);
-        }
 
         return view;
     }

@@ -10,7 +10,7 @@
         android:id="@+id/logList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/logDeleteLog"
@@ -26,7 +26,5 @@
         android:text="@string/logLoeschen"
         android:textColor="@color/black"
         android:textSize="@dimen/fontsize_text" />
-
-
 
 </LinearLayout>

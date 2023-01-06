@@ -33,32 +33,7 @@ public class Fragment_Kalender extends Fragment implements Load {
 
     public Fragment_Kalender(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
-        // example data
         kalenderEntries = new HashMap<>();
-//       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            addEntry(LocalDateTime.of(2023, 1, 05, 19, 29), new Med("Medikament A",1,20), 10.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 23, 12, 30), new Med("Medikament B","0","0"), 12.4f);
-//            addEntry(LocalDateTime.of(2022, 11, 2, 18, 0), new Med("M_A","0","0"), 20f);
-///           addEntry(LocalDateTime.of(2022, 11, 2, 12, 15), new Med("M_B","0","0"), 0.4f);
-//            addEntry(LocalDateTime.of(2022, 11, 2, 13, 0), new Med("M_C","0","0"), 12.3f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 14, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 15, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 16, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 17, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 18, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 19, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 11, 16, 20, 0), new Med("Medicament C","0","0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 12, 28, 17, 10), new Med("M A", "0", "0"), 0.2f);
-//            addEntry(LocalDateTime.of(2022, 12, 28, 17, 15), new Med("M B", "0", "0"), 0.4f);
-//            addEntry(LocalDateTime.of(2022, 12, 28, 17, 20), new Med("M C", "0", "0"), 0.2f);
-//        }
-
-//        // test the getNextEntry-Method
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            Kalender_Entry kalender_entry = this.getNextEntry(LocalDateTime.of(2022, 11, 6, 15, 30));
-//            System.out.println("Kalender entry: " + (kalender_entry == null ? "" : kalender_entry.getLocalDateTime().toString()));
-//        }
-
         dailyKalenderEntries = new ArrayList<>();
     }
 
@@ -137,7 +112,7 @@ public class Fragment_Kalender extends Fragment implements Load {
                         return kalender_entry;
                     }
                 }
-                currentLocalDate =  currentLocalDate.plusDays(1);
+                currentLocalDate = currentLocalDate.plusDays(1);
                 lookupDistance--;
             }
         }

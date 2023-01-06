@@ -31,18 +31,13 @@ public class MedStorage extends Fragment implements Load {
 
     public MedStorage(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            currentDay = LocalDate.now();
-//        }
     }
-
-
 
     @SuppressLint("InflateParams")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.med_bib,container,false);
+        View view = inflater.inflate(R.layout.med_bib, container, false);
 
         //Zuweisung der Objekte aus der activity_main.xml
         recyclerView = view.findViewById(R.id.recyViewMed);
@@ -70,10 +65,9 @@ public class MedStorage extends Fragment implements Load {
                         float tmpCount = editCount.getText().toString().isEmpty() ? 0 : Float.parseFloat(editCount.getText().toString());
                         int tmpRecip = editRecip.getText().toString().isEmpty() ? 0 : Integer.parseInt(editRecip.getText().toString());
 
-
                         storage.add(new Med(tmpMed, tmpCount, tmpRecip));
-                        adapter.notifyItemInserted(storage.size()-1);
-                        recyclerView.scrollToPosition(storage.size()-1);
+                        adapter.notifyItemInserted(storage.size() - 1);
+                        recyclerView.scrollToPosition(storage.size() - 1);
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
@@ -81,37 +75,35 @@ public class MedStorage extends Fragment implements Load {
             builder.show();
         });
 
-        adapter = new MedAdapter(requireActivity(), storage,this);
+        adapter = new MedAdapter(requireActivity(), storage, this);
         recyclerView.setAdapter(adapter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDate dateNow = LocalDate.now();
-            if( currentDay == null)
+            if (currentDay == null)
                 currentDay = LocalDate.now();
-            if(dateNow.isAfter(currentDay)){
-                int diff =  (int) LocalDate.now().toEpochDay()-  (int)currentDay.toEpochDay();
-                if ( diff >0) {
-                    for ( Med med: storage){
-                        if(med.getRecipeCount()-diff <0)
+            if (dateNow.isAfter(currentDay)) {
+                int diff = (int) LocalDate.now().toEpochDay() - (int) currentDay.toEpochDay();
+                if (diff > 0) {
+                    for (Med med : storage) {
+                        if (med.getRecipeCount() - diff < 0)
                             med.setRecipeCount(0);
                         else
-                            med.setRecipeCount(med.getRecipeCount()-diff);
+                            med.setRecipeCount(med.getRecipeCount() - diff);
 
                     }
                     currentDay = LocalDate.now();
                 }
-
             }
         }
-
         return view;
     }
 
     @Override
     public void load(Object o) {
-        if (o == null){
+        if (o == null) {
             return;
         }
-        Object o2[] = (Object[])o;
+        Object o2[] = (Object[]) o;
         this.storage = (ArrayList<Med>) o2[0];
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.currentDay = (LocalDate) o2[1];
@@ -120,7 +112,7 @@ public class MedStorage extends Fragment implements Load {
 
     @Override
     public Object saveData() {
-        Object o[] = {storage,currentDay};
+        Object o[] = {storage, currentDay};
         return o;
     }
 

@@ -19,22 +19,6 @@ public class Fragment_Log extends Fragment implements Load {
 
     public Fragment_Log() {
         logEntries = new ArrayList<>();
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            addLogEntry(new Kalender_Entry(new Medicament("Medikament A"), LocalDateTime.of(2022, 11, 23, 15, 0), 10.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medikament B"), LocalDateTime.of(2022, 11, 23, 12, 30), 12.4));
-//            addLogEntry(new Kalender_Entry(new Medicament("M_A"), LocalDateTime.of(2022, 11, 2, 18, 0), 20));
-//            addLogEntry(new Kalender_Entry(new Medicament("M_B"), LocalDateTime.of(2022, 11, 2, 12, 15), 0.4));
-//            addLogEntry(new Kalender_Entry(new Medicament("M_C"), LocalDateTime.of(2022, 11, 2, 13, 0), 12.3));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 14, 0), 0.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 15, 0), 0.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 16, 0), 0.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 17, 0), 0.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 18, 0), 0.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 19, 0), 0.2));
-//            addLogEntry(new Kalender_Entry(new Medicament("Medicament C"), LocalDateTime.of(2022, 11, 16, 20, 0), 0.2));
-//        }
-
     }
 
 
@@ -73,7 +57,7 @@ public class Fragment_Log extends Fragment implements Load {
     public void addLogEntry(Kalender_Entry kalender_entry) {
         logEntries.add(0, new Log_Entry(kalender_entry.getMedicament().getMedName(), kalender_entry.getLocalDateTime(), kalender_entry.getAmount()));
         while (logEntries.size() >= maxLogLength) {
-            logEntries.remove(logEntries.size()-1);
+            logEntries.remove(logEntries.size() - 1);
         }
     }
 

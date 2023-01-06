@@ -27,9 +27,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Homescreen extends Fragment implements Load{
+public class Homescreen extends Fragment implements Load {
 
-//    ArrayList<Kalender_Entry> futureEntries = new ArrayList<>(); //Entries für die Timer
+    //    ArrayList<Kalender_Entry> futureEntries = new ArrayList<>(); //Entries für die Timer
     Kalender_Entry futureEntry = null;
     ArrayList<Kalender_Entry> pastEntries = new ArrayList<>(); //Entries für die Medikamenten Anzeige
 
@@ -41,7 +41,6 @@ public class Homescreen extends Fragment implements Load{
     private long mTimeLeftInMillis;
     private NotificationManagerCompat notificationManagerCompat;
     private Notification notification;
-    private final int mMain_Count = 0;
     private HomescreenAdapter adapterHomescreen;
     private CountDownTimer countDownTimer;
 
@@ -50,27 +49,15 @@ public class Homescreen extends Fragment implements Load{
 
     public Homescreen(NavigationDrawer navigationDrawer) {
         this.navigationDrawer = navigationDrawer;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            Med dummyMedicament = new Med("A", "0", "0");
-//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 5000)), "5"));
-//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 15000)), "10"));
-//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 30000)), "15"));
-//            futureEntries.add(new Kalender_Entry(dummyMedicament, LocalDateTime.of(LocalDate.now(), LocalTime.ofNanoOfDay(System.currentTimeMillis() + 60000)), "20"));
-//            setmTimeLeftInMillis(futureEntries.get(mMain_Count).getLocalDateTime().toLocalTime().toNanoOfDay());
-//        }
         mMainTimerRunning = true;
     }
-
-//    public void addFutureEntries(Kalender_Entry futureEntry){
-//        futureEntries.add(futureEntry);
-//    }
 
     @SuppressWarnings("CollectionAddedToSelf")
     @SuppressLint({"MissingInflatedId", "NotifyDataSetChanged"})
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.homescreen_main,container,false);
+        View view = inflater.inflate(R.layout.homescreen_main, container, false);
 
         //region Assignments
         mMain_Countdown_Timer = view.findViewById(R.id.Timer);
@@ -81,13 +68,11 @@ public class Homescreen extends Fragment implements Load{
 
         //region Start conditions
         recyclerView_homescreen.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        if(mMainTimerRunning){
+        if (mMainTimerRunning) {
             if (!pastEntries.isEmpty()) {
                 mBtnNext.setVisibility(Button.VISIBLE);
             }
-            System.out.println("Hier könnte Ihre Werbung stehen.");
-        }else{
-            System.out.println("Fehler");
+        } else {
             mSub_Countdown_Timer.setVisibility(View.VISIBLE);
             mBtnNext.setVisibility(View.VISIBLE);
         }//endregion
@@ -106,7 +91,7 @@ public class Homescreen extends Fragment implements Load{
             // add the entries to the log
             for (Kalender_Entry entry : pastEntries) {
                 this.navigationDrawer.getLog().addLogEntry(entry);
-                entry.getMedicament().setMedCount(entry.getMedicament().getMedCount() -entry.getAmount());
+                entry.getMedicament().setMedCount(entry.getMedicament().getMedCount() - entry.getAmount());
             }
 
             pastEntries.clear();
@@ -181,11 +166,11 @@ public class Homescreen extends Fragment implements Load{
                         mMainTimerRunning = false;
                         pastEntries.add(futureEntry);
 
-                        if(mSub_Countdown_Timer != null)
+                        if (mSub_Countdown_Timer != null)
                             mSub_Countdown_Timer.setVisibility(View.VISIBLE);
-                        if(mBtnNext != null)
+                        if (mBtnNext != null)
                             mBtnNext.setVisibility(View.VISIBLE);
-                        if(adapterHomescreen != null) {
+                        if (adapterHomescreen != null) {
                             adapterHomescreen.notifyDataSetChanged();
                             reminderNotification();
                         }
@@ -193,15 +178,15 @@ public class Homescreen extends Fragment implements Load{
 
                     futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
 
-                    if(futureEntry != null) {
+                    if (futureEntry != null) {
                         long diff = differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime());
                         if (diff <= 0) {
                             futureEntry = null;
                         }
                         setFutureTimeInSeconds(diff);
-                    }else{
-                        if(getContext() != null)
-                            Toast.makeText(getContext(),"Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (getContext() != null)
+                            Toast.makeText(getContext(), "Keine weiteren Einnahmen geplant", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -211,11 +196,11 @@ public class Homescreen extends Fragment implements Load{
 
     public void restartTimer() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if( countDownTimer != null){
+            if (countDownTimer != null) {
                 countDownTimer.cancel();
             }
             futureEntry = navigationDrawer.getKalender().getNextEntry(LocalDateTime.now());
-            if(futureEntry != null) {
+            if (futureEntry != null) {
                 setFutureTimeInSeconds(differenceTo(LocalDateTime.now(), futureEntry.getLocalDateTime()));
             } else {
                 if (countDownTimer != null)
@@ -238,11 +223,11 @@ public class Homescreen extends Fragment implements Load{
      * We check what timer should get the text.
      **/
     public void updateCountDownText() {
-        int hours = (int) (getmTimeLeftInMillis()/3600000);
-        int minutes = (int) (getmTimeLeftInMillis()/60000)%60;
-        int seconds = (int) (getmTimeLeftInMillis()/1000)%60;
+        int hours = (int) (getmTimeLeftInMillis() / 3600000);
+        int minutes = (int) (getmTimeLeftInMillis() / 60000) % 60;
+        int seconds = (int) (getmTimeLeftInMillis() / 1000) % 60;
 
-        String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hours,minutes, seconds);
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
 
         if (mMain_Countdown_Timer != null) {
 
@@ -262,7 +247,7 @@ public class Homescreen extends Fragment implements Load{
 
     @Override
     public void load(Object o) {
-        if( o ==null)
+        if (o == null)
             return;
         this.pastEntries = (ArrayList<Kalender_Entry>) o;
     }

@@ -1,28 +1,18 @@
 package de.swe_wi2223_praktikum;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.checkbox.MaterialCheckBox;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
-    // TODO: Switch Taste mit Funktion ausstaten
     //Globale variablen
     Context context;
     ArrayList<Plan> list;
@@ -30,7 +20,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
 
 
     //Constructor für den Adapter
-    PlanAdapter(Context context, ArrayList<Plan> list, PlanList planList){
+    PlanAdapter(Context context, ArrayList<Plan> list, PlanList planList) {
         this.context = context;
         this.list = list;
         this.planList = planList;
@@ -38,6 +28,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView Plan_Name;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -48,12 +39,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.plan_fragment, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.plan_fragment, parent, false);
         return new ViewHolder(view);
     }
-
-
-
 
 
     @Override
@@ -64,9 +52,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
             planList.buildDialog(view, list.get(position));
         });
 
-
-
-
         //Delete Button mit Dialog-Bestätigung
         holder.itemView.findViewById(R.id.trashbin).setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context)
@@ -76,16 +61,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                         Plan plan = list.get(holder.getAbsoluteAdapterPosition());
                         list.remove(holder.getAbsoluteAdapterPosition());
                         notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-                        planList.deactivate( plan);
+                        planList.deactivate(plan);
 
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-                        System.out.println("TEST");
+
                     });
             builder.show();
         });
-
-
     }
 
     @Override

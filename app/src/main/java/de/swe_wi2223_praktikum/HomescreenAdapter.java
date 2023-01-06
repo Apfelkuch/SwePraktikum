@@ -18,13 +18,14 @@ public class HomescreenAdapter extends RecyclerView.Adapter<HomescreenAdapter.Vi
     ArrayList<Kalender_Entry> pastEntries;
 
     //Constructor für den Adapter
-    HomescreenAdapter(Context context, ArrayList<Kalender_Entry> pastEntries){
+    HomescreenAdapter(Context context, ArrayList<Kalender_Entry> pastEntries) {
         this.context = context;
         this.pastEntries = pastEntries;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView Medikament, Menge;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -36,7 +37,7 @@ public class HomescreenAdapter extends RecyclerView.Adapter<HomescreenAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview_homescreen, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.cardview_homescreen, parent, false);
         return new ViewHolder(view);
     }
 

@@ -27,7 +27,7 @@ public class Kalender_ArrayAdapter extends RecyclerView.Adapter<Kalender_ArrayAd
     @NonNull
     @Override
     public KalenderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kalender_entry , parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kalender_entry, parent, false);
         return new KalenderViewHolder(view);
     }
 
@@ -40,8 +40,8 @@ public class Kalender_ArrayAdapter extends RecyclerView.Adapter<Kalender_ArrayAd
                 return;
             holder.name.setText(kalender_entry.getMedicament().getMedName());
             holder.time.setText(kalender_entry.getLocalDateTime().toLocalTime().getHour() + ":" +
-                                (kalender_entry.getLocalDateTime().toLocalTime().getMinute() < 10 ?
-                                        "0" + kalender_entry.getLocalDateTime().toLocalTime().getMinute() : kalender_entry.getLocalDateTime().toLocalTime().getMinute()));
+                    (kalender_entry.getLocalDateTime().toLocalTime().getMinute() < 10 ?
+                            "0" + kalender_entry.getLocalDateTime().toLocalTime().getMinute() : kalender_entry.getLocalDateTime().toLocalTime().getMinute()));
             holder.amount.setText(String.valueOf(kalender_entry.getAmount()));
         }
     }

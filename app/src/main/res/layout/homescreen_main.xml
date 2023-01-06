@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,37 +14,37 @@
             android:id="@+id/Timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="150dp"
             android:text="@string/_00_00_00"
-            android:textSize="60sp"
             android:textColor="@color/black"
-            android:layout_gravity="center"/>
+            android:textSize="60sp" />
 
         <TextView
             android:id="@+id/Timer2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_00_00_00"
-            android:layout_marginBottom="200dp"
-            android:textSize="30sp"
-            android:textColor="@color/black"
             android:layout_gravity="center"
+            android:layout_marginBottom="200dp"
+            android:text="@string/_00_00_00"
+            android:textColor="@color/black"
+            android:textSize="30sp"
             android:visibility="invisible"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:label="@string/Medikament"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:label="@string/Medikament">
 
             <!--RecycleView-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvHomescreen"
-                android:foregroundGravity="center"
                 android:layout_width="250dp"
-                android:layout_height="290dp"/>
+                android:layout_height="290dp"
+                android:foregroundGravity="center" />
         </RelativeLayout>
 
         <Button
@@ -54,12 +53,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
+            android:backgroundTint="@color/purple_500"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/Next"
-            android:backgroundTint="@color/purple_500"
-            android:textSize="24sp"
             android:textColor="@color/black"
+            android:textSize="24sp"
             android:visibility="invisible"
             tools:visibility="visible" />
     </FrameLayout>

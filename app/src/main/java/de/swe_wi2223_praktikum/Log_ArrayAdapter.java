@@ -28,7 +28,7 @@ public class Log_ArrayAdapter extends RecyclerView.Adapter<Log_ArrayAdapter.LogV
     @NonNull
     @Override
     public LogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.log_entry , parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.log_entry, parent, false);
         return new LogViewHolder(view);
     }
 
@@ -50,12 +50,6 @@ public class Log_ArrayAdapter extends RecyclerView.Adapter<Log_ArrayAdapter.LogV
         if (log_entries == null)
             return 0;
         return log_entries.size();
-    }
-
-    public void clearEntries() {
-        if (log_entries == null)
-            return;
-        this.log_entries = new ArrayList<>();
     }
 
     class LogViewHolder extends RecyclerView.ViewHolder {

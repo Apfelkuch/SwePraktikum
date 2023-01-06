@@ -18,8 +18,9 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
     Context context;
     ArrayList<Bestellungen> list;
     BestellungsOverView bestellung;
+
     //Constructor für den Adapter
-    BestellungenAdapter(Context context, ArrayList<Bestellungen> list, BestellungsOverView bestellung ){
+    BestellungenAdapter(Context context, ArrayList<Bestellungen> list, BestellungsOverView bestellung) {
         this.context = context;
         this.list = list;
         this.bestellung = bestellung;
@@ -27,6 +28,7 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView Medikament, Menge;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -38,7 +40,7 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.cardview, parent, false);
         return new ViewHolder(view);
     }
 
@@ -69,9 +71,9 @@ public class BestellungenAdapter extends RecyclerView.Adapter<BestellungenAdapte
                     .setMessage("Sind Sie sicher, dass Sie die Lieferung bestätigen möchten?")
                     .setPositiveButton("Bestätigen", (dialogInterface, i) -> {
 
-                        for( Med med :bestellung.getNavigationDrawer().getStorage().storage) {
+                        for (Med med : bestellung.getNavigationDrawer().getStorage().storage) {
                             if (med.getMedName() == bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMed().getMedName())
-                                med.setMedCount(bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMenge()+
+                                med.setMedCount(bestellung.list.get(holder.getAbsoluteAdapterPosition()).getMenge() +
                                         med.medCount);
                         }
                         list.remove(holder.getAbsoluteAdapterPosition());

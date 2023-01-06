@@ -1,14 +1,13 @@
 package de.swe_wi2223_praktikum;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Kalender_Entry implements java.io.Serializable {
     private Med medicament;
     private LocalDateTime localDateTime;
     private float amount;
 
-    public Kalender_Entry(Med medicament,LocalDateTime localDateTime, float amount) {
+    public Kalender_Entry(Med medicament, LocalDateTime localDateTime, float amount) {
         this.medicament = medicament;
         this.localDateTime = localDateTime;
         this.amount = amount;

@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/logMedName"
@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/logMedZeit"
@@ -32,6 +32,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/fontsize_text" />
+
             <TextView
                 android:id="@+id/logMedAmount"
                 android:layout_width="wrap_content"

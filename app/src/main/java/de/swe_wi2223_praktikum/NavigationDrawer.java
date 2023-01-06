@@ -2,7 +2,6 @@ package de.swe_wi2223_praktikum;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -16,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class NavigationDrawer extends AppCompatActivity{
+public class NavigationDrawer extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
@@ -27,9 +26,6 @@ public class NavigationDrawer extends AppCompatActivity{
     private Homescreen homescreen;
     private Fragment_Log log;
     private PlanList plan;
-
-
-
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -54,9 +50,6 @@ public class NavigationDrawer extends AppCompatActivity{
         loadFragment(homescreen);
         // restart the timer
         homescreen.restartTimer();
-
-
-//        System.out.println("Savepath: " + getFilesDir().getAbsolutePath());
 
         //region Zuordnungen
         drawerLayout = findViewById(R.id.layout_drawer);
@@ -113,24 +106,12 @@ public class NavigationDrawer extends AppCompatActivity{
     }
 
     private void save() {
-        System.out.println(FileManager.BESTELLUNGEN + " is " +
-                (FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData()) ? "" : "not ")
-                + "saved.");
-        System.out.println(FileManager.KALENDER + " is " +
-                (FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData()) ? "" : "not ")
-                + "saved.");
-        System.out.println(FileManager.MEDIKAMENT + " is " +
-                (FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData()) ? "" : "not ")
-                + "saved.");
-        System.out.println(FileManager.HOME + " is " +
-                (FileManager.save(FileManager.HOME, getApplicationContext(), homescreen.saveData()) ? "" : "not ")
-                + "saved.");
-        System.out.println(FileManager.LOG + " is " +
-                (FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData()) ? "" : "not ")
-                + "saved.");
-        System.out.println(FileManager.PLAN + " is " +
-                (FileManager.save(FileManager.PLAN, getApplicationContext(), plan.saveData()) ? "" : "not ")
-                + "saved.");
+        FileManager.save(FileManager.BESTELLUNGEN, getApplicationContext(), bestellungsOverView.saveData());
+        FileManager.save(FileManager.KALENDER, getApplicationContext(), kalender.saveData());
+        FileManager.save(FileManager.MEDIKAMENT, getApplicationContext(), storage.saveData());
+        FileManager.save(FileManager.HOME, getApplicationContext(), homescreen.saveData());
+        FileManager.save(FileManager.LOG, getApplicationContext(), log.saveData());
+        FileManager.save(FileManager.PLAN, getApplicationContext(), plan.saveData());
     }
 
     @Override
@@ -170,7 +151,9 @@ public class NavigationDrawer extends AppCompatActivity{
 
     // GETTER && SETTER
 
-    public MedStorage getStorage() {return storage;  }
+    public MedStorage getStorage() {
+        return storage;
+    }
 
     public Fragment_Kalender getKalender() {
         return kalender;
@@ -188,6 +171,8 @@ public class NavigationDrawer extends AppCompatActivity{
         return homescreen;
     }
 
-    public Fragment_Kalender getFragmentKalender() {return kalender;}
+    public Fragment_Kalender getFragmentKalender() {
+        return kalender;
+    }
 
 }

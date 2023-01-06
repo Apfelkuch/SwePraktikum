@@ -2,7 +2,7 @@ package de.swe_wi2223_praktikum;
 
 import java.util.Objects;
 
-public class Med implements java.io.Serializable{
+public class Med implements java.io.Serializable {
     String medName;
     float medCount;
     int recipeCount;
@@ -20,7 +20,6 @@ public class Med implements java.io.Serializable{
         Med med = (Med) o;
         return Float.compare(med.medCount, medCount) == 0 && recipeCount == med.recipeCount && medName.equals(med.medName);
     }
-
 
 
     public void setMedCount(float medCount) {
