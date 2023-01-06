@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+
+
+
+
+        <CheckBox
+            android:id="@+id/checkBox_So"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="171dp"
+            android:layout_below="@+id/checkBox_Mo"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="So" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Sa"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="101dp"
+            android:layout_below="@+id/checkBox_Mo"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Sa" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Fr"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="31dp"
+            android:layout_below="@+id/checkBox_Mo"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Fr" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Do"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="243dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Do" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Mi"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="172dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Mi" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Di"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Di" />
+
+        <TextView
+            android:id="@+id/plan_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:text="Plan Name:"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/textViewMedikamenten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="110dp"
+            android:text="Medikamente:"
+            android:textColor="@color/black" />
+
+
+        <CheckBox
+            android:id="@+id/checkBox_Mo"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Mo" />
+
+        <EditText
+            android:id="@+id/editTextPlanName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="-80dp"
+            android:ems="10"
+            android:hint="Plan Name"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/time_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBox_Fr"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="Uhrzeit:"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/day_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medList"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="-15dp"
+            android:layout_marginStart="10dp"
+            android:text="Tage:"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBox_Fr"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="20dp"
+            android:text="Morgens" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Midday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBox_Sa"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/checkBox_Morning"
+            android:text="Mittags" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Evening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBox_So"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="35dp"
+            android:layout_toEndOf="@+id/checkBox_Midday"
+            android:text="Abends" />
+
+
+
+        <Spinner
+            android:id="@+id/spinner_med"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextPlanName"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="120dp"
+            android:minHeight="32dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/medList"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/spinner_med"
+            android:layout_marginTop="10dp"/>
+
+
+
+</RelativeLayout>

@@ -16,7 +16,7 @@ public class FileManager {
     public static final String LOG = "log.med";
     public static final String MEDIKAMENT = "medikamente.med";
     public static final String HOME = "homescreen.med";
-    // TODO: Adding of other features
+    public static final String PLAN = "plan.med";
 
     public static boolean save(String filename, Context context, Object o) {
         System.out.println("Saving: " + filename);

@@ -123,5 +123,9 @@ public class MedStorage extends Fragment implements Load {
         Object o[] = {storage,currentDay};
         return o;
     }
+
+    public ArrayList<Med> getStorage() {
+        return storage;
+    }
 }
 
