@@ -23,12 +23,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
-public class PlanList extends Fragment implements Load{
-    
+public class PlanList extends Fragment implements Load {
+
     ArrayList<Plan> list = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -41,7 +42,7 @@ public class PlanList extends Fragment implements Load{
     private LocalDateTime evening;
     NavigationDrawer navigationDrawer;
 
-    private Med placeHolderMed = new Med("Medikamente auswählen", 0f,0);
+    private Med placeHolderMed = new Med("Medikamente auswählen", 0f, 0);
 
     public PlanList(NavigationDrawer navigationDrawer) {
 
@@ -49,14 +50,11 @@ public class PlanList extends Fragment implements Load{
     }
 
 
-
-
     @SuppressLint({"InflateParams"})
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.plan_bib,container,false);
-
+        View view = inflater.inflate(R.layout.plan_bib, container, false);
 
 
         //Zuweisung der Objekte aus der activity_main.xml
@@ -277,6 +275,33 @@ public class PlanList extends Fragment implements Load{
                         }
 
 
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            LocalDate dateNow = LocalDate.now();
+                            for (int week = 0 ; week <= 10 ; week++){
+                               for(int count = 0; count < 7; count++){
+
+
+
+                                   for (PlanMed planMed : usedMeds) {
+                                            LocalDate vdate = dateNow.plusWeeks(week).plusDays(count);
+                                           if (day_list[vdate.getDayOfWeek().getValue()-1] != null ) {
+                                               if (morning != null) {
+                                                   navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth() , vdate.getDayOfMonth(), morning.getHour()
+                                                           , morning.getMinute()), planMed.getMed(), planMed.getAmount());
+                                               }
+                                               if (midday != null) {
+                                                   navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), midday.getHour()
+                                                           , midday.getMinute()), planMed.getMed(), planMed.getAmount());
+                                               }
+                                               if (evening != null) {
+                                                   navigationDrawer.getFragmentKalender().addEntry(LocalDateTime.of(vdate.getYear(),vdate.getMonth(),vdate.getDayOfMonth(), evening.getHour()
+                                                           , evening.getMinute()), planMed.getMed(), planMed.getAmount());
+                                               }
+                                           }
+                                   }
+                               }
+                            }
+                        }
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
                         list.add(new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds));
                         planMedAdapter.notifyItemInserted(list.size() - 1);
