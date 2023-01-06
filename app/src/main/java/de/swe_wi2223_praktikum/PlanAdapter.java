@@ -60,10 +60,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
 
 
 
-        //Delete Button mit Dialog-Bestätigung
-        holder.itemView.findViewById(R.id.Edit_button).setOnClickListener(view -> {
-            planList.buildDialog(view, list.get(position));
-        });
+
 
         //Delete Button mit Dialog-Bestätigung
         holder.itemView.findViewById(R.id.trashbin).setOnClickListener(view -> {

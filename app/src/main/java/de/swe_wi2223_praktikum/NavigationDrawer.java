@@ -39,7 +39,7 @@ public class NavigationDrawer extends AppCompatActivity{
         bestellungsOverView = new BestellungsOverView(this);
         bestellungsOverView.load(FileManager.load(FileManager.BESTELLUNGEN, getApplicationContext()));
         kalender = new Fragment_Kalender(this);
-//        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
+        kalender.load(FileManager.load(FileManager.KALENDER, getApplicationContext()));
         storage = new MedStorage(this);
         storage.load(FileManager.load(FileManager.MEDIKAMENT, getApplicationContext()));
         log = new Fragment_Log();

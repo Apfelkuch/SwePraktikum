@@ -85,7 +85,7 @@ public class PlanList extends Fragment implements Load {
 
         //Variablen, zum editieren aus der XML-Datei
         EditText editPlanName = dialog_view.findViewById(R.id.editTextPlanName);
-        EditText editMedic = dialog_view.findViewById(R.id.editTextMedikament);
+
         Spinner spinner = (Spinner) dialog_view.findViewById(R.id.spinner_med);
 
         RecyclerView medList = dialog_view.findViewById(R.id.medList);
@@ -302,6 +302,7 @@ public class PlanList extends Fragment implements Load {
                                }
                             }
                         }
+                        navigationDrawer.getHomescreen().restartTimer();
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
                         list.add(new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds));
                         planMedAdapter.notifyItemInserted(list.size() - 1);

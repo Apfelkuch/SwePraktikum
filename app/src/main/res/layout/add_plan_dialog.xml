@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
 android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
+
+
+
 
         <CheckBox
             android:id="@+id/checkBox_So"
@@ -14,7 +16,7 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="171dp"
-            android:layout_marginTop="200dp"
+            android:layout_below="@+id/checkBox_Mo"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="So" />
@@ -25,7 +27,7 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="101dp"
-            android:layout_marginTop="200dp"
+            android:layout_below="@+id/checkBox_Mo"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="Sa" />
@@ -36,7 +38,7 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="31dp"
-            android:layout_marginTop="200dp"
+            android:layout_below="@+id/checkBox_Mo"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="Fr" />
@@ -47,7 +49,8 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="243dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="Do" />
@@ -58,7 +61,8 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="172dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="Mi" />
@@ -69,7 +73,8 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="101dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="Di" />
@@ -79,7 +84,6 @@ android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="50dp"
             android:text="Plan Name:"
@@ -95,19 +99,6 @@ android:layout_height="wrap_content"
             android:text="Medikamente:"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/editTextMedikament"
-            android:layout_width="144dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="100dp"
-            android:ems="10"
-            android:hint="Medikamenten"
-            android:inputType="textLongMessage"
-            android:minHeight="48dp" />
 
         <CheckBox
             android:id="@+id/checkBox_Mo"
@@ -115,20 +106,21 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="31dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/medList"
             android:checked="false"
             android:duplicateParentState="false"
             android:text="Mo" />
 
         <EditText
             android:id="@+id/editTextPlanName"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/editTextMedikament"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="35dp"
             android:layout_marginBottom="-80dp"
             android:ems="10"
             android:hint="Plan Name"
@@ -145,6 +137,20 @@ android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Uhrzeit:"
             android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/day_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medList"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="-15dp"
+            android:layout_marginStart="10dp"
+            android:text="Tage:"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
         <CheckBox
             android:id="@+id/checkBox_Morning"
@@ -173,25 +179,28 @@ android:layout_height="wrap_content"
             android:layout_below="@+id/checkBox_So"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="35dp"
             android:layout_toEndOf="@+id/checkBox_Midday"
             android:text="Abends" />
 
-    </RelativeLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <Spinner
-        android:id="@+id/spinner_med"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="32dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/medList"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
 
 
-</LinearLayout>
+        <Spinner
+            android:id="@+id/spinner_med"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextPlanName"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="120dp"
+            android:minHeight="32dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/medList"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/spinner_med"
+            android:layout_marginTop="10dp"/>
+
+
+
+</RelativeLayout>
