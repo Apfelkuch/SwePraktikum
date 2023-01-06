@@ -296,7 +296,10 @@ public class PlanList extends Fragment implements Load {
         }
         else
         {
+            int index = list.indexOf(plan);
 
+            deactivate(plan);
+            list.remove(plan);
 
             // Load old values
             editPlanName.setText(plan.getPlanName());
@@ -448,10 +451,7 @@ public class PlanList extends Fragment implements Load {
 
 
                         //Am Ende hinzufügen, Software notifyen damit sie animiert, View springt zum Eintrag am Ende
-                        int index = list.indexOf(plan);
 
-                        deactivate(plan);
-                        list.remove(plan);
 
                         Plan vPlan = new Plan(tmpPlanName, day_list, morning, midday, evening, usedMeds);
                         activate(vPlan);
@@ -464,6 +464,12 @@ public class PlanList extends Fragment implements Load {
                     })
                     .setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                         //Der Cancel-Button darf leer sein, da als "Default" alles abgebrochen wird und keine Änderungen stattfinden.
+
+                        activate(plan);
+
+                        list.add(index, plan);
+                        planMedAdapter.notifyDataSetChanged();
+                        planAdapter.notifyDataSetChanged();
                     });
             builder.show();
         }
