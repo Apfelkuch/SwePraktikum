@@ -17,6 +17,13 @@
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
 
+    <TextView
+        android:id="@+id/selected_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="TESTDAY" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dayMedList"
         android:layout_width="match_parent"

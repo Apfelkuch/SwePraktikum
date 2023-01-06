@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -104,6 +106,20 @@ public class Fragment_Kalender extends Fragment implements Load {
                         Objects.requireNonNull(recyclerView_dayMed.getAdapter()).notifyDataSetChanged();
                     }
                 }
+                TextView selectedDay_Str = view.findViewById(R.id.selected_day);
+
+                LocalDate selectedDay = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    selectedDay = LocalDate.of(year, month, day);
+                }
+                DateTimeFormatter formatter = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    selectedDay_Str.setText(selectedDay.format(formatter));
+                }
+
             }
         });
         kalender_arrayAdapter.notifyDataSetChanged();
